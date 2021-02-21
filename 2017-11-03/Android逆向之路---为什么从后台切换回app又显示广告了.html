@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Android逆向之路---为什么从后台切换回app又显示广告了 | You的小站</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Android逆向之路---为什么从后台切换回app又显示广告了 | You的小站">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="mHicmpfymM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="You的小站">
+<meta property="og:url" content="http://cpphello.com/baidu_verify_mHicmpfymM.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="mHicmpfymM">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:modified_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-dark.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>MartinHan</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/MartinHan01" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=755606145&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/hanchaohao" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(28)</small></div></li>
+    
+        
+            
+            <li><div data-rel="template">template<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="生活">生活<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机技术">计算机技术<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="小工具">小工具<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="常用配置">常用配置<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="28">
+<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="常用配置 "
+           href="/2021-02-21/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="codeblocks--主题更换">codeblocks--主题更换</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="template "
+           href="/2021-02-21/000%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NULL-1">NULL-1</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2020-04-13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android常用adb命令">Android常用adb命令</span>
+            <span class="post-date" title="2020-04-13 09:09:00">2020/04/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2020-03-31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="一键更新package.json中所有模块为最新版本">一键更新package.json中所有模块为最新版本</span>
+            <span class="post-date" title="2020-03-31 12:06:00">2020/03/31</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2019-11-05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="我是心有多大才能突然想起你">我是心有多大才能突然想起你</span>
+            <span class="post-date" title="2019-11-05 21:22:00">2019/11/05</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2019-02-13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="某口腔app发现了不友善词汇(f*ckMobile)">某口腔app发现了不友善词汇(f*ckMobile)</span>
+            <span class="post-date" title="2019-02-13 13:36:00">2019/02/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2019-01-23/%E6%89%BE%E5%88%B0%E4%BB%BB%E5%8A%A1%E6%A0%8F%E5%B9%BF%E5%91%8A%E5%BC%B9%E7%AA%97%E7%9A%84%E6%BA%90%E5%A4%B4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="找到任务栏广告弹窗的源头">找到任务栏广告弹窗的源头</span>
+            <span class="post-date" title="2019-01-23 12:37:00">2019/01/23</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2019-01-02/%E5%BE%AE%E8%BD%AF%E6%8B%BC%E9%9F%B3%E6%94%B9%E4%B8%BA%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="微软拼音改为小鹤双拼">微软拼音改为小鹤双拼</span>
+            <span class="post-date" title="2019-01-02 19:40:00">2019/01/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固原理解析">Android逆向之路---脱壳360加固原理解析</span>
+            <span class="post-date" title="2018-12-18 23:59:00">2018/12/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固">Android逆向之路---脱壳360加固</span>
+            <span class="post-date" title="2018-12-13 22:16:00">2018/12/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2018-12-02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="如何利用Fiddler对手机抓包">如何利用Fiddler对手机抓包</span>
+            <span class="post-date" title="2018-12-02 19:40:00">2018/12/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让你的微信地区来自火星">Android逆向之路---让你的微信地区来自火星</span>
+            <span class="post-date" title="2018-11-28 22:28:00">2018/11/28</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android程序长生不老">Android程序长生不老</span>
+            <span class="post-date" title="2018-11-08 17:03:00">2018/11/08</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2018-09-13/%E7%94%9F%E6%B4%BB---%E5%86%99%E5%9C%A8%E5%8D%81%E4%B8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="生活---写在十一">生活---写在十一</span>
+            <span class="post-date" title="2018-09-13 10:32:00">2018/09/13</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2018-07-16/Python---%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%88%96%E7%BD%91%E9%A1%B5%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%87%BA%E4%B8%BApdf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Python---微信公众号或网页自动导出">Python---微信公众号或网页自动导出</span>
+            <span class="post-date" title="2018-07-16 23:04:00">2018/07/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-05-01/ApkTool%E9%A1%B9%E7%9B%AE%E8%A7%A3%E6%9E%90resources.arsc%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ApkTool项目解析resources.arsc详解">ApkTool项目解析resources.arsc详解</span>
+            <span class="post-date" title="2018-05-01 23:55:00">2018/05/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-22/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---ApkTool%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---ApkTool项目概览，编译ApkTool项目源码">Android逆向之路---ApkTool项目概览，编译ApkTool项目源码</span>
+            <span class="post-date" title="2018-04-22 17:03:00">2018/04/22</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-04-16/Android%E6%8A%80%E6%9C%AF---ThreadLocal%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android技术---ThreadLocal详解">Android技术---ThreadLocal详解</span>
+            <span class="post-date" title="2018-04-16 15:00:00">2018/04/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(2)">Android逆向之路---让我们试试另一种方法看漫画-(2)</span>
+            <span class="post-date" title="2018-04-01 15:46:00">2018/04/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(1)">Android逆向之路---让我们试试另一种方法看漫画-(1)</span>
+            <span class="post-date" title="2018-03-26 03:40:00">2018/03/26</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2018-03-12/%E7%AE%97%E6%B3%95---%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%9D%E8%B7%AF%E7%90%86%E8%A7%A3%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F(%E9%99%84%E6%BA%90%E7%A0%81).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法---一种简单的思路理解快速排序(附源码)">算法---一种简单的思路理解快速排序(附源码)</span>
+            <span class="post-date" title="2018-03-12 22:07:00">2018/03/12</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---为什么从后台切换回app又显示广告了">Android逆向之路---为什么从后台切换回app又显示广告了</span>
+            <span class="post-date" title="2017-11-03 18:37:00">2017/11/03</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---改apk包名、达到多开效果">Android逆向之路---改apk包名、达到多开效果</span>
+            <span class="post-date" title="2017-09-23 00:28:00">2017/09/23</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gradle编译优化--让你的打包速度快一倍">Gradle编译优化--让你的打包速度快一倍</span>
+            <span class="post-date" title="2017-09-06 21:06:00">2017/09/06</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2017-04-15/python%E7%89%88-%E6%89%B9%E9%87%8F%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E8%BD%AC%E8%8B%B1%E6%96%87.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python版-批量中文文件名转英文">python版-批量中文文件名转英文</span>
+            <span class="post-date" title="2017-04-15 13:16:00">2017/04/15</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---IDEA动态调试smali语言">Android逆向之路---IDEA动态调试smali语言</span>
+            <span class="post-date" title="2017-03-18 14:20:00">2017/03/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗">Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗</span>
+            <span class="post-date" title="2017-03-13 22:36:00">2017/03/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android利用Gradle多渠道打包如何动态替换资源，文字">Android利用Gradle多渠道打包如何动态替换资源，文字</span>
+            <span class="post-date" title="2017-03-04 12:37:00">2017/03/04</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Android逆向之路---为什么从后台切换回app又显示广告了" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Android逆向之路---为什么从后台切换回app又显示广告了</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="Android逆向">Android逆向</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2021-02-21 19:45:47'>2017-11-03 18:37</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.7k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text"> 问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E9%80%86%E5%90%91"><span class="toc-text"> 开始逆向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF%E5%BC%80%E5%A7%8B%E5%AF%BB%E6%89%BEactivity"><span class="toc-text"> 换一种思路开始寻找Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E5%AF%BB%E6%89%BElaunchadhelper%E9%87%8C%E9%9D%A2%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F"><span class="toc-text"> 继续寻找LaunchAdHelper里面的控制变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%8D%E6%AC%A1%E6%89%BE%E5%9B%9E%E5%88%B0%E4%BA%86mainactivity"><span class="toc-text"> 再次找回到了MainActivity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text"> 结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E7%BB%93%E5%B0%BE"><span class="toc-text"> 写在结尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+<p>最近发现自己的android机在开网易新闻，知乎等app的时候，明明自己没有杀进程，从后台返回回来的时候还是会再次显示广告，而且又正巧在知乎上看到了有人在提问，于是逆向分析。**就用知乎作为例子吧。**我用的5.4.1版本</p>
+<p><strong>先说结果：</strong></p>
+<p>不是因为杀进程、杀后台的原因造成的，这是知乎的业务逻辑。</p>
+<p>知乎就是为了显示更多次数的广告，故意设计成这个样子的。</p>
+<p>你启动知乎的时候如果没显示广告，那么等你切到后台再回来就显示一次。</p>
+<p>你启动知乎的时候如果显示广告了，那么你切到后台了不杀死知乎，那么他就不显示。</p>
+<h2 id="开始逆向"><a class="markdownIt-Anchor" href="#开始逆向"></a> 开始逆向</h2>
+<span id="more"></span>
+<p>讨厌的广告界面如下</p>
+<img src="http://cpphello.com/images/zhihuad.png" width="200" height="350"> 
+<p>准备工作，利用apktool拆包，然后开始逆向分析。<br>
+首先通过搜索字符串方法，搜索“发现更大的直接”然后找到了下面的字符串</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"title_find_bigger_world"</span>&gt;</span>发现更大的世界<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+</code></pre>
+<p>然后根据这个name的值发现了这个广告界面布局文件是&quot;fragment_launch_ad.xml&quot;<br>
+继续找，<br>
+根据id然后对应&quot;public.xml&quot;等方法，<br>
+可以最终找到其实这个页面就是&quot;LaunchAdFragment.java&quot;<br>
+首先我们找到讨厌的广告页面了</p>
+<h2 id="换一种思路开始寻找activity"><a class="markdownIt-Anchor" href="#换一种思路开始寻找activity"></a> 换一种思路开始寻找Activity</h2>
+<p>我从后台切回来的时候肯定是当前Activity在作祟，他执行了一些程序才唤起的&quot;LaunchAdFragment&quot;</p>
+<p>按照这个思路我就像看看知乎嘴上层的activity叫什么名字，连上adb执行如下命令</p>
+<pre class="highlight"><code class="shell">adb shell dumpsys activity
+</code></pre>
+<p>然后发现了，原来这个activity的名字叫&quot;MainActivity&quot;啊<br>
+activity栈如下</p>
+<pre class="highlight"><code class>Running activities (most recent first):
+      TaskRecord&#123;b4d2961 #339 A=com.zhihu.android U=0 StackId=1 sz=1&#125;
+        Run #4: ActivityRecord&#123;bc733c u0 com.zhihu.android/.app.ui.activity.MainActivity t339&#125;
+      TaskRecord&#123;35c713e #340 A=com.android.gallery3d U=0 StackId=1 sz=1&#125;
+        Run #3: ActivityRecord&#123;cd14b9f u0 com.android.gallery3d/com.huawei.gallery.app.GalleryMain t340&#125;
+      TaskRecord&#123;1fb8a4b #333 A=com.android.settings U=0 StackId=1 sz=1&#125;
+        Run #2: ActivityRecord&#123;d3eec28 u0 com.android.settings/.HWSettings t333&#125;
+      TaskRecord&#123;69570b7 #335 A=com.tencent.mm U=0 StackId=1 sz=1&#125;
+        Run #1: ActivityRecord&#123;a82f024 u0 com.tencent.mm/.ui.LauncherUI t335&#125;
+      TaskRecord&#123;e43bab9 #295 I=com.android.settings/.deviceinfo.UsbConnModeChooserActivity U=0 StackId=1 sz=1&#125;
+        Run #0: ActivityRecord&#123;9d10efe u0 com.android.settings/.deviceinfo.UsbConnModeChooserActivity t295&#125;
+
+</code></pre>
+<p>综上所述，这个MainActivity和LaunchAdFragment肯定有关系，我就在MainActivity里面，然后就在MainActivity里面搜索LaunchAdFragment，</p>
+<p><strong>发现了居然在onResume里面调用了LaunchAdFragment</strong><br>
+根据直觉来说，我觉得应该问题就在这里了。我找到了知乎居然有下面这些逻辑。(看不懂没关系，往下读，我已经手动的转成了Java)</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.line</span> 533
+   <span class="hljs-keyword"> :cond_3</span>
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;getInstance()<span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v5
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;isShowLaunchAd()Z
+
+   <span class="hljs-built_in"> move-result </span>v5
+
+   <span class="hljs-built_in"> if-eqz </span>v5,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 535
+   <span class="hljs-built_in"> const-string </span>v5, <span class="hljs-string">"input_method"</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/MainActivity;</span>-&gt;getSystemService(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> check-cast </span>v0, <span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>
+
+<span class="hljs-keyword">    .line</span> 536
+<span class="hljs-keyword">    .local</span> v0, <span class="hljs-string">"imm"</span>:<span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>-&gt;isActive()Z
+
+   <span class="hljs-built_in"> move-result </span>v5
+
+   <span class="hljs-built_in"> if-nez </span>v5,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 538
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/fragment/LaunchAdFragment;</span>-&gt;buildIntent()<span class="hljs-class">Lcom/zhihu/android/app/util/ZHIntent;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v5
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/MainActivity;</span>-&gt;startFragment(<span class="hljs-class">Lcom/zhihu/android/app/util/ZHIntent;</span>)V
+</code></pre>
+<p>对应的Java代码</p>
+<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onResume</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">// 判断是否需要加载广告，</span>
+    <span class="hljs-keyword">boolean</span> showAd = LaunchAdHelper.getInstance().isShowLaunchAd();
+    <span class="hljs-keyword">if</span>(!showAd) <span class="hljs-keyword">return</span> ;
+    <span class="hljs-comment">//判断系统键盘是否是active的</span>
+    InputMethodManager imm = ((InputMethodManager)getSystemService(<span class="hljs-string">"input_method"</span>));
+    <span class="hljs-keyword">if</span>(imm.isActive()) <span class="hljs-keyword">return</span> ;
+    <span class="hljs-comment">//打开广告页面</span>
+    Intent intent = LaunchAdFragment.buildIntent();
+    startFragment(intent);
+&#125;
+</code></pre>
+<p>具体的逻辑已经在代码里面加了注释，所以说，到底显示还是不显示广告主要看这个方法了</p>
+<pre class="highlight"><code class="java">LaunchAdHelper.getInstance().isShowLaunchAd()
+</code></pre>
+<h2 id="继续寻找launchadhelper里面的控制变量"><a class="markdownIt-Anchor" href="#继续寻找launchadhelper里面的控制变量"></a> 继续寻找LaunchAdHelper里面的控制变量</h2>
+<p>然后找到这个类，跟进这个方法，具体看源码</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span> isShowLaunchAd()Z
+<span class="hljs-keyword">    .locals</span> 2
+
+<span class="hljs-keyword">    .prologue</span>
+   <span class="hljs-built_in"> const/4 </span>v0, 0x0
+
+<span class="hljs-keyword">    .line</span> 105
+   <span class="hljs-built_in"> iget-boolean </span>v1, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+   <span class="hljs-built_in"> if-eqz </span>v1,<span class="hljs-keyword"> :cond_0</span>
+
+<span class="hljs-keyword">    .line</span> 106
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+<span class="hljs-keyword">    .line</span> 107
+   <span class="hljs-built_in"> const/4 </span>v0, 0x1
+
+<span class="hljs-keyword">    .line</span> 110
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> return </span>v0<span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>转换成java代码如下</p>
+<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isShowLaunchAd</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">if</span>(!mIsAllowShowLaunchAd) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+    mIsAllowShowLaunchAd = <span class="hljs-keyword">false</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+&#125;
+</code></pre>
+<p>好了，至少到现在大家应该知道了，显示不显示广告主要靠这个LaunchAdHelper里面的成员变量mIsAllowShowLaunchAd</p>
+<p>谁能够改变控制这个变量，业务逻辑主要就是控制他了。<br>
+而且已经出现了业务逻辑就是，如果显示了一次，那么这个变量就会为false，然后就不显示了。（至少现在是这样）</p>
+<p>然后搜索LaunchAdHelper发现了他在onStart里面初始了这个变量</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span> onStart(<span class="hljs-class">Landroid/content/Context;</span>)V
+
+    //------略------
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0,    <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+<span class="hljs-keyword">    .line</span> 88
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> const/4 </span>v0, 0x0
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsFromInnerActivity:Z
+
+<span class="hljs-keyword">    .line</span> 89
+   <span class="hljs-built_in"> iget-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsLaunchAdShow:Z
+
+    //------略------<span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>其实这段代码的意思就是初始化了一下这个mIsAllowShowLaunchAd，设置成true，那么紧接着问题就来了，谁调用了LaunchAdHelper的onStart方法呢，</p>
+<p>他的父类是Object啊，只是一个普通的类，</p>
+<p>继续全局搜索</p>
+<h2 id="再次找回到了mainactivity"><a class="markdownIt-Anchor" href="#再次找回到了mainactivity"></a> 再次找回到了MainActivity</h2>
+<p>然后发现绕了一圈我们又绕回来了，在MainActivity里面调用了这个方法，结果如下</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> protected</span> onStart()V
+<span class="hljs-keyword">    .locals</span> 1
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 460
+   <span class="hljs-built_in"> invoke-super </span>&#123;p0&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/BaseFragmentActivity;</span>-&gt;onStart()V
+
+<span class="hljs-keyword">    .line</span> 461
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;getInstance()<span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+    
+    <span class="hljs-comment">#下面这两句就是调用了初始化广告的方法</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, p0&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;onStart(<span class="hljs-class">Landroid/content/Context;</span>)V
+
+<span class="hljs-keyword">    .line</span> 462
+   <span class="hljs-built_in"> return-void
+</span><span class="hljs-keyword">.end method</span>
+</code></pre>
+<p>好了，现在为止，大概明白了吧。</p>
+<p>在MainActivity的onStart方法里面调用了LaunchAdHelper的onStart方法，随后在这里面初始化将mIsAllowShowLaunchAd 设置成true的。</p>
+<p>然后再onResume里面再显示广告显示一次了再次onResume就不显示了<br>
+但是如果再次调用onStart那么又初始化了，设置成了显示广告，<br>
+那么具体什么时候会调用Activity的onStart呢，<br>
+官方文档是这么说的：</p>
+<img src="http://cpphello.com/images/androidonresume.png" width="956" height="125"> 
+<p>具体意思就是显示的时候就会调用onStart。</p>
+<h2 id="结果"><a class="markdownIt-Anchor" href="#结果"></a> 结果</h2>
+<p>其实结果已经在文章开始部分说过了，不记得的话往前翻翻吧</p>
+<h2 id="写在结尾"><a class="markdownIt-Anchor" href="#写在结尾"></a> 写在结尾</h2>
+<p>这就是知乎的这个闪屏广告显示的逻辑，</p>
+<p>有个以为接到了这种业务逻辑的时候程序员会不会心里内心一万只羊驼奔腾飞过</p>
+<p>还有，他们没混淆app吗，混淆过的方法不应该是</p>
+<pre class="highlight"><code class="smali">a.b.a1(p1,p3);
+</code></pre>
+<p>这个样子的吗。</p>
+<p>转眼一看软件版本5.4.1，恍然大悟。</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人博客：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<p>博客网站：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Android逆向之路---为什么从后台切换回app又显示广告了</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.7k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
+    <p><span class="copy-title">发布时间:</span>2017-11-03, 18:37:00</p>
+    <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html" title="Android逆向之路---为什么从后台切换回app又显示广告了">http://cpphello.com/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 MartinHan</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.png" class="alipay" title="扫码支持">
+            <img src="/img/weixin.png" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 572px;
+    }
+    .nav.fullscreen {
+        margin-left: -572px;
+    }
+    .nav-left {
+        width: 150px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+</div>
+
+
+</html>

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Android逆向之路---让我们试试另一种方法看漫画-(2) | You的小站</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Android逆向之路---让我们试试另一种方法看漫画-(2) | You的小站">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="mHicmpfymM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="You的小站">
+<meta property="og:url" content="http://cpphello.com/baidu_verify_mHicmpfymM.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="mHicmpfymM">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:modified_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-dark.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>MartinHan</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/MartinHan01" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=755606145&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/hanchaohao" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(28)</small></div></li>
+    
+        
+            
+            <li><div data-rel="template">template<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="生活">生活<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机技术">计算机技术<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="小工具">小工具<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="常用配置">常用配置<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="28">
+<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="常用配置 "
+           href="/2021-02-21/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="codeblocks--主题更换">codeblocks--主题更换</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="template "
+           href="/2021-02-21/000%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NULL-1">NULL-1</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2020-04-13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android常用adb命令">Android常用adb命令</span>
+            <span class="post-date" title="2020-04-13 09:09:00">2020/04/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2020-03-31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="一键更新package.json中所有模块为最新版本">一键更新package.json中所有模块为最新版本</span>
+            <span class="post-date" title="2020-03-31 12:06:00">2020/03/31</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2019-11-05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="我是心有多大才能突然想起你">我是心有多大才能突然想起你</span>
+            <span class="post-date" title="2019-11-05 21:22:00">2019/11/05</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2019-02-13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="某口腔app发现了不友善词汇(f*ckMobile)">某口腔app发现了不友善词汇(f*ckMobile)</span>
+            <span class="post-date" title="2019-02-13 13:36:00">2019/02/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2019-01-23/%E6%89%BE%E5%88%B0%E4%BB%BB%E5%8A%A1%E6%A0%8F%E5%B9%BF%E5%91%8A%E5%BC%B9%E7%AA%97%E7%9A%84%E6%BA%90%E5%A4%B4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="找到任务栏广告弹窗的源头">找到任务栏广告弹窗的源头</span>
+            <span class="post-date" title="2019-01-23 12:37:00">2019/01/23</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2019-01-02/%E5%BE%AE%E8%BD%AF%E6%8B%BC%E9%9F%B3%E6%94%B9%E4%B8%BA%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="微软拼音改为小鹤双拼">微软拼音改为小鹤双拼</span>
+            <span class="post-date" title="2019-01-02 19:40:00">2019/01/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固原理解析">Android逆向之路---脱壳360加固原理解析</span>
+            <span class="post-date" title="2018-12-18 23:59:00">2018/12/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固">Android逆向之路---脱壳360加固</span>
+            <span class="post-date" title="2018-12-13 22:16:00">2018/12/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2018-12-02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="如何利用Fiddler对手机抓包">如何利用Fiddler对手机抓包</span>
+            <span class="post-date" title="2018-12-02 19:40:00">2018/12/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让你的微信地区来自火星">Android逆向之路---让你的微信地区来自火星</span>
+            <span class="post-date" title="2018-11-28 22:28:00">2018/11/28</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android程序长生不老">Android程序长生不老</span>
+            <span class="post-date" title="2018-11-08 17:03:00">2018/11/08</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2018-09-13/%E7%94%9F%E6%B4%BB---%E5%86%99%E5%9C%A8%E5%8D%81%E4%B8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="生活---写在十一">生活---写在十一</span>
+            <span class="post-date" title="2018-09-13 10:32:00">2018/09/13</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2018-07-16/Python---%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%88%96%E7%BD%91%E9%A1%B5%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%87%BA%E4%B8%BApdf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Python---微信公众号或网页自动导出">Python---微信公众号或网页自动导出</span>
+            <span class="post-date" title="2018-07-16 23:04:00">2018/07/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-05-01/ApkTool%E9%A1%B9%E7%9B%AE%E8%A7%A3%E6%9E%90resources.arsc%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ApkTool项目解析resources.arsc详解">ApkTool项目解析resources.arsc详解</span>
+            <span class="post-date" title="2018-05-01 23:55:00">2018/05/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-22/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---ApkTool%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---ApkTool项目概览，编译ApkTool项目源码">Android逆向之路---ApkTool项目概览，编译ApkTool项目源码</span>
+            <span class="post-date" title="2018-04-22 17:03:00">2018/04/22</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-04-16/Android%E6%8A%80%E6%9C%AF---ThreadLocal%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android技术---ThreadLocal详解">Android技术---ThreadLocal详解</span>
+            <span class="post-date" title="2018-04-16 15:00:00">2018/04/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(2)">Android逆向之路---让我们试试另一种方法看漫画-(2)</span>
+            <span class="post-date" title="2018-04-01 15:46:00">2018/04/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(1)">Android逆向之路---让我们试试另一种方法看漫画-(1)</span>
+            <span class="post-date" title="2018-03-26 03:40:00">2018/03/26</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2018-03-12/%E7%AE%97%E6%B3%95---%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%9D%E8%B7%AF%E7%90%86%E8%A7%A3%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F(%E9%99%84%E6%BA%90%E7%A0%81).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法---一种简单的思路理解快速排序(附源码)">算法---一种简单的思路理解快速排序(附源码)</span>
+            <span class="post-date" title="2018-03-12 22:07:00">2018/03/12</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---为什么从后台切换回app又显示广告了">Android逆向之路---为什么从后台切换回app又显示广告了</span>
+            <span class="post-date" title="2017-11-03 18:37:00">2017/11/03</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---改apk包名、达到多开效果">Android逆向之路---改apk包名、达到多开效果</span>
+            <span class="post-date" title="2017-09-23 00:28:00">2017/09/23</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gradle编译优化--让你的打包速度快一倍">Gradle编译优化--让你的打包速度快一倍</span>
+            <span class="post-date" title="2017-09-06 21:06:00">2017/09/06</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2017-04-15/python%E7%89%88-%E6%89%B9%E9%87%8F%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E8%BD%AC%E8%8B%B1%E6%96%87.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python版-批量中文文件名转英文">python版-批量中文文件名转英文</span>
+            <span class="post-date" title="2017-04-15 13:16:00">2017/04/15</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---IDEA动态调试smali语言">Android逆向之路---IDEA动态调试smali语言</span>
+            <span class="post-date" title="2017-03-18 14:20:00">2017/03/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗">Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗</span>
+            <span class="post-date" title="2017-03-13 22:36:00">2017/03/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android利用Gradle多渠道打包如何动态替换资源，文字">Android利用Gradle多渠道打包如何动态替换资源，文字</span>
+            <span class="post-date" title="2017-03-04 12:37:00">2017/03/04</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Android逆向之路---让我们试试另一种方法看漫画-(2)" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Android逆向之路---让我们试试另一种方法看漫画-(2)</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="Android逆向">Android逆向</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2021-02-21 19:45:47'>2018-04-01 15:46</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BE%E5%88%B0%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="toc-text"> 找到正确的协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text"> 源码分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%88%86%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="toc-text"> 开始分析协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%9C%AC%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-text"> 制作我们自己的脚本的思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="toc-text"> 我的脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-text"> 声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%8A%E4%B8%80%E6%AE%B5%E8%90%BD"><span class="toc-text"> 告一段落</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text"> 写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>上次我们分析到了快看漫画的协议部分，这次我们根据他的协议来手动写个脚本，然后执行以后，可以把他的漫画自动下载到电脑上面，<br>
+然后自动拼接图片，这样就可以实现在电脑上当成一个长图来看漫画了，没有广告，没有app的一些限制，先上图，一起看看成果</p>
+<img src="http://cpphello.com/images/2018-04-01_154508.png" width="439" height="338"> 
+<p>本文分析基于：快看漫画5.2.0(52000)<br>
+事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有做呢，也希望在大家的监督之下一点一点的全部完成吧。<br>
+ps:避免广告嫌疑，以下统称kk漫画了。</p>
+<p>为什么选择这个app？<br>
+排名靠前啊，反正就选到了，<br>
+有对别的感兴趣的同学也欢迎投稿，博主会尽自己所能，给大家带来点好玩的。</p>
+<span id="more"></span>
+<p>觉得看好多地方比较突然的，可以先转到上一篇，然后再来看这篇文章。<br>
+传送门：<a href="http://cpphello.com/2018/03/26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1)/">Android逆向之路—让我们试试另一种方法看漫画-(1)</a></p>
+<h2 id="找到正确的协议"><a class="markdownIt-Anchor" href="#找到正确的协议"></a> 找到正确的协议</h2>
+<p>上次我们找到了了协议的大概位置，这次我们要针对整个请求的过程进行精准的分析。包括每个接口的作用。<br>
+首先把log清空，然后点击他的开始阅读，我抓到了以下log<br>
+我以漫画:《李泰和方小甜的平行世界》为例子<br>
+<img src="http://cpphello.com/images/2018-04-01_160823.png" width="1549" height="525"></p>
+<p>经过我的分析，先和大家说结果：<br>
+<strong>1,4主要就是请求漫画的接口了</strong><br>
+3,6主要是请求了一些广告信息<br>
+7可以理解为上传一些打点数据<br>
+2主要是获取了一些评论回复信息<br>
+5可能是和一些社交相关的，这个是我猜的</p>
+<p>首先根据Log信息，我们能发现这些接口的作用，当然了，博主还有另一种办法，我们根据这些接口信息，依次的去找源码</p>
+<h2 id="源码分析"><a class="markdownIt-Anchor" href="#源码分析"></a> 源码分析</h2>
+<p>先分析</p>
+<p><a target="_blank" rel="noopener" href="https://api.kkmh.com/v2/comic/22535?is_preview=0">https://api.kkmh.com/v2/comic/22535?is_preview=0</a></p>
+<p>我在源码里面搜v2/comic/，为什么这么搜，因为真正有开发经验的人是知道的，后面的一般开发的时候会写成可变的参数，<br>
+前面的url一般也是，我们开发的时候会有测试服务器和正式服务器，前面的是会变的，<br>
+搜索结果如下：</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span><span class="hljs-keyword"> abstract</span> getComicDetail(JI)<span class="hljs-class">Lretrofit2/Call;</span>
+<span class="hljs-keyword">    .param</span> p1    <span class="hljs-comment"># J</span>
+<span class="hljs-keyword">        .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/Path;</span>
+            value = <span class="hljs-string">"comic_id"</span><span class="hljs-keyword">
+        .end annotation</span><span class="hljs-keyword">
+    .end param</span>
+<span class="hljs-keyword">    .param</span> p3    <span class="hljs-comment"># I</span>
+<span class="hljs-keyword">        .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/Query;</span>
+            value = <span class="hljs-string">"is_preview"</span><span class="hljs-keyword">
+        .end annotation</span><span class="hljs-keyword">
+    .end param</span>
+<span class="hljs-keyword">    .annotation</span><span class="hljs-keyword"> system</span> <span class="hljs-class">Ldalvik/annotation/Signature;</span>
+        value = &#123;
+            <span class="hljs-string">"(JI)"</span>,
+            <span class="hljs-string">"Lretrofit2/Call"</span>,
+            <span class="hljs-string">"&lt;"</span>,
+            <span class="hljs-string">"Lcom/kuaikan/comic/rest/model/API/ComicDetailResponse;"</span>,
+            <span class="hljs-string">"&gt;;"</span>
+        &#125;<span class="hljs-keyword">
+    .end annotation</span>
+
+<span class="hljs-keyword">    .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/GET;</span>
+        value = <span class="hljs-string">"/v2/comic/&#123;comic_id&#125;"</span><span class="hljs-keyword">
+    .end annotation</span><span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>怎么样，这个看着太费劲了，我还是手动转成java来看</p>
+<pre class="highlight"><code class="java"><span class="hljs-meta">@GET</span>(<span class="hljs-string">"/v2/comic/&#123;comic_id&#125;"</span>)
+<span class="hljs-meta">@Query</span>(<span class="hljs-string">"is_preview"</span>)
+<span class="hljs-meta">@Path</span>(<span class="hljs-string">"comic_id"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Call.<span class="hljs-function">retrofit2 <span class="hljs-title">getComicDetail</span><span class="hljs-params">()</span></span>;
+</code></pre>
+<p>根据方法名字其实就已经可以猜的可以了，然后利用动态调试，我们可以在APIRestClient.smali里面调用的地方打好断点，<br>
+(具体的动态调试方法，以前也说过，不熟悉的同学可以去翻我以前的文章)</p>
+<pre class="highlight"><code class="smali">   <span class="hljs-built_in"> const/4 </span>v0, 0x1
+
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, p1, p2, v0&#125;, <span class="hljs-class">Lcom/kuaikan/comic/rest/SignInterface;</span>-&gt;getComicDetail(JI)<span class="hljs-class">Lretrofit2/Call;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v0, p4&#125;, <span class="hljs-class">Lretrofit2/Call;</span>-&gt;enqueue(<span class="hljs-class">Lretrofit2/Callback;</span>)V
+
+<span class="hljs-keyword">    .line</span> 202
+   <span class="hljs-built_in"> return-void
+</span></code></pre>
+<p>然后我们能够看出来，这个主要就是利用retrofit框架，来进行网络请求。</p>
+<h2 id="开始分析协议"><a class="markdownIt-Anchor" href="#开始分析协议"></a> 开始分析协议</h2>
+<p>首先通过log，或者动态调试我们已经拿到他请求回来的json数据了</p>
+<pre class="highlight"><code class="json">&#123;<span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,<span class="hljs-attr">"data"</span>:&#123;<span class="hljs-attr">"comment_view_message"</span>:<span class="hljs-string">"吐槽神马的尽管来"</span>,<span class="hljs-attr">"can_view"</span>:<span class="hljs-literal">true</span>,<span class="hljs-attr">"cover_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"created_at"</span>:<span class="hljs-number">1467150603</span>,<span class="hljs-attr">"recommend"</span>:&#123;<span class="hljs-attr">"recommend_list"</span>:[&#123;<span class="hljs-attr">"male_vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/171213/rt79rf2bj.webp-w320.w"</span>,<span class="hljs-attr">"vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/171213/rt79rf2bj.webp-w320.w"</span>,<span class="hljs-attr">"recommend_tag"</span>:[<span class="hljs-string">"奇幻"</span>,<span class="hljs-string">"剧情"</span>],<span class="hljs-attr">"topic_id"</span>:<span class="hljs-number">544</span>,<span class="hljs-attr">"recommend_source"</span>:<span class="hljs-string">"AI推荐"</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"整容游戏"</span>&#125;,&#123;<span class="hljs-attr">"male_vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/171212/rl5z4ftks.webp-w320.w"</span>,<span class="hljs-attr">"vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/171212/rl5z4ftks.webp-w320.w"</span>,<span class="hljs-attr">"recommend_tag"</span>:[<span class="hljs-string">"都市"</span>],<span class="hljs-attr">"topic_id"</span>:<span class="hljs-number">782</span>,<span class="hljs-attr">"recommend_source"</span>:<span class="hljs-string">"AI推荐"</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"密会"</span>&#125;,&#123;<span class="hljs-attr">"male_vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/161220/7tsm5zh6g.webp-w320.w"</span>,<span class="hljs-attr">"vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/161220/7tsm5zh6g.webp-w320.w"</span>,<span class="hljs-attr">"recommend_tag"</span>:[<span class="hljs-string">"灵异"</span>],<span class="hljs-attr">"topic_id"</span>:<span class="hljs-number">786</span>,<span class="hljs-attr">"recommend_source"</span>:<span class="hljs-string">"AI推荐"</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"百怪夜谭"</span>&#125;],<span class="hljs-attr">"title"</span>:<span class="hljs-string">"猜你喜欢"</span>&#125;,<span class="hljs-attr">"is_favourite"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"第1话 爱的供养"</span>,<span class="hljs-attr">"widgets"</span>:[],<span class="hljs-attr">"recommend_count"</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">"updated_at"</span>:<span class="hljs-number">1489143638</span>,<span class="hljs-attr">"selling_kk_currency"</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">"zoomable"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"push_flag"</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">"previous_comic_id"</span>:<span class="hljs-literal">null</span>,<span class="hljs-attr">"share"</span>:&#123;<span class="hljs-attr">"award"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"activity_id"</span>:<span class="hljs-literal">null</span>,<span class="hljs-attr">"show_draw_record"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">""</span>&#125;,<span class="hljs-attr">"customized_share"</span>:[&#123;<span class="hljs-attr">"description"</span>:<span class="hljs-string">"短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】"</span>,<span class="hljs-attr">"share_platform"</span>:<span class="hljs-number">4</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！"</span>,<span class="hljs-attr">"picture"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>&#125;,&#123;<span class="hljs-attr">"description"</span>:<span class="hljs-string">"短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】"</span>,<span class="hljs-attr">"share_platform"</span>:<span class="hljs-number">3</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！"</span>,<span class="hljs-attr">"picture"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>&#125;,&#123;<span class="hljs-attr">"description"</span>:<span class="hljs-string">""</span>,<span class="hljs-attr">"share_platform"</span>:<span class="hljs-number">2</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！"</span>,<span class="hljs-attr">"picture"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>&#125;,&#123;<span class="hljs-attr">"description"</span>:<span class="hljs-string">"好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！传送门：https://m.kuaikanmanhua.com/comics/22535 "</span>,<span class="hljs-attr">"share_platform"</span>:<span class="hljs-number">5</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">""</span>,<span class="hljs-attr">"picture"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>&#125;,&#123;<span class="hljs-attr">"description"</span>:<span class="hljs-string">"短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】"</span>,<span class="hljs-attr">"share_platform"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！"</span>,<span class="hljs-attr">"picture"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/170310/hi585uspn.webp-w640"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>&#125;],<span class="hljs-attr">"id"</span>:<span class="hljs-number">22535</span>,<span class="hljs-attr">"comic_type"</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">"is_login"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"is_liked"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"images"</span>:[<span class="hljs-string">"http://f2.kkmh.com/image/170310/ni3jq73um.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/dkytvh9tb.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/bnffqu5qj.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/aolh65hqg.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/g7sqrvbcy.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/2m64twttm.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/eaf8vdmeu.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/a3jpxb2xf.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/c22535/171215/Wyu5BaDjG.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/c22535/171215/qgwMVAIvz.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/unl0hyycu.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/zjari95lw.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/nvmdki6lh.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/5s3nddorm.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/c4fpmayxv.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/d7ac181j7.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/g4wehvwku.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/vqa24zdne.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/xq0k49c0b.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/u4exvr3m5.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/ba50c68yu.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/r4ih3xd17.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/2q6rf6te8.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/mmp8h7aj2.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/62rxlx12n.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/k7ht36vn4.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/iylzwx29w.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/y2vqk0mq7.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/8ja8e70cs.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/rpp8t58iq.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/ethht9qmf.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/i2sazavwb.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/435u6zdjf.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/6tv8bqpg9.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/owxw2tmt9.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/ekh44qmx0.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/oo5x5z0m8.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/lqatu6m7r.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/2ydiojudy.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/i55bo2j8x.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/fs2uvkx6r.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/wtzg35e7i.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/lbajscux3.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/9nb3tyagb.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/r6ivjlxhb.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/byzo0k17q.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/yvc0psfj9.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/wfqmv3l2s.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/05dva698t.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/vys1sdghs.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/yzrxwhgkx.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/l373i5iyp.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/q6d2hv0sy.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/4lpxmpwf0.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/7dhye2una.webp-w640"</span>,<span class="hljs-string">"http://f2.kkmh.com/image/170310/xl4wuhcrq.webp-w640"</span>],<span class="hljs-attr">"tencent_share_title"</span>:<span class="hljs-string">"最近发现一部超好看的漫画:李泰和方小甜的平行世界"</span>,<span class="hljs-attr">"storyboard_cnt"</span>:<span class="hljs-number">30</span>,<span class="hljs-attr">"image_infos"</span>:[&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"a5de7dd6bbc497db5ed12f298111c272"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"6b8b3a865a1ddf711ad71452eec1ad30"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"4f4d306a2a102aa989b8c7a3b658431f"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"378bf2c19fdd4a0fd3eb6ee146c7be7f"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"5435475d65f21de30414fa1749b52aa7"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"cf22f5be2e388b61e8b82827895e0bb5"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"4415c68c3b28b6a44b9673f2992b8364"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"c869489f0d0940896eb25c91329dee08"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"5ffa28d7671f97557c77156147939e21"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"8f636aed79bf9ae50f11933c9d4d732b"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"cd7139fe2446d909c7402abcdcc0dd47"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"39c84ab2949cd3b820f09d4692fb2a62"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"af718ad639b59a426cde65271c366e6d"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"5e12172168957b71266a5bfdb8beafec"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"4d92699063b072739dbe782ad7e6ddbf"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"7c714d5713c9b2422ed8dec402b7fd11"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"9d12808cadb037d2685711d71b131450"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"026615ec2f26a04390a7293616d687d4"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"d87475d57208b2dde95253fa81a487ea"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"32318591ebf3417e5f6d4e28c9127fba"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"e52e90c0f2ea49db9984f8523a089665"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"3e89642afb9d3ec69bf18f3ed18b0fdc"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"b7b067915ed2725763f7e5c9c63a48d6"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"b3093850b87fa4a350a4803b62f82fbc"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"a4e02ca44d58f5ebbc7142937f69296e"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"73de978ec21bfca1eb953349341674b3"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"7d54db0da6ed34116f2546f100717dfa"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"6dd19891de33dcd8bf8400d04bca82b9"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"8e27c2b56222f3343fd473d13871a42d"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"90dd36feb5698ecd776d80139d8bc138"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"7844984a79c747c469423060e67bda36"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"4f14da7ffdf1b0d70fe168c3a4ed66a1"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"7fe98dc3ca0cc4d1655485e44a8703b4"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"48bb94fc304ba8d5c906450b028343b3"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"78e4201ed552e6d3f860c9a9887243e1"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"8c4b8ce67f2fe045cb134a30bb393a04"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"07127d72aea50fbcc0a55f4efb5353c2"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"818e2b0bb456b089e685da175eb5735e"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"31670324abe8fef90d9efe65c2b7838e"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"f5e20fedf06f1543e02abfb0c7b9cd73"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"78b5993f46492921873f643efc8590e9"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"dcd6bf9589dcbffb044dc6bf21c68a37"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"247c655ee1b6428a65ac00058771db12"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"ba25ca3e2e325a33433297e1330c9dfe"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"f54893ef269f8e93c5f15463c24ee49f"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"1a504b37b1f0496e1bba6bb430c0a7d5"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"a8360e2fd73b4347a62e7c71b2174c26"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"49aa257f7e56345b1c23c8aee338e146"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"17ad09e8fc85e72e87f3f9522b3cdc42"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"6274771113b60223485615437172734d"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"d118ea13e0e705687434b08e2b79bfeb"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"16d0edfb22f56fefbe4afe982e1a6d98"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"77b835206f8aaa317e7b9bfb1d13731d"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"f626de71fe25ca19cf6dba693d372e39"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"efd890a68fb91b4547366d4cc7cdb8a1"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">625</span>&#125;,&#123;<span class="hljs-attr">"width"</span>:<span class="hljs-number">800</span>,<span class="hljs-attr">"key"</span>:<span class="hljs-string">"a8a7e8c74833d794da68780c518c740a"</span>,<span class="hljs-attr">"height"</span>:<span class="hljs-number">506</span>&#125;],<span class="hljs-attr">"next_comic_id"</span>:<span class="hljs-number">15884</span>,<span class="hljs-attr">"sina_share_title"</span>:<span class="hljs-string">"最近在@快看漫画 上发现一部超好看的漫画:李泰和方小甜的平行世界,和我一起来看吧~完整内容戳:"</span>,<span class="hljs-attr">"url"</span>:<span class="hljs-string">"https://m.kuaikanmanhua.com/comics/22535"</span>,<span class="hljs-attr">"likes_count"</span>:<span class="hljs-number">529608</span>,<span class="hljs-attr">"banner_info"</span>:&#123;<span class="hljs-attr">"type"</span>:<span class="hljs-number">0</span>&#125;,<span class="hljs-attr">"tencent_share_params"</span>:<span class="hljs-string">"快看!一分钟一个超赞故事!"</span>,<span class="hljs-attr">"comments_count"</span>:<span class="hljs-number">17046</span>,<span class="hljs-attr">"is_free"</span>:<span class="hljs-literal">true</span>,<span class="hljs-attr">"topic"</span>:&#123;<span class="hljs-attr">"discover_image_url"</span>:<span class="hljs-string">""</span>,<span class="hljs-attr">"vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/180314/jp128u992.webp-w320"</span>,<span class="hljs-attr">"cover_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/180314/w9omjgy9w.webp-w640"</span>,<span class="hljs-attr">"description"</span>:<span class="hljs-string">"短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】"</span>,<span class="hljs-attr">"created_at"</span>:<span class="hljs-number">1453890436</span>,<span class="hljs-attr">"is_favourite"</span>:<span class="hljs-literal">false</span>,<span class="hljs-attr">"title"</span>:<span class="hljs-string">"李泰和方小甜的平行世界"</span>,<span class="hljs-attr">"male_vertical_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/180314/jp128u992.webp-w320"</span>,<span class="hljs-attr">"updated_at"</span>:<span class="hljs-number">1453890436</span>,<span class="hljs-attr">"special_offer"</span>:&#123;&#125;,<span class="hljs-attr">"is_free"</span>:<span class="hljs-literal">true</span>,<span class="hljs-attr">"id"</span>:<span class="hljs-number">699</span>,<span class="hljs-attr">"category"</span>:[<span class="hljs-string">"剧情"</span>],<span class="hljs-attr">"related_authors"</span>:[&#123;<span class="hljs-attr">"pub_feed"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"avatar_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/160530/744atwg2u.webp-w180.w"</span>,<span class="hljs-attr">"grade"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"nickname"</span>:<span class="hljs-string">"潇潇潇潇如"</span>,<span class="hljs-attr">"reg_type"</span>:<span class="hljs-string">"phone"</span>,<span class="hljs-attr">"id"</span>:<span class="hljs-number">6021212</span>&#125;],<span class="hljs-attr">"user"</span>:&#123;<span class="hljs-attr">"pub_feed"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"avatar_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/160530/744atwg2u.webp-w180.w"</span>,<span class="hljs-attr">"grade"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"nickname"</span>:<span class="hljs-string">"潇潇潇潇如"</span>,<span class="hljs-attr">"reg_type"</span>:<span class="hljs-string">"phone"</span>,<span class="hljs-attr">"id"</span>:<span class="hljs-number">6021212</span>&#125;,<span class="hljs-attr">"label_id"</span>:<span class="hljs-number">17</span>,<span class="hljs-attr">"male_cover_image_url"</span>:<span class="hljs-string">"http://f2.kkmh.com/image/180314/w9omjgy9w.webp-w640"</span>,<span class="hljs-attr">"order"</span>:<span class="hljs-number">761</span>,<span class="hljs-attr">"comics_count"</span>:<span class="hljs-number">35</span>,<span class="hljs-attr">"status"</span>:<span class="hljs-string">"published"</span>&#125;,<span class="hljs-attr">"serial_no"</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">"status"</span>:<span class="hljs-string">"published"</span>&#125;,<span class="hljs-attr">"message"</span>:<span class="hljs-string">"ok"</span>&#125;
+</code></pre>
+<p>以上的这些是完整的json数据，我们当然只说重点了。<br>
+加载机制：<br>
+关于kk漫画的加载机制，假如你现在在看第2章的漫画，当你看到一半多的时候，他就会请求这个接口，提前把第3章漫画的图片的url地址都拿下来。<br>
+依此类推。<br>
+我们需要关注的是，他如何找到下一个漫画的id，然后又如何判断下一个漫画的标题等等。</p>
+<p>我们可以通过在程序里打断点，动态调试，或者看静态源码，或者Log信息，最终发现返回的数据如下，<br>
+关于重点的一些信息，我做了标记</p>
+<img src="http://cpphello.com/images/2018-04-01_163451.png" width="1069" height="1613">
+<h2 id="制作我们自己的脚本的思路"><a class="markdownIt-Anchor" href="#制作我们自己的脚本的思路"></a> 制作我们自己的脚本的思路</h2>
+<p>思路：我们首先请求第一章的id,我们现在的id是22535，根据刚刚的Log分析可知。<br>
+然后我们请求回来之后，把images里面的图片都保存到指定的文件夹，准备合并。<br>
+然后请求下一章节，继续，直到所有漫画都下载到本地。<br>
+合并每个文件夹里面的图片，最后这些长图就是我们想看的漫画了。</p>
+<p>我用的python写的这个脚本，因为个人平时都是用java，有些地方写的不好，也欢迎大家指正</p>
+<h2 id="我的脚本"><a class="markdownIt-Anchor" href="#我的脚本"></a> 我的脚本</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/tree/master/kuaikanmanhua">github地址</a><br>
+运行环境：<br>
+python3.6+<br>
+Pillow库，<br>
+具体的可以查看ReadME，也可以联系本人</p>
+<p>运行方法：<br>
+python .\<a target="_blank" rel="noopener" href="http://app.py">app.py</a> ${id}</p>
+<pre class="highlight"><code class="shell">python .\app.py 22535
+</code></pre>
+<p>22535只是一个章节的id，</p>
+<p>我就以《漫画A作为例子》<br>
+然后脚本就会自动的在当前文件夹下面生成两个文件夹<br>
+漫画A和漫画A-result</p>
+<p>漫画A-result里面就是拼接好的漫画了<br>
+漫画A-是分批下载的一些临时文件</p>
+<p>具体如图：<br>
+<img src="http://cpphello.com/images/2018-04-01_164709.png" width="343" height="660"><br>
+<img src="http://cpphello.com/images/2018-04-01_164720.png" width="337" height="696"></p>
+<p>前面的就是我们下载的一些临时文件<br>
+后一张图就是我们做好的了</p>
+<h2 id="声明"><a class="markdownIt-Anchor" href="#声明"></a> 声明</h2>
+<p>本文只做技术研究，不做商用，如有同学做商用，恶意攻击服务器，等非法行为，本人概不负责</p>
+<h2 id="告一段落"><a class="markdownIt-Anchor" href="#告一段落"></a> 告一段落</h2>
+<p>好了好了，其实说到了这里，今天就说到这里吧，这次把一整本书的内容都提取出来了。<br>
+可以开开心心的在本地看漫画了。</p>
+<p>我希望呢，自己写博客，能够认认真真的写出一点东西分享给大家，而不是网上抄来抄去。希望能做一个踏踏实实做技术的人吧，不敢求太多，能给大家带来点好玩的就挺好。</p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>有什么问题欢迎给博主指出。<br>
+包括python，程序分析方面的问题，等。</p>
+<p>成品就不上传了，希望大家都能跑</p>
+<p>忽然想到id获取的问题，其实有几个思路，</p>
+<ul>
+<li>sd卡的根目录创建/KuaiKan文件夹，然后里面创建了一个空的kkmh_debug文件。使kk漫画处于debug模式下，自己抓Log</li>
+<li>博主可以去对app重新打包，然后加上一些个人的代码，二次打包发布出来</li>
+<li>写个xposed插件供大家使用</li>
+</ul>
+<p>具体的可以下回说，也可以大家自己来发挥想象力啦，有什么问题欢迎联系我</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人网站：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Android逆向之路---让我们试试另一种方法看漫画-(2)</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3.6k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
+    <p><span class="copy-title">发布时间:</span>2018-04-01, 15:46:00</p>
+    <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html" title="Android逆向之路---让我们试试另一种方法看漫画-(2)">http://cpphello.com/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 MartinHan</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.png" class="alipay" title="扫码支持">
+            <img src="/img/weixin.png" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 572px;
+    }
+    .nav.fullscreen {
+        margin-left: -572px;
+    }
+    .nav-left {
+        width: 150px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+</div>
+
+
+</html>

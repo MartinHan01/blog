@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Gradle编译优化--让你的打包速度快一倍 | You的小站</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Gradle编译优化--让你的打包速度快一倍 | You的小站">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="mHicmpfymM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="You的小站">
+<meta property="og:url" content="http://cpphello.com/baidu_verify_mHicmpfymM.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="mHicmpfymM">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:modified_time" content="2021-02-21T11:45:47.028Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-dark.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>MartinHan</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/MartinHan01" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=755606145&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/hanchaohao" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(28)</small></div></li>
+    
+        
+            
+            <li><div data-rel="template">template<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="生活">生活<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="计算机技术">计算机技术<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="小工具">小工具<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="常用配置">常用配置<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="28">
+<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="常用配置 "
+           href="/2021-02-21/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="codeblocks--主题更换">codeblocks--主题更换</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="template "
+           href="/2021-02-21/000%E6%96%87%E7%AB%A0%E6%A8%A1%E6%9D%BF.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NULL-1">NULL-1</span>
+            <span class="post-date" title="2021-02-21 19:45:47">2021/02/21</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2020-04-13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android常用adb命令">Android常用adb命令</span>
+            <span class="post-date" title="2020-04-13 09:09:00">2020/04/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2020-03-31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="一键更新package.json中所有模块为最新版本">一键更新package.json中所有模块为最新版本</span>
+            <span class="post-date" title="2020-03-31 12:06:00">2020/03/31</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2019-11-05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="我是心有多大才能突然想起你">我是心有多大才能突然想起你</span>
+            <span class="post-date" title="2019-11-05 21:22:00">2019/11/05</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2019-02-13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="某口腔app发现了不友善词汇(f*ckMobile)">某口腔app发现了不友善词汇(f*ckMobile)</span>
+            <span class="post-date" title="2019-02-13 13:36:00">2019/02/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2019-01-23/%E6%89%BE%E5%88%B0%E4%BB%BB%E5%8A%A1%E6%A0%8F%E5%B9%BF%E5%91%8A%E5%BC%B9%E7%AA%97%E7%9A%84%E6%BA%90%E5%A4%B4.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="找到任务栏广告弹窗的源头">找到任务栏广告弹窗的源头</span>
+            <span class="post-date" title="2019-01-23 12:37:00">2019/01/23</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2019-01-02/%E5%BE%AE%E8%BD%AF%E6%8B%BC%E9%9F%B3%E6%94%B9%E4%B8%BA%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="微软拼音改为小鹤双拼">微软拼音改为小鹤双拼</span>
+            <span class="post-date" title="2019-01-02 19:40:00">2019/01/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固原理解析">Android逆向之路---脱壳360加固原理解析</span>
+            <span class="post-date" title="2018-12-18 23:59:00">2018/12/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---脱壳360加固">Android逆向之路---脱壳360加固</span>
+            <span class="post-date" title="2018-12-13 22:16:00">2018/12/13</span>
+        </a>
+        
+        <a  class="常用配置 "
+           href="/2018-12-02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="如何利用Fiddler对手机抓包">如何利用Fiddler对手机抓包</span>
+            <span class="post-date" title="2018-12-02 19:40:00">2018/12/02</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让你的微信地区来自火星">Android逆向之路---让你的微信地区来自火星</span>
+            <span class="post-date" title="2018-11-28 22:28:00">2018/11/28</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android程序长生不老">Android程序长生不老</span>
+            <span class="post-date" title="2018-11-08 17:03:00">2018/11/08</span>
+        </a>
+        
+        <a  class="生活 "
+           href="/2018-09-13/%E7%94%9F%E6%B4%BB---%E5%86%99%E5%9C%A8%E5%8D%81%E4%B8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="生活---写在十一">生活---写在十一</span>
+            <span class="post-date" title="2018-09-13 10:32:00">2018/09/13</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2018-07-16/Python---%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%88%96%E7%BD%91%E9%A1%B5%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%87%BA%E4%B8%BApdf.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Python---微信公众号或网页自动导出">Python---微信公众号或网页自动导出</span>
+            <span class="post-date" title="2018-07-16 23:04:00">2018/07/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-05-01/ApkTool%E9%A1%B9%E7%9B%AE%E8%A7%A3%E6%9E%90resources.arsc%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ApkTool项目解析resources.arsc详解">ApkTool项目解析resources.arsc详解</span>
+            <span class="post-date" title="2018-05-01 23:55:00">2018/05/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-22/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---ApkTool%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---ApkTool项目概览，编译ApkTool项目源码">Android逆向之路---ApkTool项目概览，编译ApkTool项目源码</span>
+            <span class="post-date" title="2018-04-22 17:03:00">2018/04/22</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2018-04-16/Android%E6%8A%80%E6%9C%AF---ThreadLocal%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android技术---ThreadLocal详解">Android技术---ThreadLocal详解</span>
+            <span class="post-date" title="2018-04-16 15:00:00">2018/04/16</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(2)">Android逆向之路---让我们试试另一种方法看漫画-(2)</span>
+            <span class="post-date" title="2018-04-01 15:46:00">2018/04/01</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---让我们试试另一种方法看漫画-(1)">Android逆向之路---让我们试试另一种方法看漫画-(1)</span>
+            <span class="post-date" title="2018-03-26 03:40:00">2018/03/26</span>
+        </a>
+        
+        <a  class="算法 "
+           href="/2018-03-12/%E7%AE%97%E6%B3%95---%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%9D%E8%B7%AF%E7%90%86%E8%A7%A3%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F(%E9%99%84%E6%BA%90%E7%A0%81).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法---一种简单的思路理解快速排序(附源码)">算法---一种简单的思路理解快速排序(附源码)</span>
+            <span class="post-date" title="2018-03-12 22:07:00">2018/03/12</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---为什么从后台切换回app又显示广告了">Android逆向之路---为什么从后台切换回app又显示广告了</span>
+            <span class="post-date" title="2017-11-03 18:37:00">2017/11/03</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---改apk包名、达到多开效果">Android逆向之路---改apk包名、达到多开效果</span>
+            <span class="post-date" title="2017-09-23 00:28:00">2017/09/23</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Gradle编译优化--让你的打包速度快一倍">Gradle编译优化--让你的打包速度快一倍</span>
+            <span class="post-date" title="2017-09-06 21:06:00">2017/09/06</span>
+        </a>
+        
+        <a  class="小工具 "
+           href="/2017-04-15/python%E7%89%88-%E6%89%B9%E9%87%8F%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E8%BD%AC%E8%8B%B1%E6%96%87.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python版-批量中文文件名转英文">python版-批量中文文件名转英文</span>
+            <span class="post-date" title="2017-04-15 13:16:00">2017/04/15</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---IDEA动态调试smali语言">Android逆向之路---IDEA动态调试smali语言</span>
+            <span class="post-date" title="2017-03-18 14:20:00">2017/03/18</span>
+        </a>
+        
+        <a  class="Android逆向 "
+           href="/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗">Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗</span>
+            <span class="post-date" title="2017-03-13 22:36:00">2017/03/13</span>
+        </a>
+        
+        <a  class="计算机技术 "
+           href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android利用Gradle多渠道打包如何动态替换资源，文字">Android利用Gradle多渠道打包如何动态替换资源，文字</span>
+            <span class="post-date" title="2017-03-04 12:37:00">2017/03/04</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Gradle编译优化" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Gradle编译优化--让你的打包速度快一倍</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="计算机技术">计算机技术</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2021-02-21 19:45:47'>2017-09-06 21:06</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:544</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text"> 过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E6%97%B6%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="toc-text"> 耗时的任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#no1"><span class="toc-text"> No.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#no2"><span class="toc-text"> No.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#no3"><span class="toc-text"> No.3</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-text"> 结尾</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。</p>
+<span id="more"></span>
+<h2 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程</h2>
+<p>要想优化，我们必须先知道优化哪里。有一个命令可以帮助我们</p>
+<pre class="highlight"><code class="gradle">gradlew --profile
+或者
+gradle --profile
+</code></pre>
+<p>这两个的区别我就不解释了，不清楚的话自己google。</p>
+<p>执行完这个命令之后，我们去’\build\reports\profile’路径，找到我们的profile-2017-xx-xx-xx-xx-xx.html文件。</p>
+<p>二话不说先上图，图一图二是优化前的耗时，图三图四是优化后的耗时。<br>
+<img src="http://cpphello.com/images/2017-09-07_143730.png" width="450" height="230"><img src="http://cpphello.com/images/gradle_last.png" width="450" height="230"></p>
+<p>下面就把我优化的过程分享下吧。</p>
+<h3 id="耗时的任务"><a class="markdownIt-Anchor" href="#耗时的任务"></a> 耗时的任务</h3>
+<p>我们看上图Summary,Configuration,Dependency Resolution,Task Execition,<br>
+我们看Task Excition，这里面有我们在编译期间每一次进行的耗时。<br>
+笔者在此就不发自己的了，因为还要打码。</p>
+<h4 id="no1"><a class="markdownIt-Anchor" href="#no1"></a> No.1</h4>
+<p>首先在你项目的根目录调整你的gradle.properties文件<br>
+我在文件内加入了如下两行</p>
+<pre class="highlight"><code class="properties"><span class="hljs-meta">org.gradle.jvmargs</span>=<span class="hljs-string">-Xms2048m -Xmx4096m </span>
+</code></pre>
+<p>这两行其实就是设置你的jvm虚拟机内存，因人而异，看你机器配置。</p>
+<h4 id="no2"><a class="markdownIt-Anchor" href="#no2"></a> No.2</h4>
+<p>同样是gradle.properties文件内，加入如下两行</p>
+<pre class="highlight"><code class="properties"><span class="hljs-comment"># When configured, Gradle will run in incubating parallel mode.</span>
+<span class="hljs-comment"># This option should only be used with decoupled projects. More details, visit</span>
+<span class="hljs-comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</span>
+<span class="hljs-meta">org.gradle.parallel</span>=<span class="hljs-string">true</span>
+<span class="hljs-comment">
+# Enables new incubating mode that makes Gradle selective when configuring projects. </span>
+<span class="hljs-comment"># Only relevant projects are configured which results in faster builds for large multi-projects.</span>
+<span class="hljs-comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</span>
+<span class="hljs-meta">org.gradle.configureondemand</span>=<span class="hljs-string">true</span>
+</code></pre>
+<p>这两句官方给出的解释已经很详细，大概意思就是第一句是只能与解耦项目一起使用。<br>
+第二句是配置这句，会为大型项目加快build</p>
+<h4 id="no3"><a class="markdownIt-Anchor" href="#no3"></a> No.3</h4>
+<p>找到你的项目下的build.gradle，加入如下语句</p>
+<pre class="highlight"><code class="gradle">android &#123;
+    aaptOptions &#123;
+        cruncherEnabled <span class="hljs-keyword">false</span>
+    &#125;
+&#125;
+</code></pre>
+<p>不检查png的合法性，这个大家可以根据自己的项目来判断是否开启。</p>
+<h2 id="结尾"><a class="markdownIt-Anchor" href="#结尾"></a> 结尾</h2>
+<p>我目前就改了这几处，可以将gradle提速一倍，希望能帮助到大家</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Gradle编译优化--让你的打包速度快一倍</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">544</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
+    <p><span class="copy-title">发布时间:</span>2017-09-06, 21:06:00</p>
+    <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html" title="Gradle编译优化--让你的打包速度快一倍">http://cpphello.com/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2020 MartinHan</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.png" class="alipay" title="扫码支持">
+            <img src="/img/weixin.png" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 572px;
+    }
+    .nav.fullscreen {
+        margin-left: -572px;
+    }
+    .nav-left {
+        width: 150px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/MartinHan01">github</a>
+    
+</div>
+
+
+</html>
