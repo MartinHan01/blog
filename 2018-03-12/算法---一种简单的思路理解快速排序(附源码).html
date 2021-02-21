@@ -44,7 +44,11 @@
 
 <script src="/js/iconfont.js?v=1.0.1" ></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
   <input class="theme_preload_comment" value="false">
@@ -113,7 +117,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -121,7 +125,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -171,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<input type="hidden" id="yelog_site_word_count" value="33.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -486,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%80%9D%E8%B7%AF"><span class="toc-text"> 标准思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD"><span class="toc-text"> 源码下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text"> 写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%80%9D%E8%B7%AF"><span class="toc-text">标准思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD"><span class="toc-text">源码下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text">写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text">关于我</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -502,123 +506,93 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>说起快速排序，可能是一个很基础的排序了，不管是不是第一次听到这个词，还是听过但是没有试过，或者没有理<br>
-解过。都希望今天你读完这篇文章能够加深理解。不懂的话希望你能懂，懂了的话希望你能多一种思路来理解。</p>
-<span id="more"></span>
-<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>有一个数组，里面的数字分别是{3, 9, 4, 2, 5, 8, 7, 6, 1}，然后请你用快速排序实现把数组从小到大的顺序排列好。<br>
-我用图的方法演示来看，更便于理解。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说起快速排序，可能是一个很基础的排序了，不管是不是第一次听到这个词，还是听过但是没有试过，或者没有理<br>解过。都希望今天你读完这篇文章能够加深理解。不懂的话希望你能懂，懂了的话希望你能多一种思路来理解。<br><span id="more"></span></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有一个数组，里面的数字分别是{3, 9, 4, 2, 5, 8, 7, 6, 1}，然后请你用快速排序实现把数组从小到大的顺序排列好。<br>我用图的方法演示来看，更便于理解。</p>
 <p>如下：</p>
-<img src="http://cpphello.com/images/list1.jpeg" width="568" height="42">
-<p>下面开始讲思路了：<br>
-我们先找最中间的5，把它固定住，也可以理解为以5为基准。<br>
-然后我们在剩下的8个数字里面把比5小的放到5左面。<br>
-然后把比5大的放到5的右面。</p>
-<p>首先我们从前往后看，用一个箭头表示我们程序当前走到了哪个位置<br>
-第一步：a箭头指向第一个数字,第一个数字是3，3 &lt; 5，所以3其实不用动。<br>
-第二步：a箭头指向了第二个数字，第二个数字是9，9 &gt; 5，所以9其实应该是放到5的右边的。</p>
+<p><img src="http://cpphello.com/images/list1.jpeg" width="568" height="42"></p>
+<p>下面开始讲思路了：<br>我们先找最中间的5，把它固定住，也可以理解为以5为基准。<br>然后我们在剩下的8个数字里面把比5小的放到5左面。<br>然后把比5大的放到5的右面。</p>
+<p>首先我们从前往后看，用一个箭头表示我们程序当前走到了哪个位置<br>第一步：a箭头指向第一个数字,第一个数字是3，3 &lt; 5，所以3其实不用动。<br>第二步：a箭头指向了第二个数字，第二个数字是9，9 &gt; 5，所以9其实应该是放到5的右边的。</p>
 <p>那么问题来了，9这个数字放到5的右边，具体要放到第几位的？</p>
-<img src="http://cpphello.com/images/list2.jpeg" width="568" height="176">
-<p>这个时候，我们要是从5的右边找一个比5小的，然后和刚刚的那个数字调换，是不是就正好可以了。<br>
-那我们从右侧开始找，<br>
-第一步：b箭头指向第一个数字，右侧第一个数字是1，1 &lt; 5，所以1应该放到5的左边。</p>
+<p><img src="http://cpphello.com/images/list2.jpeg" width="568" height="176"></p>
+<p>这个时候，我们要是从5的右边找一个比5小的，然后和刚刚的那个数字调换，是不是就正好可以了。<br>那我们从右侧开始找，<br>第一步：b箭头指向第一个数字，右侧第一个数字是1，1 &lt; 5，所以1应该放到5的左边。</p>
 <p>想想刚刚我们从左边找到了9，右边找到了1，然后将他俩互换，如下</p>
-<img src="http://cpphello.com/images/list3.jpeg" width="568" height="107">
+<p><img src="http://cpphello.com/images/list3.jpeg" width="568" height="107"></p>
 <p>结果如下</p>
-<img src="http://cpphello.com/images/list4.jpeg" width="568" height="170">
+<p><img src="http://cpphello.com/images/list4.jpeg" width="568" height="170"></p>
 <p>上面这个a和b是我们刚刚说的，我们两个箭头指向的位置，然后这次我们继续从左侧找一个比5大的数字停下</p>
-<p>第一步：a箭头指向了4，4 &lt; 5，所以4不用动，箭头指向下一个位置<br>
-第二步：a箭头指向了2，2 &lt; 5，所以2不用动，箭头指向下一个位置<br>
-第三步：a箭头指向了5，5 = 5, 所以箭头指到5的时候需要等一等，此时此刻，虽然5的左边肯定都小于5了，可是5右边的数字万一要是还有小于5的呢，5还是需要往右移动的<br>
-第四步：b箭头当前指向6，6 &gt; 5，所以6不用动，箭头指向前一个位置<br>
-第五步：b箭头指向了7，7 &gt; 5，所以7不用动，箭头指向前一个位置<br>
-第六部：b箭头指向了8，8 &gt; 5，所以8不用动，箭头指向前一个位置</p>
+<p>第一步：a箭头指向了4，4 &lt; 5，所以4不用动，箭头指向下一个位置<br>第二步：a箭头指向了2，2 &lt; 5，所以2不用动，箭头指向下一个位置<br>第三步：a箭头指向了5，5 = 5, 所以箭头指到5的时候需要等一等，此时此刻，虽然5的左边肯定都小于5了，可是5右边的数字万一要是还有小于5的呢，5还是需要往右移动的<br>第四步：b箭头当前指向6，6 &gt; 5，所以6不用动，箭头指向前一个位置<br>第五步：b箭头指向了7，7 &gt; 5，所以7不用动，箭头指向前一个位置<br>第六部：b箭头指向了8，8 &gt; 5，所以8不用动，箭头指向前一个位置</p>
 <p>经过了上面的一系列操作，我们得到了如下的数组。</p>
-<img src="http://cpphello.com/images/list5.jpeg" width="568" height="161">
-<p>a和b现在都指向了我们这个基准的数字5。<br>
-现在我们这么想，已经把比5小的都排列到了5的左边，比5大的都排列到了5的右边。<br>
-现在我们把数组堪称两部分，<br>
-左半部分：3 1 4 2<br>
-右半部分：8 7 6 9<br>
-我们依次类推：<br>
-根据刚刚的规则，我们把上面的一系列操作再分别排序左半部分和右半部分。<br>
-然后用我们刚刚所使用的规则再进行排序。</p>
+<p><img src="http://cpphello.com/images/list5.jpeg" width="568" height="161"></p>
+<p>a和b现在都指向了我们这个基准的数字5。<br>现在我们这么想，已经把比5小的都排列到了5的左边，比5大的都排列到了5的右边。<br>现在我们把数组堪称两部分，<br>左半部分：3 1 4 2<br>右半部分：8 7 6 9<br>我们依次类推：<br>根据刚刚的规则，我们把上面的一系列操作再分别排序左半部分和右半部分。<br>然后用我们刚刚所使用的规则再进行排序。</p>
 <p>其实这就是大概快速排序的思路了。</p>
-<h2 id="标准思路"><a class="markdownIt-Anchor" href="#标准思路"></a> 标准思路</h2>
-<p>说完了我写一下标准思路。其实称之为标准思路，原因就是书本上大概都讲的这个，好多老师也上来就讲的这个。<br>
-还以3 1 4 2 5 8 7 6 9为例，我们开始做的是以5为基准，其实标准思路就是以1为基准的了。</p>
-<h2 id="源码下载"><a class="markdownIt-Anchor" href="#源码下载"></a> 源码下载</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/blob/master/algorithm/sort/quicksort.c">下载地址</a></p>
-<p>本文所讲的思路是源码中的QuickSortMiddleBase方法<br>
-标准思路是QuickSort方法，</p>
+<h2 id="标准思路"><a href="#标准思路" class="headerlink" title="标准思路"></a>标准思路</h2><p>说完了我写一下标准思路。其实称之为标准思路，原因就是书本上大概都讲的这个，好多老师也上来就讲的这个。<br>还以3 1 4 2 5 8 7 6 9为例，我们开始做的是以5为基准，其实标准思路就是以1为基准的了。</p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/blob/master/algorithm/sort/quicksort.c">下载地址</a></p>
+<p>本文所讲的思路是源码中的QuickSortMiddleBase方法<br>标准思路是QuickSort方法，</p>
 <p>为了方便大家阅读，我把方法贴到下面</p>
 <p>本文说的思路</p>
-<pre class="highlight"><code class="c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSortMiddleBase</span><span class="hljs-params">(<span class="hljs-keyword">int</span> <span class="hljs-built_in">array</span>[], <span class="hljs-keyword">int</span> <span class="hljs-built_in">begin</span>, <span class="hljs-keyword">int</span> <span class="hljs-built_in">end</span>)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">begin</span> &gt;= <span class="hljs-built_in">end</span>) &#123;
-        <span class="hljs-keyword">return</span> ;
+<pre><code class="lang-c">void QuickSortMiddleBase(int array[], int begin, int end) &#123;
+    if(begin &gt;= end) &#123;
+        return ;
     &#125;
-    <span class="hljs-keyword">int</span> base_pos = (<span class="hljs-built_in">begin</span> + <span class="hljs-built_in">end</span>) / <span class="hljs-number">2</span>;
-    <span class="hljs-keyword">int</span> base_value = <span class="hljs-built_in">array</span>[base_pos];
+    int base_pos = (begin + end) / 2;
+    int base_value = array[base_pos];
 
-    <span class="hljs-keyword">int</span> left_pos = <span class="hljs-built_in">begin</span>, right_pos = <span class="hljs-built_in">end</span>;
-    <span class="hljs-keyword">int</span> temp_val;
+    int left_pos = begin, right_pos = end;
+    int temp_val;
 
-    <span class="hljs-keyword">while</span>(left_pos != right_pos) &#123;
-        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">array</span>[left_pos] &lt; base_value &amp;&amp; left_pos &lt;= right_pos) &#123;
+    while(left_pos != right_pos) &#123;
+        while(array[left_pos] &lt; base_value &amp;&amp; left_pos &lt;= right_pos) &#123;
             left_pos++;
         &#125;
-        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">array</span>[right_pos] &gt; base_value &amp;&amp; right_pos &gt;= left_pos) &#123;
+        while(array[right_pos] &gt; base_value &amp;&amp; right_pos &gt;= left_pos) &#123;
             right_pos--;
         &#125;
-        <span class="hljs-keyword">if</span>(left_pos &lt;= right_pos) &#123;
-            temp_val = <span class="hljs-built_in">array</span>[left_pos];
-            <span class="hljs-built_in">array</span>[left_pos] = <span class="hljs-built_in">array</span>[right_pos];
-            <span class="hljs-built_in">array</span>[right_pos] = temp_val;
+        if(left_pos &lt;= right_pos) &#123;
+            temp_val = array[left_pos];
+            array[left_pos] = array[right_pos];
+            array[right_pos] = temp_val;
         &#125;
     &#125;
-    <span class="hljs-built_in">array</span>[left_pos] = base_value;
-    PrintArray(<span class="hljs-built_in">array</span>, <span class="hljs-number">9</span>);
-    QuickSortMiddleBase(<span class="hljs-built_in">array</span>, <span class="hljs-built_in">begin</span>, left_pos - <span class="hljs-number">1</span>);
-    QuickSortMiddleBase(<span class="hljs-built_in">array</span>, left_pos + <span class="hljs-number">1</span>, <span class="hljs-built_in">end</span>);
+    array[left_pos] = base_value;
+    PrintArray(array, 9);
+    QuickSortMiddleBase(array, begin, left_pos - 1);
+    QuickSortMiddleBase(array, left_pos + 1, end);
 &#125;
 </code></pre>
 <p>标准思路</p>
-<pre class="highlight"><code class="c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> <span class="hljs-built_in">array</span>[], <span class="hljs-keyword">int</span> <span class="hljs-built_in">begin</span>, <span class="hljs-keyword">int</span> <span class="hljs-built_in">end</span>)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">begin</span> &gt;= <span class="hljs-built_in">end</span>) &#123;
-        <span class="hljs-keyword">return</span> ;
+<pre><code class="lang-c">void QuickSort(int array[], int begin, int end) &#123;
+    if(begin &gt;= end) &#123;
+        return ;
     &#125;
-    <span class="hljs-keyword">int</span> base_pos = <span class="hljs-built_in">begin</span>;
-    <span class="hljs-keyword">int</span> base_value = <span class="hljs-built_in">array</span>[base_pos];
+    int base_pos = begin;
+    int base_value = array[base_pos];
 
-    <span class="hljs-keyword">int</span> left_pos = <span class="hljs-built_in">begin</span>, right_pos = <span class="hljs-built_in">end</span>;
-    <span class="hljs-keyword">int</span> temp_val;
-    <span class="hljs-keyword">while</span>(left_pos != right_pos) &#123;
-        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">array</span>[left_pos] &lt; base_value &amp;&amp; left_pos &lt; right_pos) &#123;
+    int left_pos = begin, right_pos = end;
+    int temp_val;
+    while(left_pos != right_pos) &#123;
+        while(array[left_pos] &lt; base_value &amp;&amp; left_pos &lt; right_pos) &#123;
             left_pos++;
         &#125;
-        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">array</span>[right_pos] &gt; base_value &amp;&amp; left_pos &lt; right_pos) &#123;
+        while(array[right_pos] &gt; base_value &amp;&amp; left_pos &lt; right_pos) &#123;
             right_pos--;
         &#125;
-        <span class="hljs-keyword">if</span>(left_pos &lt; right_pos) &#123;
-            temp_val = <span class="hljs-built_in">array</span>[left_pos];
-            <span class="hljs-built_in">array</span>[left_pos] = <span class="hljs-built_in">array</span>[right_pos];
-            <span class="hljs-built_in">array</span>[right_pos] = temp_val;
+        if(left_pos &lt; right_pos) &#123;
+            temp_val = array[left_pos];
+            array[left_pos] = array[right_pos];
+            array[right_pos] = temp_val;
         &#125;
     &#125;
-    <span class="hljs-comment">//array[left_pos] = base_value;</span>
-    <span class="hljs-comment">//array[base_pos] = temp_val;</span>
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"sort result:"</span>);
-    PrintArray(<span class="hljs-built_in">array</span>, <span class="hljs-number">9</span>);
-    QuickSort(<span class="hljs-built_in">array</span>, <span class="hljs-built_in">begin</span>, left_pos);
-    QuickSort(<span class="hljs-built_in">array</span>, left_pos + <span class="hljs-number">1</span>, <span class="hljs-built_in">end</span>);
+    //array[left_pos] = base_value;
+    //array[base_pos] = temp_val;
+    printf(&quot;sort result:&quot;);
+    PrintArray(array, 9);
+    QuickSort(array, begin, left_pos);
+    QuickSort(array, left_pos + 1, end);
 
 &#125;
 </code></pre>
-<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
-<p>克服懒惰，争取从一个看心情更的博主，做一个周更的博主~</p>
-<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
-<p>个人网站：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>克服懒惰，争取从一个看心情更的博主，做一个周更的博主~</p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>个人网站：<a href="http://cpphello.com/">MartinHan的小站</a></p>
 <p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
 <p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
 
@@ -648,8 +622,6 @@
 
 
 
-
-    
 
 
 

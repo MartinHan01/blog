@@ -44,7 +44,11 @@
 
 <script src="/js/iconfont.js?v=1.0.1" ></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
   <input class="theme_preload_comment" value="false">
@@ -113,7 +117,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -121,7 +125,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -171,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<input type="hidden" id="yelog_site_word_count" value="33.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -467,7 +471,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:544</span>
+        <span>字数:541</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -486,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text"> 过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E6%97%B6%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="toc-text"> 耗时的任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#no1"><span class="toc-text"> No.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#no2"><span class="toc-text"> No.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#no3"><span class="toc-text"> No.3</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-text"> 结尾</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E6%97%B6%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="toc-text">耗时的任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#No-1"><span class="toc-text">No.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#No-2"><span class="toc-text">No.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#No-3"><span class="toc-text">No.3</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-text">结尾</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -502,55 +506,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。</p>
-<span id="more"></span>
-<h2 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程</h2>
-<p>要想优化，我们必须先知道优化哪里。有一个命令可以帮助我们</p>
-<pre class="highlight"><code class="gradle">gradlew --profile
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。<br><span id="more"></span></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>要想优化，我们必须先知道优化哪里。有一个命令可以帮助我们</p>
+<pre><code class="lang-gradle">gradlew --profile
 或者
 gradle --profile
 </code></pre>
 <p>这两个的区别我就不解释了，不清楚的话自己google。</p>
 <p>执行完这个命令之后，我们去’\build\reports\profile’路径，找到我们的profile-2017-xx-xx-xx-xx-xx.html文件。</p>
-<p>二话不说先上图，图一图二是优化前的耗时，图三图四是优化后的耗时。<br>
-<img src="http://cpphello.com/images/2017-09-07_143730.png" width="450" height="230"><img src="http://cpphello.com/images/gradle_last.png" width="450" height="230"></p>
+<p>二话不说先上图，图一图二是优化前的耗时，图三图四是优化后的耗时。<br><img src="http://cpphello.com/images/2017-09-07_143730.png" width="450" height="230"><img src="http://cpphello.com/images/gradle_last.png" width="450" height="230"></p>
 <p>下面就把我优化的过程分享下吧。</p>
-<h3 id="耗时的任务"><a class="markdownIt-Anchor" href="#耗时的任务"></a> 耗时的任务</h3>
-<p>我们看上图Summary,Configuration,Dependency Resolution,Task Execition,<br>
-我们看Task Excition，这里面有我们在编译期间每一次进行的耗时。<br>
-笔者在此就不发自己的了，因为还要打码。</p>
-<h4 id="no1"><a class="markdownIt-Anchor" href="#no1"></a> No.1</h4>
-<p>首先在你项目的根目录调整你的gradle.properties文件<br>
-我在文件内加入了如下两行</p>
-<pre class="highlight"><code class="properties"><span class="hljs-meta">org.gradle.jvmargs</span>=<span class="hljs-string">-Xms2048m -Xmx4096m </span>
+<h3 id="耗时的任务"><a href="#耗时的任务" class="headerlink" title="耗时的任务"></a>耗时的任务</h3><p>我们看上图Summary,Configuration,Dependency Resolution,Task Execition,<br>我们看Task Excition，这里面有我们在编译期间每一次进行的耗时。<br>笔者在此就不发自己的了，因为还要打码。</p>
+<h4 id="No-1"><a href="#No-1" class="headerlink" title="No.1"></a>No.1</h4><p>首先在你项目的根目录调整你的gradle.properties文件<br>我在文件内加入了如下两行</p>
+<pre><code class="lang-properties">org.gradle.jvmargs=-Xms2048m -Xmx4096m
 </code></pre>
 <p>这两行其实就是设置你的jvm虚拟机内存，因人而异，看你机器配置。</p>
-<h4 id="no2"><a class="markdownIt-Anchor" href="#no2"></a> No.2</h4>
-<p>同样是gradle.properties文件内，加入如下两行</p>
-<pre class="highlight"><code class="properties"><span class="hljs-comment"># When configured, Gradle will run in incubating parallel mode.</span>
-<span class="hljs-comment"># This option should only be used with decoupled projects. More details, visit</span>
-<span class="hljs-comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</span>
-<span class="hljs-meta">org.gradle.parallel</span>=<span class="hljs-string">true</span>
-<span class="hljs-comment">
-# Enables new incubating mode that makes Gradle selective when configuring projects. </span>
-<span class="hljs-comment"># Only relevant projects are configured which results in faster builds for large multi-projects.</span>
-<span class="hljs-comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</span>
-<span class="hljs-meta">org.gradle.configureondemand</span>=<span class="hljs-string">true</span>
+<h4 id="No-2"><a href="#No-2" class="headerlink" title="No.2"></a>No.2</h4><p>同样是gradle.properties文件内，加入如下两行</p>
+<pre><code class="lang-properties"># When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+org.gradle.parallel=true
+
+# Enables new incubating mode that makes Gradle selective when configuring projects. 
+# Only relevant projects are configured which results in faster builds for large multi-projects.
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand
+org.gradle.configureondemand=true
 </code></pre>
-<p>这两句官方给出的解释已经很详细，大概意思就是第一句是只能与解耦项目一起使用。<br>
-第二句是配置这句，会为大型项目加快build</p>
-<h4 id="no3"><a class="markdownIt-Anchor" href="#no3"></a> No.3</h4>
-<p>找到你的项目下的build.gradle，加入如下语句</p>
-<pre class="highlight"><code class="gradle">android &#123;
+<p>这两句官方给出的解释已经很详细，大概意思就是第一句是只能与解耦项目一起使用。<br>第二句是配置这句，会为大型项目加快build</p>
+<h4 id="No-3"><a href="#No-3" class="headerlink" title="No.3"></a>No.3</h4><p>找到你的项目下的build.gradle，加入如下语句</p>
+<pre><code class="lang-gradle">android &#123;
     aaptOptions &#123;
-        cruncherEnabled <span class="hljs-keyword">false</span>
+        cruncherEnabled false
     &#125;
 &#125;
 </code></pre>
 <p>不检查png的合法性，这个大家可以根据自己的项目来判断是否开启。</p>
-<h2 id="结尾"><a class="markdownIt-Anchor" href="#结尾"></a> 结尾</h2>
-<p>我目前就改了这几处，可以将gradle提速一倍，希望能帮助到大家</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我目前就改了这几处，可以将gradle提速一倍，希望能帮助到大家</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -565,7 +556,7 @@ gradle --profile
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>Gradle编译优化--让你的打包速度快一倍</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">544</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">541</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
     <p><span class="copy-title">发布时间:</span>2017-09-06, 21:06:00</p>
     <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
@@ -578,8 +569,6 @@ gradle --profile
 
 
 
-
-    
 
 
 

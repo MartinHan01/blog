@@ -44,7 +44,11 @@
 
 <script src="/js/iconfont.js?v=1.0.1" ></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
   <input class="theme_preload_comment" value="false">
@@ -113,7 +117,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -121,7 +125,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -171,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<input type="hidden" id="yelog_site_word_count" value="33.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -486,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%85%E6%99%AF"><span class="toc-text"> 情景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#threadlocal%E5%BC%95%E5%85%A5"><span class="toc-text"> ThreadLocal引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#threadlocal"><span class="toc-text"> ThreadLocal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="toc-text"> 源码地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text"> 写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%85%E6%99%AF"><span class="toc-text">情景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ThreadLocal%E5%BC%95%E5%85%A5"><span class="toc-text">ThreadLocal引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ThreadLocal"><span class="toc-text">ThreadLocal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="toc-text">源码地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text">写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text">关于我</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -502,267 +506,241 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>不管是平时开发，或者是阅读别人的代码关于多线程的时候。我们总会遇到这个ThreadLocal。<br>
-今天算是偶尔也和大家一起来说说Java基础的东西。<br>
-ThreadLocal从字面的意思来说其实就是一个线程局部变量，</p>
-<h2 id="情景"><a class="markdownIt-Anchor" href="#情景"></a> 情景</h2>
-<p>我们假想一个情景，有3个线程，A线程和B线程，还有我们的主线程。<br>
-有一个数字的对象在主线程里，然后A线程和B线程一起读取做一些操作</p>
-<p>先画个图解释一下，再上代码</p>
-<span id="more"></span>
-<img src="http://cpphello.com/images/2018-04-16_171655.png" width="479" height="518"> 
-<pre class="highlight"><code class="java"><span class="hljs-keyword">package</span> com.martinhan.zeroone;
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不管是平时开发，或者是阅读别人的代码关于多线程的时候。我们总会遇到这个ThreadLocal。<br>今天算是偶尔也和大家一起来说说Java基础的东西。<br>ThreadLocal从字面的意思来说其实就是一个线程局部变量，</p>
+<h2 id="情景"><a href="#情景" class="headerlink" title="情景"></a>情景</h2><p>我们假想一个情景，有3个线程，A线程和B线程，还有我们的主线程。<br>有一个数字的对象在主线程里，然后A线程和B线程一起读取做一些操作</p>
+<p>先画个图解释一下，再上代码<br><span id="more"></span><br><img src="http://cpphello.com/images/2018-04-16_171655.png" width="479" height="518"> </p>
+<pre><code class="lang-java">package com.martinhan.zeroone;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Num</span> </span>&#123;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> value;
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-keyword">super</span>();
-	&#125;
+public class Num &#123;
+    private int value;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">super</span>();
-		<span class="hljs-keyword">this</span>.value = value;
-	&#125;
+    public Num() &#123;
+        super();
+    &#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getValue</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-keyword">return</span> value;
-	&#125;
+    public Num(int value) &#123;
+        super();
+        this.value = value;
+    &#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setValue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">this</span>.value = value;
-	&#125;
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addValue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">this</span>.value += value;
-	&#125;
+    public int getValue() &#123;
+        return value;
+    &#125;
+
+    public void setValue(int value) &#123;
+        this.value = value;
+    &#125;
+
+    public void addValue(int value) &#123;
+        this.value += value;
+    &#125;
 &#125;
 
 
-<span class="hljs-keyword">package</span> com.martinhan.zeroone;
+package com.martinhan.zeroone;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalTest1</span> </span>&#123;
-	
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-		Num num = <span class="hljs-keyword">new</span> Num(<span class="hljs-number">100</span>);
-		Thread aThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100L</span>);
-					num.addValue(<span class="hljs-number">200</span>);
-					System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + num.getValue());
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;;
-			&#125;
-		&#125;;
-		Thread bThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100L</span>);
-					num.addValue(<span class="hljs-number">200</span>);
-					System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + num.getValue());
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;;
-			&#125;
-		&#125;;
-		aThread.start();
-		bThread.start();
-	&#125;
+public class ThreadLocalTest1 &#123;
+
+
+    public static void main(String[] args) &#123;
+        Num num = new Num(100);
+        Thread aThread = new Thread()&#123;
+
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100L);
+                    num.addValue(200);
+                    System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + num.getValue());
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;;
+            &#125;
+        &#125;;
+        Thread bThread = new Thread()&#123;
+
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100L);
+                    num.addValue(200);
+                    System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + num.getValue());
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;;
+            &#125;
+        &#125;;
+        aThread.start();
+        bThread.start();
+    &#125;
 &#125;
-
-
 </code></pre>
 <p>执行结果如下</p>
-<pre class="highlight"><code class>thread ---Thread[Thread-0,5,main] value is 300
+<pre><code>thread ---Thread[Thread-0,5,main] value is 300
 thread ---Thread[Thread-1,5,main] value is 300
-</code></pre>
-<p>其实正常情况下，我们当然不希望是这种结果了。<br>
-A线程希望改完了之后，值是300<br>
-B线程希望改完了之后值才是500</p>
-<h2 id="threadlocal引入"><a class="markdownIt-Anchor" href="#threadlocal引入"></a> ThreadLocal引入</h2>
-<p>此时此刻，我们就想，可不可以这样呢，我们自己做一个HashMap，key放线程的id，然后value放各个线程需要的值。<br>
-有了这个机制，我们就可以实现各个线程其实对应的实际Num对象并不是一个了。<br>
-用语言来讲的话可能还是不太形象，画个图</p>
-<img src="http://cpphello.com/images/2018-04-16_173909.png" width="481" height="482"> 
+</code></pre><p>其实正常情况下，我们当然不希望是这种结果了。<br>A线程希望改完了之后，值是300<br>B线程希望改完了之后值才是500</p>
+<h2 id="ThreadLocal引入"><a href="#ThreadLocal引入" class="headerlink" title="ThreadLocal引入"></a>ThreadLocal引入</h2><p>此时此刻，我们就想，可不可以这样呢，我们自己做一个HashMap，key放线程的id，然后value放各个线程需要的值。<br>有了这个机制，我们就可以实现各个线程其实对应的实际Num对象并不是一个了。<br>用语言来讲的话可能还是不太形象，画个图</p>
+<p><img src="http://cpphello.com/images/2018-04-16_173909.png" width="481" height="482"> </p>
 <p>然后我们用代码来实现</p>
-<pre class="highlight"><code class="java">
-<span class="hljs-keyword">package</span> com.martinhan.zeroone;
+<pre><code class="lang-java">
+package com.martinhan.zeroone;
 
-<span class="hljs-keyword">import</span> java.util.HashMap;
+import java.util.HashMap;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Num2</span> </span>&#123;
-	<span class="hljs-keyword">private</span> HashMap&lt;Long,Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;Long,Integer&gt;();
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num2</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-keyword">super</span>();
-	&#125;
+public class Num2 &#123;
+    private HashMap&lt;Long,Integer&gt; map = new HashMap&lt;Long,Integer&gt;();
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Num2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">super</span>();
-		<span class="hljs-keyword">this</span>.map.put(Thread.currentThread().getId(), value);
-	&#125;
+    public Num2() &#123;
+        super();
+    &#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getValue</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-keyword">return</span> map.get(Thread.currentThread().getId());
-	&#125;
+    public Num2(int value) &#123;
+        super();
+        this.map.put(Thread.currentThread().getId(), value);
+    &#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setValue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">this</span>.map.put(Thread.currentThread().getId(), value);
-	&#125;
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addValue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
-		<span class="hljs-keyword">if</span>(map.containsKey(Thread.currentThread().getId()) == <span class="hljs-keyword">false</span>) &#123;
-			<span class="hljs-keyword">return</span> ;
-		&#125;
-		<span class="hljs-keyword">int</span> oldvalue = map.get(Thread.currentThread().getId());
-		map.put(Thread.currentThread().getId(), oldvalue + value);
-	&#125;
+    public Integer getValue() &#123;
+        return map.get(Thread.currentThread().getId());
+    &#125;
+
+    public synchronized void setValue(int value) &#123;
+        this.map.put(Thread.currentThread().getId(), value);
+    &#125;
+
+    public synchronized void addValue(int value) &#123;
+        if(map.containsKey(Thread.currentThread().getId()) == false) &#123;
+            return ;
+        &#125;
+        int oldvalue = map.get(Thread.currentThread().getId());
+        map.put(Thread.currentThread().getId(), oldvalue + value);
+    &#125;
 &#125;
 
 
-<span class="hljs-keyword">package</span> com.martinhan.zeroone;
+package com.martinhan.zeroone;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalTest2</span> </span>&#123;
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-		Num2 num = <span class="hljs-keyword">new</span> Num2();
-		Thread aThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100L</span>);
-					num.setValue(<span class="hljs-number">100</span>);
-					num.addValue(<span class="hljs-number">200</span>);
-					System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + num.getValue());
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;;
-			&#125;
-		&#125;;
-		Thread bThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100L</span>);
-					num.setValue(<span class="hljs-number">100</span>);
-					num.addValue(<span class="hljs-number">400</span>);
-					System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + num.getValue());
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;;
-			&#125;
-		&#125;;
-		aThread.start();
-		bThread.start();
-	&#125;
+public class ThreadLocalTest2 &#123;
+
+    public static void main(String[] args) &#123;
+        Num2 num = new Num2();
+        Thread aThread = new Thread()&#123;
+
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100L);
+                    num.setValue(100);
+                    num.addValue(200);
+                    System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + num.getValue());
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;;
+            &#125;
+        &#125;;
+        Thread bThread = new Thread()&#123;
+
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100L);
+                    num.setValue(100);
+                    num.addValue(400);
+                    System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + num.getValue());
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;;
+            &#125;
+        &#125;;
+        aThread.start();
+        bThread.start();
+    &#125;
 &#125;
-
-
 </code></pre>
 <p>执行结果如下</p>
-<pre class="highlight"><code class>thread ---Thread[Thread-1,5,main] value is 500
+<pre><code>thread ---Thread[Thread-1,5,main] value is 500
 thread ---Thread[Thread-0,5,main] value is 300
-</code></pre>
-<p>setValue,addValue方法做了线程同步，因为HashMap本身就是不安全的。这次的执行结果就对了。<br>
-按照了我们的图示，这次每个线程都操作自己的数据。然后不会有线程不安全的情况了。<br>
-可能有人说，加同步不就好了么，其实不是想为大家一起说下ThreadLocal嘛，举个例子</p>
-<h2 id="threadlocal"><a class="markdownIt-Anchor" href="#threadlocal"></a> ThreadLocal</h2>
-<p>ThreadLocal其实做的事情就大概如此了，只是大概如此，如果需要深究细节，需要去仔细看源码。<br>
-以上的代码，还有几处不完善，那个HashMap里的对象会一直存在，他并不会随着线程的结束而删除。</p>
+</code></pre><p>setValue,addValue方法做了线程同步，因为HashMap本身就是不安全的。这次的执行结果就对了。<br>按照了我们的图示，这次每个线程都操作自己的数据。然后不会有线程不安全的情况了。<br>可能有人说，加同步不就好了么，其实不是想为大家一起说下ThreadLocal嘛，举个例子</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal其实做的事情就大概如此了，只是大概如此，如果需要深究细节，需要去仔细看源码。<br>以上的代码，还有几处不完善，那个HashMap里的对象会一直存在，他并不会随着线程的结束而删除。</p>
 <p>在Java源码里，真正的map是在Thread里面的，</p>
 <p>先举个例子</p>
-<pre class="highlight"><code class="java"><span class="hljs-keyword">package</span> com.martinhan.zeroone;
+<pre><code class="lang-java">package com.martinhan.zeroone;
 
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalTest3</span> </span>&#123;
+public class ThreadLocalTest3 &#123;
 
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ThreadLocal&lt;Integer&gt; threadLocal = <span class="hljs-keyword">new</span> ThreadLocal&lt;&gt;();
-	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> value = <span class="hljs-number">100</span>;
+    private static ThreadLocal&lt;Integer&gt; threadLocal = new ThreadLocal&lt;&gt;();
+    static int value = 100;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;
-		Thread aThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100</span>);
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;
-				threadLocal.set(value + <span class="hljs-number">200</span>);
-				System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + threadLocal.get());
-			&#125;
-		&#125;;
+    public static void main(String[] args) throws InterruptedException &#123;
+        Thread aThread = new Thread()&#123;
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100);
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;
+                threadLocal.set(value + 200);
+                System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + threadLocal.get());
+            &#125;
+        &#125;;
 
-		Thread bThread = <span class="hljs-keyword">new</span> Thread()&#123;
-			<span class="hljs-meta">@Override</span>
-			<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
-				<span class="hljs-keyword">try</span> &#123;
-					Thread.sleep(<span class="hljs-number">100</span>);
-				&#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
-					e.printStackTrace();
-				&#125;
-				threadLocal.set(value + <span class="hljs-number">400</span>);
-				System.out.println(<span class="hljs-string">"thread ---"</span> + Thread.currentThread() + <span class="hljs-string">" value is "</span> + threadLocal.get());
-			&#125;
-		&#125;;
-		aThread.start();
-		bThread.start();
-		
-	&#125;
+        Thread bThread = new Thread()&#123;
+            @Override
+            public void run() &#123;
+                try &#123;
+                    Thread.sleep(100);
+                &#125; catch (InterruptedException e) &#123;
+                    e.printStackTrace();
+                &#125;
+                threadLocal.set(value + 400);
+                System.out.println(&quot;thread ---&quot; + Thread.currentThread() + &quot; value is &quot; + threadLocal.get());
+            &#125;
+        &#125;;
+        aThread.start();
+        bThread.start();
+
+    &#125;
 &#125;
 </code></pre>
 <p>然后我们从threadLocal.set方法来读，实现如下</p>
-<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T value)</span> </span>&#123;
-        <span class="hljs-comment">//获取当前线程</span>
+<pre><code class="lang-java">public void set(T value) &#123;
+        //获取当前线程
         Thread t = Thread.currentThread();
-        <span class="hljs-comment">//获取t线程对象的成员变量threadLocals,threadLocals是一个ThreadLocalMap</span>
+        //获取t线程对象的成员变量threadLocals,threadLocals是一个ThreadLocalMap
         ThreadLocalMap map = getMap(t);
-        <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-comment">//最后如果map不为空的话，就放入</span>
-            map.set(<span class="hljs-keyword">this</span>, value);
+        if (map != null) &#123;
+            //最后如果map不为空的话，就放入
+            map.set(this, value);
         &#125;
-        <span class="hljs-keyword">else</span> &#123;
+        else &#123;
             createMap(t, value);
         &#125;
     &#125;
 
-<span class="hljs-function">ThreadLocalMap <span class="hljs-title">getMap</span><span class="hljs-params">(Thread t)</span> </span>&#123;
-        <span class="hljs-keyword">return</span> t.threadLocals;
+ThreadLocalMap getMap(Thread t) &#123;
+        return t.threadLocals;
     &#125;
 </code></pre>
 <p>在线程退出的时候有如下代码</p>
-<pre class="highlight"><code class="java"> <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exit</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">if</span> (group != <span class="hljs-keyword">null</span>) &#123;
-            group.threadTerminated(<span class="hljs-keyword">this</span>);
-            group = <span class="hljs-keyword">null</span>;
+<pre><code class="lang-java"> private void exit() &#123;
+        if (group != null) &#123;
+            group.threadTerminated(this);
+            group = null;
         &#125;
-        <span class="hljs-comment">/* Aggressively null out all reference fields: see bug 4006245 */</span>
-        target = <span class="hljs-keyword">null</span>;
-        <span class="hljs-comment">/* Speed the release of some of these resources */</span>
-        threadLocals = <span class="hljs-keyword">null</span>;
-        inheritableThreadLocals = <span class="hljs-keyword">null</span>;
-        inheritedAccessControlContext = <span class="hljs-keyword">null</span>;
-        blocker = <span class="hljs-keyword">null</span>;
-        uncaughtExceptionHandler = <span class="hljs-keyword">null</span>;
+        /* Aggressively null out all reference fields: see bug 4006245 */
+        target = null;
+        /* Speed the release of some of these resources */
+        threadLocals = null;
+        inheritableThreadLocals = null;
+        inheritedAccessControlContext = null;
+        blocker = null;
+        uncaughtExceptionHandler = null;
     &#125;
 </code></pre>
 <p>这里面手动置空了threadLocals成员变量</p>
-<h2 id="源码地址"><a class="markdownIt-Anchor" href="#源码地址"></a> 源码地址</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/tree/master/java/ThreadLocalTest">源码链接</a></p>
-<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
-<p>ThreadLocal大体的思路如此，个人觉得懂了两个图，就算可以说大致懂了，然后读源码<br>
-希望读者有问题，可以和我探讨，喜欢一起交流技术问题</p>
-<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
-<p>个人博客：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/tree/master/java/ThreadLocalTest">源码链接</a></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>ThreadLocal大体的思路如此，个人觉得懂了两个图，就算可以说大致懂了，然后读源码<br>希望读者有问题，可以和我探讨，喜欢一起交流技术问题</p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>个人博客：<a href="http://cpphello.com/">MartinHan的小站</a></p>
 <p>博客网站：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
 <p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
 
@@ -792,8 +770,6 @@ thread ---Thread[Thread-0,5,main] value is 300
 
 
 
-
-    
 
 
 

@@ -44,7 +44,11 @@
 
 <script src="/js/iconfont.js?v=1.0.1" ></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
   <input class="theme_preload_comment" value="false">
@@ -113,7 +117,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -121,7 +125,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -171,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<input type="hidden" id="yelog_site_word_count" value="33.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -467,7 +471,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:536</span>
+        <span>字数:533</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -486,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8C%85%E7%8E%AF%E5%A2%83"><span class="toc-text"> 抓包环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEfiddler"><span class="toc-text"> 配置Fiddler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%89%8B%E6%9C%BA"><span class="toc-text"> 配置手机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%8A%93%E5%8C%85"><span class="toc-text"> 开始抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8C%85%E7%8E%AF%E5%A2%83"><span class="toc-text">抓包环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEFiddler"><span class="toc-text">配置Fiddler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%89%8B%E6%9C%BA"><span class="toc-text">配置手机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%8A%93%E5%8C%85"><span class="toc-text">开始抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text">关于我</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -502,56 +506,39 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>记得刚开始接触程序的时候，就总想学会抓包。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>记得刚开始接触程序的时候，就总想学会抓包。</p>
 <p>抓包，顾名思义其实就是将手机的所有网络请求都可以监测到。抓包可以帮助于我们自己写程序，方便调试。也可以在逆向他人程序的时候，提供一些帮助。</p>
-<p>本篇文章主要是利用Fiddler工具来对手机进行抓包，讨论如何抓包。</p>
-<span id="more"></span>
-<h2 id="抓包环境"><a class="markdownIt-Anchor" href="#抓包环境"></a> 抓包环境</h2>
-<ul>
+<p>本篇文章主要是利用Fiddler工具来对手机进行抓包，讨论如何抓包。<br><span id="more"></span></p>
+<h2 id="抓包环境"><a href="#抓包环境" class="headerlink" title="抓包环境"></a>抓包环境</h2><ul>
 <li>Fiddler软件(<a target="_blank" rel="noopener" href="https://www.telerik.com/download/fiddler">下载地址</a>)</li>
 <li>移动设备一个(Android ios设备均可)</li>
 </ul>
-<h2 id="配置fiddler"><a class="markdownIt-Anchor" href="#配置fiddler"></a> 配置Fiddler</h2>
-<p>首先配置Fiddler，安装完成之后我们打开Fiddler，先需要一些很简单的配置才可以使用了<br>
-<img src="http://cpphello.com/images/2018-12-02_200651.png" alt="option"></p>
+<h2 id="配置Fiddler"><a href="#配置Fiddler" class="headerlink" title="配置Fiddler"></a>配置Fiddler</h2><p>首先配置Fiddler，安装完成之后我们打开Fiddler，先需要一些很简单的配置才可以使用了<br><img src="http://cpphello.com/images/2018-12-02_200651.png" alt="option"></p>
 <p>如图我们点击Tools -&gt; Options</p>
 <p>进入如下界面。</p>
 <p><img src="http://cpphello.com/images/2018-12-02_201327.png" alt="option"></p>
-<p>记得一定要把图中的 Allow remote computers to connect勾选上，<br>
-我们要允许手机设备连接上呀。</p>
-<p>还有注意一下图上的Fiddler listens on port: 8888，<br>
-Fiddler默认使用的端口是8888，如果冲突了或者你喜欢用别的也可以更改，<br>
-我就用8888了。</p>
-<p>查看电脑的内网ip地址是多少，一会儿手机在填写代理服务器的时候要用<br>
-windows执行:</p>
-<pre class="highlight"><code class>ipconfig
-</code></pre>
-<p>linux执行:</p>
-<pre class="highlight"><code class>ifconfig
-</code></pre>
-<p><img src="http://cpphello.com/images/2018-12-02_201830.png" alt><br>
-我的ip就是<code>192.168.31.100</code></p>
-<h2 id="配置手机"><a class="markdownIt-Anchor" href="#配置手机"></a> 配置手机</h2>
-<p>接下来就是配置手机了，要保持手机和电脑在</p>
+<p>记得一定要把图中的 Allow remote computers to connect勾选上，<br>我们要允许手机设备连接上呀。</p>
+<p>还有注意一下图上的Fiddler listens on port: 8888，<br>Fiddler默认使用的端口是8888，如果冲突了或者你喜欢用别的也可以更改，<br>我就用8888了。</p>
+<p>查看电脑的内网ip地址是多少，一会儿手机在填写代理服务器的时候要用<br>windows执行:</p>
+<pre><code>ipconfig
+</code></pre><p>linux执行:</p>
+<pre><code>ifconfig
+</code></pre><p><img src="http://cpphello.com/images/2018-12-02_201830.png" alt><br>我的ip就是<code>192.168.31.100</code></p>
+<h2 id="配置手机"><a href="#配置手机" class="headerlink" title="配置手机"></a>配置手机</h2><p>接下来就是配置手机了，要保持手机和电脑在</p>
 <p>同一个局域网里面。</p>
 <p>局域网里面。。。。</p>
 <p>面。。。。。。。。</p>
 <p>由于大家的手机各个型号不同，所以这里就不详细解释了，展示一下修改的页面</p>
-<img src="http://cpphello.com/images/Screenshot_20181202-202427.png" width="200" height="350">
-<h2 id="开始抓包"><a class="markdownIt-Anchor" href="#开始抓包"></a> 开始抓包</h2>
-<p>由于习惯我会先点击清除按钮把之前的http请求记录都清除掉<br>
-<img src="http://cpphello.com/images/2018-12-02_204640.png" alt></p>
+<p><img src="http://cpphello.com/images/Screenshot_20181202-202427.png" width="200" height="350"></p>
+<h2 id="开始抓包"><a href="#开始抓包" class="headerlink" title="开始抓包"></a>开始抓包</h2><p>由于习惯我会先点击清除按钮把之前的http请求记录都清除掉<br><img src="http://cpphello.com/images/2018-12-02_204640.png" alt></p>
 <p>然后手机开始请求，列表内就有数据了。</p>
-<p>以下可以找一个请求作为示例，<a target="_blank" rel="noopener" href="http://xn--beacon-api-lv8rx27o.aliyuncs.com/beacon/fetch/config/byappkey">比如beacon-api.aliyuncs.com/beacon/fetch/config/byappkey</a></p>
+<p>以下可以找一个请求作为示例，比如beacon-api.aliyuncs.com/beacon/fetch/config/byappkey</p>
 <p><img src="http://cpphello.com/images/2018-12-02_204959.png" alt></p>
 <p>信息就都在里面啦。</p>
-<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
-<p>个人网站：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>个人网站：<a href="http://cpphello.com/">MartinHan的小站</a></p>
 <p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
 <p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
-<p><strong>PS:还有一个很懒的公众号，愿意关注的话搜索&quot;程序技术指北&quot;，<br>
-如果你看到个变形的海绵宝宝就是他了</strong></p>
+<p><strong>PS:还有一个很懒的公众号，愿意关注的话搜索”程序技术指北”，<br>如果你看到个变形的海绵宝宝就是他了</strong></p>
 <p>由于博主过于懒了，所以二维码也懒得放了、</p>
 <!-- ![](http://cpphello.com/images/.png) -->
       
@@ -567,7 +554,7 @@ windows执行:</p>
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>如何利用Fiddler对手机抓包</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">536</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">533</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
     <p><span class="copy-title">发布时间:</span>2018-12-02, 19:40:00</p>
     <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
@@ -580,8 +567,6 @@ windows执行:</p>
 
 
 
-
-    
 
 
 

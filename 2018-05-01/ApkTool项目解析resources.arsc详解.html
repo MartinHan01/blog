@@ -44,7 +44,11 @@
 
 <script src="/js/iconfont.js?v=1.0.1" ></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 <div style="display: none">
   <input class="theme_disqus_on" value="false">
   <input class="theme_preload_comment" value="false">
@@ -113,7 +117,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -121,7 +125,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -171,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="32.4k">
+<input type="hidden" id="yelog_site_word_count" value="33.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -467,7 +471,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:3.1k</span>
+        <span>字数:3.2k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -486,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-text"> 总体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resourcesarsc%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text"> resources.arsc的格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-text"> 解析流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%A4%8D%E6%80%A7%E4%BB%BB%E5%8A%A1"><span class="toc-text"> 重复性任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#readtablepackage%E4%B9%8B%E5%90%8E"><span class="toc-text"> readTablePackage之后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text"> 写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text"> 关于我</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-text">总体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resources-arsc%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">resources.arsc的格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-text">解析流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%A4%8D%E6%80%A7%E4%BB%BB%E5%8A%A1"><span class="toc-text">重复性任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#readTablePackage%E4%B9%8B%E5%90%8E"><span class="toc-text">readTablePackage之后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-text">写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="toc-text">关于我</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -502,12 +506,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>上回说道ApkTool项目的概览，关于ApkTool如何编译，如何运行，还有各个参数的介绍。<br>
-今天想主要说明一下关于ApkTool如何分析resources.arsc文件的，以及resources.arsc文件的格式</p>
-<h2 id="总体流程"><a class="markdownIt-Anchor" href="#总体流程"></a> 总体流程</h2>
-<p>我们首先执行命令<code>apktool d xxx.apk</code>，然后看输出如下</p>
-<pre class="highlight"><code class>I: Using Apktool 2.3.1 on douyin.apk
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上回说道ApkTool项目的概览，关于ApkTool如何编译，如何运行，还有各个参数的介绍。<br>今天想主要说明一下关于ApkTool如何分析resources.arsc文件的，以及resources.arsc文件的格式</p>
+<h2 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h2><p>我们首先执行命令<code>apktool d xxx.apk</code>，然后看输出如下</p>
+<pre><code>I: Using Apktool 2.3.1 on douyin.apk
 I: Loading resource table...
 I: Decoding AndroidManifest.xml with resources...
 I: Loading resource table from file: C:\Users\hch\AppData\Local\apktool\framework\1.apk
@@ -520,8 +521,7 @@ I: Baksmaling classes3.dex...
 I: Copying assets and libs...
 I: Copying unknown files...
 I: Copying original files...
-</code></pre>
-<p>其实这个时候apktool总体做了如下几个步骤</p>
+</code></pre><p>其实这个时候apktool总体做了如下几个步骤</p>
 <ul>
 <li>加载resource table</li>
 <li>解码AndroidManifest.xml</li>
@@ -531,472 +531,456 @@ I: Copying original files...
 </ul>
 <p>今天想和大家讨论的只有第一步，关于ApkTool是如何解析resources.arsc的。</p>
 <p>如何初始ApkDecoder的成员变量mResTable的，剩下的我们会下次继续探讨。</p>
-<p><strong>ps:想看大概结果的，直接跳到最后看图。</strong></p>
-<span id="more"></span>
-<h2 id="resourcesarsc的格式"><a class="markdownIt-Anchor" href="#resourcesarsc的格式"></a> resources.arsc的格式</h2>
-<p>resources.arsc是一个二进制文件，想要解析他就必须先弄懂这个文件格式到底是什么样子的。<br>
-先上一张来源于网络的图片。(图片来源与网络，侵，删)</p>
-<img src="http://cpphello.com/images/resources.png" width="898" height="853"> 
+<p><strong>ps:想看大概结果的，直接跳到最后看图。</strong><br><span id="more"></span></p>
+<h2 id="resources-arsc的格式"><a href="#resources-arsc的格式" class="headerlink" title="resources.arsc的格式"></a>resources.arsc的格式</h2><p>resources.arsc是一个二进制文件，想要解析他就必须先弄懂这个文件格式到底是什么样子的。<br>先上一张来源于网络的图片。(图片来源与网络，侵，删)</p>
+<p><img src="http://cpphello.com/images/resources.png" width="898" height="853"> </p>
 <p>其实整体的就是这个意思了，首先全部的话就是一个resource table,然后依次读取String Pool,Package Header等。</p>
-<p>这些格式，具体的都在Android源码里面，具体的文件是ResourceTypes.h，<br>
-比如:</p>
-<pre class="highlight"><code class="c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ResChunk_header</span>
-&#123;</span>
-    <span class="hljs-keyword">uint16_t</span> type;
-    <span class="hljs-keyword">uint16_t</span> headerSize;
-    <span class="hljs-keyword">uint32_t</span> <span class="hljs-built_in">size</span>;
+<p>这些格式，具体的都在Android源码里面，具体的文件是ResourceTypes.h，<br>比如:</p>
+<pre><code class="lang-c">struct ResChunk_header
+&#123;
+    uint16_t type;
+    uint16_t headerSize;
+    uint32_t size;
 &#125;;
 
-<span class="hljs-keyword">enum</span> &#123;
-    RES_NULL_TYPE               = <span class="hljs-number">0x0000</span>,
-    RES_STRING_POOL_TYPE        = <span class="hljs-number">0x0001</span>,
-    RES_TABLE_TYPE              = <span class="hljs-number">0x0002</span>,
-    RES_XML_TYPE                = <span class="hljs-number">0x0003</span>,
+enum &#123;
+    RES_NULL_TYPE               = 0x0000,
+    RES_STRING_POOL_TYPE        = 0x0001,
+    RES_TABLE_TYPE              = 0x0002,
+    RES_XML_TYPE                = 0x0003,
 
-    <span class="hljs-comment">// Chunk types in RES_XML_TYPE</span>
-    RES_XML_FIRST_CHUNK_TYPE    = <span class="hljs-number">0x0100</span>,
-    RES_XML_START_NAMESPACE_TYPE= <span class="hljs-number">0x0100</span>,
-    RES_XML_END_NAMESPACE_TYPE  = <span class="hljs-number">0x0101</span>,
-    RES_XML_START_ELEMENT_TYPE  = <span class="hljs-number">0x0102</span>,
-    RES_XML_END_ELEMENT_TYPE    = <span class="hljs-number">0x0103</span>,
-    RES_XML_CDATA_TYPE          = <span class="hljs-number">0x0104</span>,
-    RES_XML_LAST_CHUNK_TYPE     = <span class="hljs-number">0x017f</span>,
-    <span class="hljs-comment">// This contains a uint32_t array mapping strings in the string</span>
-    <span class="hljs-comment">// pool back to resource identifiers.  It is optional.</span>
-    RES_XML_RESOURCE_MAP_TYPE   = <span class="hljs-number">0x0180</span>,
+    // Chunk types in RES_XML_TYPE
+    RES_XML_FIRST_CHUNK_TYPE    = 0x0100,
+    RES_XML_START_NAMESPACE_TYPE= 0x0100,
+    RES_XML_END_NAMESPACE_TYPE  = 0x0101,
+    RES_XML_START_ELEMENT_TYPE  = 0x0102,
+    RES_XML_END_ELEMENT_TYPE    = 0x0103,
+    RES_XML_CDATA_TYPE          = 0x0104,
+    RES_XML_LAST_CHUNK_TYPE     = 0x017f,
+    // This contains a uint32_t array mapping strings in the string
+    // pool back to resource identifiers.  It is optional.
+    RES_XML_RESOURCE_MAP_TYPE   = 0x0180,
 
-    <span class="hljs-comment">// Chunk types in RES_TABLE_TYPE</span>
-    RES_TABLE_PACKAGE_TYPE      = <span class="hljs-number">0x0200</span>,
-    RES_TABLE_TYPE_TYPE         = <span class="hljs-number">0x0201</span>,
-    RES_TABLE_TYPE_SPEC_TYPE    = <span class="hljs-number">0x0202</span>
+    // Chunk types in RES_TABLE_TYPE
+    RES_TABLE_PACKAGE_TYPE      = 0x0200,
+    RES_TABLE_TYPE_TYPE         = 0x0201,
+    RES_TABLE_TYPE_SPEC_TYPE    = 0x0202
 &#125;;
 
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ResStringPool_header</span>
-&#123;</span>
-    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ResChunk_header</span> <span class="hljs-title">header</span>;</span>
-    <span class="hljs-keyword">uint32_t</span> stringCount;
-    <span class="hljs-keyword">uint32_t</span> styleCount;
-    <span class="hljs-keyword">enum</span> &#123;
-        SORTED_FLAG = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">0</span>,
-        UTF8_FLAG = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">8</span>
+struct ResStringPool_header
+&#123;
+    struct ResChunk_header header;
+    uint32_t stringCount;
+    uint32_t styleCount;
+    enum &#123;
+        SORTED_FLAG = 1&lt;&lt;0,
+        UTF8_FLAG = 1&lt;&lt;8
     &#125;;
-    <span class="hljs-keyword">uint32_t</span> flags;
-    <span class="hljs-keyword">uint32_t</span> stringsStart;
-    <span class="hljs-keyword">uint32_t</span> stylesStart;
+    uint32_t flags;
+    uint32_t stringsStart;
+    uint32_t stylesStart;
 &#125;;
-
 </code></pre>
 <p>因为篇幅原因，所以把注释部分删除掉了，具体的大家可以查阅源码，也有一个不错的源码阅读网站分享给大家,想看的话可以不用下载啦，直接在线看就好了。</p>
 <p><a target="_blank" rel="noopener" href="http://androidxref.com/">源码网站地址，</a></p>
-<h2 id="解析流程"><a class="markdownIt-Anchor" href="#解析流程"></a> 解析流程</h2>
-<p>我们首先看Main.java</p>
-<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException, BrutException </span>&#123;
+<h2 id="解析流程"><a href="#解析流程" class="headerlink" title="解析流程"></a>解析流程</h2><p>我们首先看Main.java</p>
+<pre><code class="lang-java">public static void main(String[] args) throws IOException, InterruptedException, BrutException &#123;
 
-        <span class="hljs-comment">//......略......</span>
-        <span class="hljs-keyword">boolean</span> cmdFound = <span class="hljs-keyword">false</span>;
-        <span class="hljs-keyword">for</span> (String opt : commandLine.getArgs()) &#123;
-            <span class="hljs-keyword">if</span> (opt.equalsIgnoreCase(<span class="hljs-string">"d"</span>) || opt.equalsIgnoreCase(<span class="hljs-string">"decode"</span>)) &#123;
-                <span class="hljs-comment">//主要是这里，执行了cmdDecode方法来解码</span>
+        //......略......
+        boolean cmdFound = false;
+        for (String opt : commandLine.getArgs()) &#123;
+            if (opt.equalsIgnoreCase(&quot;d&quot;) || opt.equalsIgnoreCase(&quot;decode&quot;)) &#123;
+                //主要是这里，执行了cmdDecode方法来解码
                 cmdDecode(commandLine);
-                cmdFound = <span class="hljs-keyword">true</span>;
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt.equalsIgnoreCase(<span class="hljs-string">"b"</span>) || opt.equalsIgnoreCase(<span class="hljs-string">"build"</span>)) &#123;
+                cmdFound = true;
+            &#125; else if (opt.equalsIgnoreCase(&quot;b&quot;) || opt.equalsIgnoreCase(&quot;build&quot;)) &#123;
                 cmdBuild(commandLine);
-                cmdFound = <span class="hljs-keyword">true</span>;
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt.equalsIgnoreCase(<span class="hljs-string">"if"</span>) || opt.equalsIgnoreCase(<span class="hljs-string">"install-framework"</span>)) &#123;
+                cmdFound = true;
+            &#125; else if (opt.equalsIgnoreCase(&quot;if&quot;) || opt.equalsIgnoreCase(&quot;install-framework&quot;)) &#123;
                 cmdInstallFramework(commandLine);
-                cmdFound = <span class="hljs-keyword">true</span>;
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt.equalsIgnoreCase(<span class="hljs-string">"empty-framework-dir"</span>)) &#123;
+                cmdFound = true;
+            &#125; else if (opt.equalsIgnoreCase(&quot;empty-framework-dir&quot;)) &#123;
                 cmdEmptyFrameworkDirectory(commandLine);
-                cmdFound = <span class="hljs-keyword">true</span>;
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt.equalsIgnoreCase(<span class="hljs-string">"publicize-resources"</span>)) &#123;
+                cmdFound = true;
+            &#125; else if (opt.equalsIgnoreCase(&quot;publicize-resources&quot;)) &#123;
                 cmdPublicizeResources(commandLine);
-                cmdFound = <span class="hljs-keyword">true</span>;
+                cmdFound = true;
             &#125;
         &#125;
-    <span class="hljs-comment">//......略......</span>
+    //......略......
 &#125;
 </code></pre>
 <p>主要是调用了cmdDecode方法来解码，我们跟进去看看</p>
-<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cmdDecode</span><span class="hljs-params">(CommandLine cli)</span> <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-        <span class="hljs-comment">//先new了一个APkDecoder类，主要是利用这个类进行解码</span>
-        ApkDecoder decoder = <span class="hljs-keyword">new</span> ApkDecoder();
+<pre><code class="lang-java">private static void cmdDecode(CommandLine cli) throws AndrolibException &#123;
+        //先new了一个APkDecoder类，主要是利用这个类进行解码
+        ApkDecoder decoder = new ApkDecoder();
 
-        <span class="hljs-keyword">int</span> paraCount = cli.getArgList().size();
-        String apkName = cli.getArgList().get(paraCount - <span class="hljs-number">1</span>);
+        int paraCount = cli.getArgList().size();
+        String apkName = cli.getArgList().get(paraCount - 1);
         File outDir;
 
-        <span class="hljs-comment">//这里主要是根据我们设置的一些参数，然后来对应的设置decoder类的成员变量，、</span>
-        <span class="hljs-comment">//最主要的主要是设置好输出目录，一些模式，以及版本等</span>
-        <span class="hljs-keyword">if</span>(<span class="hljs-comment">//......略......) &#123;</span>
-            <span class="hljs-comment">//......略......</span>
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-comment">// make out folder manually using name of apk</span>
+        //这里主要是根据我们设置的一些参数，然后来对应的设置decoder类的成员变量，、
+        //最主要的主要是设置好输出目录，一些模式，以及版本等
+        if(//......略......) &#123;
+            //......略......
+        &#125; else &#123;
+            // make out folder manually using name of apk
             String outName = apkName;
-            outName = outName.endsWith(<span class="hljs-string">".apk"</span>) ? outName.substring(<span class="hljs-number">0</span>,
-                    outName.length() - <span class="hljs-number">4</span>).trim() : outName + <span class="hljs-string">".out"</span>;
+            outName = outName.endsWith(&quot;.apk&quot;) ? outName.substring(0,
+                    outName.length() - 4).trim() : outName + &quot;.out&quot;;
 
-            <span class="hljs-comment">//设置输出目录</span>
-            outName = <span class="hljs-keyword">new</span> File(outName).getName();
-            outDir = <span class="hljs-keyword">new</span> File(outName);
+            //设置输出目录
+            outName = new File(outName).getName();
+            outDir = new File(outName);
             decoder.setOutDir(outDir);
         &#125;
-        <span class="hljs-comment">//......略......</span>
-        decoder.setApkFile(<span class="hljs-keyword">new</span> File(apkName));
+        //......略......
+        decoder.setApkFile(new File(apkName));
 
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//开始解码</span>
+        try &#123;
+            //开始解码
             decoder.decode();
-        &#125; <span class="hljs-keyword">catch</span> (OutDirExistsException ex) &#123;
-           <span class="hljs-comment">//......略......</span>
-        &#125; <span class="hljs-keyword">finally</span> &#123;
-            <span class="hljs-comment">//......略......</span>
+        &#125; catch (OutDirExistsException ex) &#123;
+           //......略......
+        &#125; finally &#123;
+            //......略......
         &#125;
     &#125;
 </code></pre>
 <p>我们跟进decoder.decode()方法来看看</p>
-<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">decode</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> AndrolibException, IOException, DirectoryException </span>&#123;
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//获取输出目录</span>
+<pre><code class="lang-java">public void decode() throws AndrolibException, IOException, DirectoryException &#123;
+        try &#123;
+            //获取输出目录
             File outDir = getOutDir();
-            <span class="hljs-comment">//这里其实是和我们输入的一个keep-broken-res参数有关</span>
+            //这里其实是和我们输入的一个keep-broken-res参数有关
             AndrolibResources.sKeepBroken = mKeepBrokenResources;
-            <span class="hljs-comment">//判断是否需要覆盖</span>
-            <span class="hljs-keyword">if</span> (!mForceDelete &amp;&amp; outDir.exists()) &#123;
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> OutDirExistsException();
+            //判断是否需要覆盖
+            if (!mForceDelete &amp;&amp; outDir.exists()) &#123;
+                throw new OutDirExistsException();
             &#125;
-            <span class="hljs-comment">//判断apk文件是否合法</span>
-            <span class="hljs-keyword">if</span> (!mApkFile.isFile() || !mApkFile.canRead()) &#123;
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InFileNotFoundException();
+            //判断apk文件是否合法
+            if (!mApkFile.isFile() || !mApkFile.canRead()) &#123;
+                throw new InFileNotFoundException();
             &#125;
 
-            <span class="hljs-comment">//清理干净需要输出的目录，准备写入</span>
-            <span class="hljs-keyword">try</span> &#123;
+            //清理干净需要输出的目录，准备写入
+            try &#123;
                 OS.rmdir(outDir);
-            &#125; <span class="hljs-keyword">catch</span> (BrutException ex) &#123;
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AndrolibException(ex);
+            &#125; catch (BrutException ex) &#123;
+                throw new AndrolibException(ex);
             &#125;
             outDir.mkdirs();
-            <span class="hljs-comment">//打印log信息，这个时候就对应我们执行apktool d xxx.apk时候的第一句了</span>
-            LOGGER.info(<span class="hljs-string">"Using Apktool "</span> + Androlib.getVersion() + <span class="hljs-string">" on "</span> + mApkFile.getName());
-            <span class="hljs-comment">//判断apk内是否有resources.arsc文件，</span>
-            <span class="hljs-keyword">if</span> (hasResources()) &#123;
-                <span class="hljs-comment">//判断解码Resources</span>
-                <span class="hljs-keyword">switch</span> (mDecodeResources) &#123;
-                    <span class="hljs-keyword">case</span> DECODE_RESOURCES_NONE:
+            //打印log信息，这个时候就对应我们执行apktool d xxx.apk时候的第一句了
+            LOGGER.info(&quot;Using Apktool &quot; + Androlib.getVersion() + &quot; on &quot; + mApkFile.getName());
+            //判断apk内是否有resources.arsc文件，
+            if (hasResources()) &#123;
+                //判断解码Resources
+                switch (mDecodeResources) &#123;
+                    case DECODE_RESOURCES_NONE:
                         mAndrolib.decodeResourcesRaw(mApkFile, outDir);
-                        <span class="hljs-keyword">if</span> (mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;
+                        if (mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;
                             setTargetSdkVersion();
-                            setAnalysisMode(mAnalysisMode, <span class="hljs-keyword">true</span>);
+                            setAnalysisMode(mAnalysisMode, true);
 
-                            <span class="hljs-comment">// done after raw decoding of resources because copyToDir overwrites dest files</span>
-                            <span class="hljs-keyword">if</span> (hasManifest()) &#123;
+                            // done after raw decoding of resources because copyToDir overwrites dest files
+                            if (hasManifest()) &#123;
                                 mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());
                             &#125;
                         &#125;
-                        <span class="hljs-keyword">break</span>;
-                    <span class="hljs-keyword">case</span> DECODE_RESOURCES_FULL:
+                        break;
+                    case DECODE_RESOURCES_FULL:
 
                         setTargetSdkVersion();
-                        setAnalysisMode(mAnalysisMode, <span class="hljs-keyword">true</span>);
+                        setAnalysisMode(mAnalysisMode, true);
 
-                        <span class="hljs-keyword">if</span> (hasManifest()) &#123;
+                        if (hasManifest()) &#123;
                             mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());
                         &#125;
                         mAndrolib.decodeResourcesFull(mApkFile, outDir, getResTable());
-                        <span class="hljs-keyword">break</span>;
+                        break;
                 &#125;
-            &#125; <span class="hljs-keyword">else</span> &#123;
-                <span class="hljs-comment">// if there's no resources.arsc, decode the manifest without looking</span>
-                <span class="hljs-comment">// up attribute references</span>
-                <span class="hljs-keyword">if</span> (hasManifest()) &#123;
-                    <span class="hljs-keyword">if</span> (mDecodeResources == DECODE_RESOURCES_FULL
+            &#125; else &#123;
+                // if there&#39;s no resources.arsc, decode the manifest without looking
+                // up attribute references
+                if (hasManifest()) &#123;
+                    if (mDecodeResources == DECODE_RESOURCES_FULL
                             || mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;
                         mAndrolib.decodeManifestFull(mApkFile, outDir, getResTable());
                     &#125;
-                    <span class="hljs-keyword">else</span> &#123;
+                    else &#123;
                         mAndrolib.decodeManifestRaw(mApkFile, outDir);
                     &#125;
                 &#125;
             &#125;
-            <span class="hljs-comment">//......略......</span>
-      
+            //......略......
+
     &#125;
 </code></pre>
 <p>一般来说的话，我们会执行到DECODE_RESOURCES_FULL分支里面的，这里面的第一步是setTargetSdkVersion。</p>
 <p>我们主要再看看setTargetSdkVersion方法的内部实现</p>
-<pre class="highlight"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTargetSdkVersion</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> AndrolibException, IOException </span>&#123;
-    <span class="hljs-keyword">if</span> (mResTable == <span class="hljs-keyword">null</span>) &#123;
+<pre><code class="lang-java">public void setTargetSdkVersion() throws AndrolibException, IOException &#123;
+    if (mResTable == null) &#123;
         mResTable = mAndrolib.getResTable(mApkFile);
     &#125;
 
     Map&lt;String, String&gt; sdkInfo = mResTable.getSdkInfo();
-    <span class="hljs-keyword">if</span> (sdkInfo.get(<span class="hljs-string">"targetSdkVersion"</span>) != <span class="hljs-keyword">null</span>) &#123;
-        mApi = Integer.parseInt(sdkInfo.get(<span class="hljs-string">"targetSdkVersion"</span>));
+    if (sdkInfo.get(&quot;targetSdkVersion&quot;) != null) &#123;
+        mApi = Integer.parseInt(sdkInfo.get(&quot;targetSdkVersion&quot;));
     &#125;
 &#125;
 </code></pre>
 <p>其实ApkDecoder内部是维护了一个mResTable的，我们的任何的信息都是根据mResTable来取的，那可能会问了，那ApkDecoder内部的ResTable到底是个什么东西呢，其实他就是我们上面的部分说的那张经典的图。</p>
 <p>当ApkDecoder发现mResTable变量是空的的时候，会对此进行初始化，接下来我们就主要看看Androlib的getResTable方法，这个方法就是主要从apkFile里面读出mResTable，分析他的格式，</p>
-<pre class="highlight"><code class="java"><span class="hljs-comment">//Androidlib.java文件内容</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> ResTable <span class="hljs-title">getResTable</span><span class="hljs-params">(ExtFile apkFile)</span>
-        <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-    <span class="hljs-keyword">return</span> mAndRes.getResTable(apkFile, <span class="hljs-keyword">true</span>);
+<pre><code class="lang-java">//Androidlib.java文件内容
+public ResTable getResTable(ExtFile apkFile)
+        throws AndrolibException &#123;
+    return mAndRes.getResTable(apkFile, true);
 &#125;
 
-<span class="hljs-comment">//AndrolibResources.java的getResTable方法</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> ResTable <span class="hljs-title">getResTable</span><span class="hljs-params">(ExtFile apkFile, <span class="hljs-keyword">boolean</span> loadMainPkg)</span>
-            <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-    ResTable resTable = <span class="hljs-keyword">new</span> ResTable(<span class="hljs-keyword">this</span>);
-    <span class="hljs-keyword">if</span> (loadMainPkg) &#123;
+//AndrolibResources.java的getResTable方法
+public ResTable getResTable(ExtFile apkFile, boolean loadMainPkg)
+            throws AndrolibException &#123;
+    ResTable resTable = new ResTable(this);
+    if (loadMainPkg) &#123;
         loadMainPkg(resTable, apkFile);
     &#125;
-    <span class="hljs-keyword">return</span> resTable;
+    return resTable;
 &#125;
-
 </code></pre>
 <p>上面的代码掉有了mAndRes的getResTable方法，然后内部再调用loadMainPkg方法，我们继续跟进内部实现</p>
-<pre class="highlight"><code class="java">
-<span class="hljs-function"><span class="hljs-keyword">public</span> ResPackage <span class="hljs-title">loadMainPkg</span><span class="hljs-params">(ResTable resTable, ExtFile apkFile)</span>
-            <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-    <span class="hljs-comment">//打印log信息，这个时候就对应到了我们上面说的第二句了</span>
-    LOGGER.info(<span class="hljs-string">"Loading resource table..."</span>);
+<pre><code class="lang-java">
+public ResPackage loadMainPkg(ResTable resTable, ExtFile apkFile)
+            throws AndrolibException &#123;
+    //打印log信息，这个时候就对应到了我们上面说的第二句了
+    LOGGER.info(&quot;Loading resource table...&quot;);
     ResPackage[] pkgs = getResPackagesFromApk(apkFile, resTable, sKeepBroken);
-    ResPackage pkg = <span class="hljs-keyword">null</span>;
+    ResPackage pkg = null;
 
-    <span class="hljs-keyword">switch</span> (pkgs.length) &#123;
-        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-            pkg = pkgs[<span class="hljs-number">0</span>];
-            <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
-            <span class="hljs-keyword">if</span> (pkgs[<span class="hljs-number">0</span>].getName().equals(<span class="hljs-string">"android"</span>)) &#123;
-                LOGGER.warning(<span class="hljs-string">"Skipping \"android\" package group"</span>);
-                pkg = pkgs[<span class="hljs-number">1</span>];
-                <span class="hljs-keyword">break</span>;
-            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pkgs[<span class="hljs-number">0</span>].getName().equals(<span class="hljs-string">"com.htc"</span>)) &#123;
-                LOGGER.warning(<span class="hljs-string">"Skipping \"htc\" package group"</span>);
-                pkg = pkgs[<span class="hljs-number">1</span>];
-                <span class="hljs-keyword">break</span>;
+    switch (pkgs.length) &#123;
+        case 1:
+            pkg = pkgs[0];
+            break;
+        case 2:
+            if (pkgs[0].getName().equals(&quot;android&quot;)) &#123;
+                LOGGER.warning(&quot;Skipping \&quot;android\&quot; package group&quot;);
+                pkg = pkgs[1];
+                break;
+            &#125; else if (pkgs[0].getName().equals(&quot;com.htc&quot;)) &#123;
+                LOGGER.warning(&quot;Skipping \&quot;htc\&quot; package group&quot;);
+                pkg = pkgs[1];
+                break;
             &#125;
 
-        <span class="hljs-keyword">default</span>:
+        default:
             pkg = selectPkgWithMostResSpecs(pkgs);
-            <span class="hljs-keyword">break</span>;
+            break;
     &#125;
 
-    <span class="hljs-keyword">if</span> (pkg == <span class="hljs-keyword">null</span>) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AndrolibException(<span class="hljs-string">"arsc files with zero packages or no arsc file found."</span>);
+    if (pkg == null) &#123;
+        throw new AndrolibException(&quot;arsc files with zero packages or no arsc file found.&quot;);
     &#125;
 
-    resTable.addPackage(pkg, <span class="hljs-keyword">true</span>);
-    <span class="hljs-keyword">return</span> pkg;
+    resTable.addPackage(pkg, true);
+    return pkg;
 &#125;
 </code></pre>
 <p>这个时候首先是执行getResPackagesFromApk方法，获取ResPackage信息，</p>
-<pre class="highlight"><code class="java"><span class="hljs-keyword">private</span> ResPackage[] getResPackagesFromApk(ExtFile apkFile,ResTable resTable, <span class="hljs-keyword">boolean</span> keepBroken)
-            <span class="hljs-keyword">throws</span> AndrolibException &#123;
-    <span class="hljs-keyword">try</span> &#123;
+<pre><code class="lang-java">private ResPackage[] getResPackagesFromApk(ExtFile apkFile,ResTable resTable, boolean keepBroken)
+            throws AndrolibException &#123;
+    try &#123;
         Directory dir = apkFile.getDirectory();
-        BufferedInputStream bfi = <span class="hljs-keyword">new</span> BufferedInputStream(dir.getFileInput(<span class="hljs-string">"resources.arsc"</span>));
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//主要是这个方法来对resources.arsc文件进行解析</span>
-            <span class="hljs-keyword">return</span> ARSCDecoder.decode(bfi, <span class="hljs-keyword">false</span>, keepBroken, resTable).getPackages();
-        &#125; <span class="hljs-keyword">finally</span> &#123;
-            <span class="hljs-keyword">try</span> &#123;
+        BufferedInputStream bfi = new BufferedInputStream(dir.getFileInput(&quot;resources.arsc&quot;));
+        try &#123;
+            //主要是这个方法来对resources.arsc文件进行解析
+            return ARSCDecoder.decode(bfi, false, keepBroken, resTable).getPackages();
+        &#125; finally &#123;
+            try &#123;
                 bfi.close();
-            &#125; <span class="hljs-keyword">catch</span> (IOException ignored) &#123;&#125;
+            &#125; catch (IOException ignored) &#123;&#125;
         &#125;
-    &#125; <span class="hljs-keyword">catch</span> (DirectoryException ex) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AndrolibException(<span class="hljs-string">"Could not load resources.arsc from file: "</span> + apkFile, ex);
+    &#125; catch (DirectoryException ex) &#123;
+        throw new AndrolibException(&quot;Could not load resources.arsc from file: &quot; + apkFile, ex);
     &#125;
 &#125;
 </code></pre>
 <p>我们跟进ARSCDecoder的decode方法</p>
-<pre class="highlight"><code class="java">
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ARSCData <span class="hljs-title">decode</span><span class="hljs-params">(InputStream arscStream, <span class="hljs-keyword">boolean</span> findFlagsOffsets, <span class="hljs-keyword">boolean</span> keepBroken,
-                                  ResTable resTable)</span>
-            <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-    <span class="hljs-keyword">try</span> &#123;
-        <span class="hljs-comment">//首先根据输入流，resTable等参数new一个ARSCDecoder</span>
-        ARSCDecoder decoder = <span class="hljs-keyword">new</span> ARSCDecoder(arscStream, resTable, findFlagsOffsets, keepBroken);
-        <span class="hljs-comment">//</span>
+<pre><code class="lang-java">
+public static ARSCData decode(InputStream arscStream, boolean findFlagsOffsets, boolean keepBroken,
+                                  ResTable resTable)
+            throws AndrolibException &#123;
+    try &#123;
+        //首先根据输入流，resTable等参数new一个ARSCDecoder
+        ARSCDecoder decoder = new ARSCDecoder(arscStream, resTable, findFlagsOffsets, keepBroken);
+        //
         ResPackage[] pkgs = decoder.readTableHeader();
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ARSCData(pkgs, decoder.mFlagsOffsets == <span class="hljs-keyword">null</span>
-                ? <span class="hljs-keyword">null</span>
-                : decoder.mFlagsOffsets.toArray(<span class="hljs-keyword">new</span> FlagsOffset[<span class="hljs-number">0</span>]), resTable);
-    &#125; <span class="hljs-keyword">catch</span> (IOException ex) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AndrolibException(<span class="hljs-string">"Could not decode arsc file"</span>, ex);
+        return new ARSCData(pkgs, decoder.mFlagsOffsets == null
+                ? null
+                : decoder.mFlagsOffsets.toArray(new FlagsOffset[0]), resTable);
+    &#125; catch (IOException ex) &#123;
+        throw new AndrolibException(&quot;Could not decode arsc file&quot;, ex);
     &#125;
 &#125;
-
 </code></pre>
-<pre class="highlight"><code class="java"><span class="hljs-keyword">private</span> ResPackage[] readTableHeader() <span class="hljs-keyword">throws</span> IOException, AndrolibException &#123;
-    
+<pre><code class="lang-java">private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;
+
     nextChunkCheckType(Header.TYPE_TABLE);
-    
-    <span class="hljs-keyword">int</span> packageCount = mIn.readInt();
+
+    int packageCount = mIn.readInt();
 
     mTableStrings = StringBlock.read(mIn);
-    ResPackage[] packages = <span class="hljs-keyword">new</span> ResPackage[packageCount];
+    ResPackage[] packages = new ResPackage[packageCount];
 
     nextChunk();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; packageCount; i++) &#123;
-        mTypeIdOffset = <span class="hljs-number">0</span>;
+    for (int i = 0; i &lt; packageCount; i++) &#123;
+        mTypeIdOffset = 0;
         packages[i] = readTablePackage();
     &#125;
-    <span class="hljs-keyword">return</span> packages;
+    return packages;
 &#125;
 </code></pre>
-<p>那么这里的时候，关键的点总算来了，首先是读取了ChunkCheckType，Header.TYPE_TABLE的值是0x0002, 这里的type正好对应上了我们在ResourceTypes.h里面对应的<code>RES_TABLE_TYPE = 0x0002</code>,其实就是图中最外层的那个ResourceTable</p>
+<p>那么这里的时候，关键的点总算来了，首先是读取了ChunkCheckType，Header.TYPE_TABLE的值是0x0002, 这里的type正好对应上了我们在ResourceTypes.h里面对应的<code>RES_TABLE_TYPE              = 0x0002</code>,其实就是图中最外层的那个ResourceTable</p>
 <p>我们跟进nextChunkCheckType方法，</p>
-<pre class="highlight"><code class="java"><span class="hljs-comment">//ARSCDecoder类内</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nextChunkCheckType</span><span class="hljs-params">(<span class="hljs-keyword">int</span> expectedType)</span> <span class="hljs-keyword">throws</span> IOException, AndrolibException </span>&#123;
+<pre><code class="lang-java">//ARSCDecoder类内
+private void nextChunkCheckType(int expectedType) throws IOException, AndrolibException &#123;
     nextChunk();
-    <span class="hljs-comment">//这时候这里的参数expectedType的值是2，也就是RES_TABLE_TYPE的，</span>
+    //这时候这里的参数expectedType的值是2，也就是RES_TABLE_TYPE的，
     checkChunkType(expectedType);
 &#125;
 
-<span class="hljs-comment">//ARSCDecoder类内</span>
-<span class="hljs-function"><span class="hljs-keyword">private</span> Header <span class="hljs-title">nextChunk</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-    <span class="hljs-keyword">return</span> mHeader = Header.read(mIn, mCountIn);
+//ARSCDecoder类内
+private Header nextChunk() throws IOException &#123;
+    return mHeader = Header.read(mIn, mCountIn);
 &#125;
 
-<span class="hljs-comment">//Header类内</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Header <span class="hljs-title">read</span><span class="hljs-params">(ExtDataInput in, CountingInputStream countIn)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-        <span class="hljs-keyword">short</span> type;
-        <span class="hljs-keyword">int</span> start = countIn.getCount();
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//首先读出type,</span>
+//Header类内
+public static Header read(ExtDataInput in, CountingInputStream countIn) throws IOException &#123;
+        short type;
+        int start = countIn.getCount();
+        try &#123;
+            //首先读出type,
             type = in.readShort();
-        &#125; <span class="hljs-keyword">catch</span> (EOFException ex) &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Header(TYPE_NONE, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, countIn.getCount());
+        &#125; catch (EOFException ex) &#123;
+            return new Header(TYPE_NONE, 0, 0, countIn.getCount());
         &#125;
-        <span class="hljs-comment">//这里分别解释下4个参数，</span>
-        <span class="hljs-comment">//第一个参数type 对应的类型 2个字节</span>
-        <span class="hljs-comment">//第二个参数     头大小 2个字节</span>
-        <span class="hljs-comment">//第三个参数     文件大小 4个字节</span>
-        <span class="hljs-comment">//第四个参数     暂时我们start位置为0</span>
-        <span class="hljs-comment">//然后返回new出来的Header</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Header(type, in.readShort(), in.readInt(), start);
+        //这里分别解释下4个参数，
+        //第一个参数type 对应的类型 2个字节
+        //第二个参数     头大小 2个字节
+        //第三个参数     文件大小 4个字节
+        //第四个参数     暂时我们start位置为0
+        //然后返回new出来的Header
+        return new Header(type, in.readShort(), in.readInt(), start);
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkChunkType</span><span class="hljs-params">(<span class="hljs-keyword">int</span> expectedType)</span> <span class="hljs-keyword">throws</span> AndrolibException </span>&#123;
-        <span class="hljs-comment">//这里主要校验的就是我们刚刚header的type和我们传入的是否相同，不同就抛异常了</span>
-        <span class="hljs-keyword">if</span> (mHeader.type != expectedType) &#123;
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AndrolibException(String.format(<span class="hljs-string">"Invalid chunk type: expected=0x%08x, got=0x%08x"</span>,
+    private void checkChunkType(int expectedType) throws AndrolibException &#123;
+        //这里主要校验的就是我们刚刚header的type和我们传入的是否相同，不同就抛异常了
+        if (mHeader.type != expectedType) &#123;
+            throw new AndrolibException(String.format(&quot;Invalid chunk type: expected=0x%08x, got=0x%08x&quot;,
                     expectedType, mHeader.type));
         &#125;
     &#125;
-
 </code></pre>
 <p>读取一个Chunk，如上方所示调用关系，关键的地方已经加上了注释。</p>
 <p><code>nextChunkCheckType(Header.TYPE_TABLE)</code>主要是读取了下面红圈的部分。</p>
-<img src="http://cpphello.com/images/2018-05-02_012715.png" width="758" height="150"> 
+<p><img src="http://cpphello.com/images/2018-05-02_012715.png" width="758" height="150"> </p>
 <p>我们继续分析readTableHeader方法。</p>
-<pre class="highlight"><code class="java"><span class="hljs-keyword">private</span> ResPackage[] readTableHeader() <span class="hljs-keyword">throws</span> IOException, AndrolibException &#123;
-    <span class="hljs-comment">//主要是读取红圈部分的值</span>
+<pre><code class="lang-java">private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;
+    //主要是读取红圈部分的值
     nextChunkCheckType(Header.TYPE_TABLE);
-    <span class="hljs-comment">//读取上图红圈后面的packageCount变量，4字节</span>
-    <span class="hljs-keyword">int</span> packageCount = mIn.readInt();
-    <span class="hljs-comment">//接下来就是主要分析这里了，读取Global String Pool </span>
+    //读取上图红圈后面的packageCount变量，4字节
+    int packageCount = mIn.readInt();
+    //接下来就是主要分析这里了，读取Global String Pool 
     mTableStrings = StringBlock.read(mIn);
-    ResPackage[] packages = <span class="hljs-keyword">new</span> ResPackage[packageCount];
+    ResPackage[] packages = new ResPackage[packageCount];
 
     nextChunk();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; packageCount; i++) &#123;
-        mTypeIdOffset = <span class="hljs-number">0</span>;
+    for (int i = 0; i &lt; packageCount; i++) &#123;
+        mTypeIdOffset = 0;
         packages[i] = readTablePackage();
     &#125;
-    <span class="hljs-keyword">return</span> packages;
+    return packages;
 &#125;
-
 </code></pre>
 <p>接下来主要分析StringBlock的read方法</p>
-<pre class="highlight"><code class="java">
-<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> StringBlock <span class="hljs-title">read</span><span class="hljs-params">(ExtDataInput reader)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
-    <span class="hljs-comment">//这里主要是跳过了RES_STRING_POOL_TYPE，和头大小两个，并且还校验了一下，</span>
-    <span class="hljs-comment">//校验的方法就是和CHUNK_STRINGPOOL_TYPE比对一下，CHUNK_STRINGPOOL_TYPE的值是0x001C0001</span>
-    <span class="hljs-comment">//这是因为RES_STRING_POOL_TYPE的值是0x0001，头大小是0x001C,所以这个CHUNK_STRINGPOOL_TYPE就是0x001C0001了</span>
+<pre><code class="lang-java">
+public static StringBlock read(ExtDataInput reader) throws IOException &#123;
+    //这里主要是跳过了RES_STRING_POOL_TYPE，和头大小两个，并且还校验了一下，
+    //校验的方法就是和CHUNK_STRINGPOOL_TYPE比对一下，CHUNK_STRINGPOOL_TYPE的值是0x001C0001
+    //这是因为RES_STRING_POOL_TYPE的值是0x0001，头大小是0x001C,所以这个CHUNK_STRINGPOOL_TYPE就是0x001C0001了
     reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE);
-    <span class="hljs-comment">//读取块大小，Global String Pool内</span>
-    <span class="hljs-keyword">int</span> chunkSize = reader.readInt();
+    //读取块大小，Global String Pool内
+    int chunkSize = reader.readInt();
 
-    <span class="hljs-comment">// ResStringPool_header</span>
-    <span class="hljs-comment">//字符串数</span>
-    <span class="hljs-keyword">int</span> stringCount = reader.readInt();
-    <span class="hljs-comment">//style数</span>
-    <span class="hljs-keyword">int</span> styleCount = reader.readInt();
-    <span class="hljs-comment">//flags标记，1是SORTED_FLAG，256是UTF8_FLAG</span>
-    <span class="hljs-keyword">int</span> flags = reader.readInt();
-    <span class="hljs-comment">//字符串起始位置</span>
-    <span class="hljs-keyword">int</span> stringsOffset = reader.readInt();
-    <span class="hljs-comment">//style起始位置</span>
-    <span class="hljs-keyword">int</span> stylesOffset = reader.readInt();
-    <span class="hljs-comment">//new一个StringBlock</span>
-    StringBlock block = <span class="hljs-keyword">new</span> StringBlock();
-    <span class="hljs-comment">//根据读取出的flags信息，来设置block</span>
-    block.m_isUTF8 = (flags &amp; UTF8_FLAG) != <span class="hljs-number">0</span>;
-    <span class="hljs-comment">//初始化block变量</span>
+    // ResStringPool_header
+    //字符串数
+    int stringCount = reader.readInt();
+    //style数
+    int styleCount = reader.readInt();
+    //flags标记，1是SORTED_FLAG，256是UTF8_FLAG
+    int flags = reader.readInt();
+    //字符串起始位置
+    int stringsOffset = reader.readInt();
+    //style起始位置
+    int stylesOffset = reader.readInt();
+    //new一个StringBlock
+    StringBlock block = new StringBlock();
+    //根据读取出的flags信息，来设置block
+    block.m_isUTF8 = (flags &amp; UTF8_FLAG) != 0;
+    //初始化block变量
     block.m_stringOffsets = reader.readIntArray(stringCount);
-    block.m_stringOwns = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[stringCount];
-    Arrays.fill(block.m_stringOwns, -<span class="hljs-number">1</span>);
-    <span class="hljs-comment">//初始化block内部style</span>
-    <span class="hljs-keyword">if</span> (styleCount != <span class="hljs-number">0</span>) &#123;
+    block.m_stringOwns = new int[stringCount];
+    Arrays.fill(block.m_stringOwns, -1);
+    //初始化block内部style
+    if (styleCount != 0) &#123;
         block.m_styleOffsets = reader.readIntArray(styleCount);
     &#125;
 
-    <span class="hljs-keyword">int</span> size = ((stylesOffset == <span class="hljs-number">0</span>) ? chunkSize : stylesOffset) - stringsOffset;
-    block.m_strings = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[size];
+    int size = ((stylesOffset == 0) ? chunkSize : stylesOffset) - stringsOffset;
+    block.m_strings = new byte[size];
     reader.readFully(block.m_strings);
 
-    <span class="hljs-keyword">if</span> (stylesOffset != <span class="hljs-number">0</span>) &#123;
+    if (stylesOffset != 0) &#123;
         size = (chunkSize - stylesOffset);
-        block.m_styles = reader.readIntArray(size / <span class="hljs-number">4</span>);
+        block.m_styles = reader.readIntArray(size / 4);
 
-        <span class="hljs-comment">// read remaining bytes</span>
-        <span class="hljs-keyword">int</span> remaining = size % <span class="hljs-number">4</span>;
-        <span class="hljs-keyword">if</span> (remaining &gt;= <span class="hljs-number">1</span>) &#123;
-            <span class="hljs-keyword">while</span> (remaining-- &gt; <span class="hljs-number">0</span>) &#123;
+        // read remaining bytes
+        int remaining = size % 4;
+        if (remaining &gt;= 1) &#123;
+            while (remaining-- &gt; 0) &#123;
                 reader.readByte();
             &#125;
         &#125;
     &#125;
-    <span class="hljs-comment">//返回最终的结果</span>
-    <span class="hljs-keyword">return</span> block;
+    //返回最终的结果
+    return block;
 &#125;
-
 </code></pre>
 <p><code>reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE)</code>跳过的部分如下：</p>
-<img src="http://cpphello.com/images/2018-05-02_014428.png" width="542" height="156"> 
-<pre class="highlight"><code class="java"><span class="hljs-keyword">private</span> ResPackage[] readTableHeader() <span class="hljs-keyword">throws</span> IOException, AndrolibException &#123;
-    <span class="hljs-comment">//主要是读取红圈部分的值</span>
+<p><img src="http://cpphello.com/images/2018-05-02_014428.png" width="542" height="156"> </p>
+<pre><code class="lang-java">private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;
+    //主要是读取红圈部分的值
     nextChunkCheckType(Header.TYPE_TABLE);
-    <span class="hljs-comment">//读取上图红圈后面的packageCount变量，4字节</span>
-    <span class="hljs-keyword">int</span> packageCount = mIn.readInt();
-    <span class="hljs-comment">//接下来就是主要分析这里了，读取Global String Pool </span>
+    //读取上图红圈后面的packageCount变量，4字节
+    int packageCount = mIn.readInt();
+    //接下来就是主要分析这里了，读取Global String Pool 
     mTableStrings = StringBlock.read(mIn);
-    <span class="hljs-comment">//此时此刻执行到了这里，要开始分析ResPackage了</span>
-    ResPackage[] packages = <span class="hljs-keyword">new</span> ResPackage[packageCount];
+    //此时此刻执行到了这里，要开始分析ResPackage了
+    ResPackage[] packages = new ResPackage[packageCount];
 
     nextChunk();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; packageCount; i++) &#123;
-        mTypeIdOffset = <span class="hljs-number">0</span>;
-        <span class="hljs-comment">//使用readTablePackage方法来分析</span>
+    for (int i = 0; i &lt; packageCount; i++) &#123;
+        mTypeIdOffset = 0;
+        //使用readTablePackage方法来分析
         packages[i] = readTablePackage();
     &#125;
-    <span class="hljs-keyword">return</span> packages;
+    return packages;
 &#125;
-
 </code></pre>
-<h2 id="重复性任务"><a class="markdownIt-Anchor" href="#重复性任务"></a> 重复性任务</h2>
-<p>emmmmm。。。。<br>
-博主分析到了这里，如果你能读到这里我自己也感受到很高兴啊，希望能给你带来了帮助。其实后序的分析readTablePackage方法和之前的一样啦，<strong>博主详细如果你读懂了前面的分析，那么这个肯定也不在话下</strong>。</p>
+<h2 id="重复性任务"><a href="#重复性任务" class="headerlink" title="重复性任务"></a>重复性任务</h2><p>emmmmm。。。。<br>博主分析到了这里，如果你能读到这里我自己也感受到很高兴啊，希望能给你带来了帮助。其实后序的分析readTablePackage方法和之前的一样啦，<strong>博主详细如果你读懂了前面的分析，那么这个肯定也不在话下</strong>。</p>
 <p>所以呢，我就不一一的带大家理解，主要的还是看懂那张图，然后看懂ApkTool是如何来分析就可以啦。</p>
 <p>这样做的好处就是，如果有apk在这个resource.arsc文件内做文章，我们可以debug反查，看看到底是怎么回事，可以有一些自己对付的思路。</p>
-<h2 id="readtablepackage之后"><a class="markdownIt-Anchor" href="#readtablepackage之后"></a> readTablePackage之后</h2>
-<p>读取完了之后，程序就会一步一步的返回回去，这个时候我们的mResTable变量就初始化好了，就可以继续进行<code>setTargetSdkVersion</code>方法的执行了，</p>
-<p>我们这篇博客主要就是进行ApkDeocder成员变量mResTable的初始化分析，<br>
-我画了个图，希望能帮助大家虑说清楚上面的一系列调用</p>
-<pre class="highlight"><code class="sequence">
+<h2 id="readTablePackage之后"><a href="#readTablePackage之后" class="headerlink" title="readTablePackage之后"></a>readTablePackage之后</h2><p>读取完了之后，程序就会一步一步的返回回去，这个时候我们的mResTable变量就初始化好了，就可以继续进行<code>setTargetSdkVersion</code>方法的执行了，</p>
+<p>我们这篇博客主要就是进行ApkDeocder成员变量mResTable的初始化分析，<br>我画了个图，希望能帮助大家虑说清楚上面的一系列调用</p>
+<pre><code class="lang-sequence">
 participant Main
 participant ApkDecoder
 participant Androidlib
@@ -1021,14 +1005,10 @@ AndrolibResources--&gt;Androidlib:
 Androidlib--&gt;ApkDecoder:
 ApkDecoder--&gt;Main:
 </code></pre>
-<p>防止在某些平台上，不支持Markdown的UML图，下面特意放一张图片<br>
-<img src="http://cpphello.com/images/2018-05-02_022414.png" width="838" height="675"></p>
-<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
-<p>分析源码并不难，希望大家都能耐下心来一点一点看，一点一点调试分析。<br>
-文章一层一层的调用很深，所以可能会给读者困惑，有困惑的，可以联系我，我也喜欢和读者一起探讨啦，有写的不对的地方多多指教。</p>
+<p>防止在某些平台上，不支持Markdown的UML图，下面特意放一张图片<br><img src="http://cpphello.com/images/2018-05-02_022414.png" width="838" height="675"> </p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>分析源码并不难，希望大家都能耐下心来一点一点看，一点一点调试分析。<br>文章一层一层的调用很深，所以可能会给读者困惑，有困惑的，可以联系我，我也喜欢和读者一起探讨啦，有写的不对的地方多多指教。</p>
 <p>正因为调用比较深，所以最后画出了UML图，希望能让大家看得更简单明了</p>
-<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
-<p>个人博客：<a href="http://cpphello.com/">MartinHan的小站</a></p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>个人博客：<a href="http://cpphello.com/">MartinHan的小站</a></p>
 <p>博客网站：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
 <p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
 
@@ -1045,7 +1025,7 @@ ApkDecoder--&gt;Main:
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>ApkTool项目解析resources.arsc详解</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">3.1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3.2k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
     <p><span class="copy-title">发布时间:</span>2018-05-01, 23:55:00</p>
     <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
@@ -1058,8 +1038,6 @@ ApkDecoder--&gt;Main:
 
 
 
-
-    
 
 
 
