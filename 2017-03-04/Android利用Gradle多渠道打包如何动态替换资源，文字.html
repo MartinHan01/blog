@@ -9,7 +9,7 @@
 <meta name="description" content="mHicmpfymM">
 <meta property="og:type" content="website">
 <meta property="og:title" content="You的小站">
-<meta property="og:url" content="http://cpphello.com/baidu_verify_mHicmpfymM.html">
+<meta property="og:url" content="http://martinhan.com/baidu_verify_mHicmpfymM.html">
 <meta property="og:site_name" content="You的小站">
 <meta property="og:description" content="mHicmpfymM">
 <meta property="og:locale">
@@ -117,7 +117,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -125,7 +125,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -175,7 +175,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="28">
-<input type="hidden" id="yelog_site_word_count" value="33.7k">
+<input type="hidden" id="yelog_site_word_count" value="32.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -471,7 +471,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:580</span>
+        <span>字数:552</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -490,7 +490,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2APP-logo"><span class="toc-text">动态替换APP logo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E6%96%87%E5%AD%97"><span class="toc-text">动态替换文字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">动态替换资源文件</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2app-logo"><span class="toc-text"> 动态替换APP logo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E6%96%87%E5%AD%97"><span class="toc-text"> 动态替换文字</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -506,76 +506,85 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="动态替换APP-logo"><a href="#动态替换APP-logo" class="headerlink" title="动态替换APP logo"></a>动态替换APP logo</h2><p>首先我们在app的build.gradle下面加入如下代码，以oem1为示例，</p>
-<pre><code class="lang-gradle">productFlavors &#123;
+        <h2 id="动态替换app-logo"><a class="markdownIt-Anchor" href="#动态替换app-logo"></a> 动态替换APP logo</h2>
+<p>首先我们在app的build.gradle下面加入如下代码，以oem1为示例，</p>
+<pre class="highlight"><code class="gradle">productFlavors &#123;
         oem1 &#123;
             manifestPlaceholders = [
-                    oemIcon : &quot;@drawable/oem1&quot;,
+                    oemIcon : <span class="hljs-string">"@drawable/oem1"</span>,
             ]
         &#125;
 &#125;
 </code></pre>
 <p>以上代码 <code>manifestPlaceholders</code> 主要是用于在AndroidManifest.xml内可以动态的替换oem图标，我们看<code>AndroidManifest.xml</code>里面是如何用到这oemIcon的</p>
-<pre><code class="lang-xml">&lt;application
-        android:allowBackup=&quot;true&quot;
-        android:icon=&quot;$&#123;oemIcon&#125;&quot;
-        android:label=&quot;@string/app_name&quot;
-        android:supportsRtl=&quot;true&quot;
-        android:theme=&quot;@style/AppTheme&quot;&gt;
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span>
+        <span class="hljs-attr">android:allowBackup</span>=<span class="hljs-string">"true"</span>
+        <span class="hljs-attr">android:icon</span>=<span class="hljs-string">"$&#123;oemIcon&#125;"</span>
+        <span class="hljs-attr">android:label</span>=<span class="hljs-string">"@string/app_name"</span>
+        <span class="hljs-attr">android:supportsRtl</span>=<span class="hljs-string">"true"</span>
+        <span class="hljs-attr">android:theme</span>=<span class="hljs-string">"@style/AppTheme"</span>&gt;</span>
 </code></pre>
-<p>以上代码主要是关注<code>android:icon=&quot;$&#123;oemIcon&#125;&quot;</code> ，这个其实在gradle打包后悔自动替换成我们在build.gradle里面设置的<code>‘@drawable/oem1’</code>,这样就可以根据不同渠道包替换成不同的icon<br><span id="more"></span></p>
-<h2 id="动态替换文字"><a href="#动态替换文字" class="headerlink" title="动态替换文字"></a>动态替换文字</h2><p>首先在build.gradle里面配置我们需要的文字</p>
-<pre><code class="lang-gradle">productFlavors &#123;
+<p>以上代码主要是关注<code>android:icon=&quot;$&#123;oemIcon&#125;&quot;</code> ，这个其实在gradle打包后悔自动替换成我们在build.gradle里面设置的<code>‘@drawable/oem1’</code>,这样就可以根据不同渠道包替换成不同的icon</p>
+<span id="more"></span>
+<h2 id="动态替换文字"><a class="markdownIt-Anchor" href="#动态替换文字"></a> 动态替换文字</h2>
+<p>首先在build.gradle里面配置我们需要的文字</p>
+<pre class="highlight"><code class="gradle">productFlavors &#123;
         oem1 &#123;
-            resValue(&quot;string&quot;,&quot;dynamic_text&quot;,&quot;oem1的动态文字&quot;)
+            resValue(<span class="hljs-string">"string"</span>,<span class="hljs-string">"dynamic_text"</span>,<span class="hljs-string">"oem1的动态文字"</span>)
             manifestPlaceholders = [
-                    oemIcon : &quot;@drawable/oem1&quot;,
+                    oemIcon : <span class="hljs-string">"@drawable/oem1"</span>,
             ]
         &#125;
 &#125;
 </code></pre>
 <p><strong>注意：我们的string.xml里面不允许有dynamic_text字段，有的话编译会报错.</strong></p>
-<p>主要是resValue一行我们详细解释一下，<br><code>string</code>表示的是我们要生成一个string字段,<br><code>dynamic_text</code>指的是字段名称便于我们程序里面使用,<br><code>&quot;oem1的动态文字&quot;</code>指的是我们的字符串的值</p>
+<p>主要是resValue一行我们详细解释一下，<br>
+<code>string</code>表示的是我们要生成一个string字段,<br>
+<code>dynamic_text</code>指的是字段名称便于我们程序里面使用,<br>
+<code>&quot;oem1的动态文字&quot;</code>指的是我们的字符串的值</p>
 <p>其实这一句想相当于我们在string.xml里面定义如下一行</p>
-<pre><code class="lang-xml">&lt;string name=&quot;dynamic_text&quot;&gt;oem1的动态文字&lt;/string&gt;
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"dynamic_text"</span>&gt;</span>oem1的动态文字<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
 </code></pre>
-<h2 id="动态替换资源文件"><a href="#动态替换资源文件" class="headerlink" title="动态替换资源文件"></a>动态替换资源文件</h2><p>如果在程序中我们有一个地方需要根据不同的渠道对应不同的<code>drawable</code>，我们就可以用下列方法，下列方法是假设程序中有一处需要设置图片，思路是我们首先在<code>gradle</code>里面设置好值，在<code>AndroidManifest.xml</code>里面使用META_DATA，然后再从程序里面调用</p>
+<p>##动态替换资源文件<br>
+如果在程序中我们有一个地方需要根据不同的渠道对应不同的<code>drawable</code>，我们就可以用下列方法，下列方法是假设程序中有一处需要设置图片，思路是我们首先在<code>gradle</code>里面设置好值，在<code>AndroidManifest.xml</code>里面使用META_DATA，然后再从程序里面调用</p>
 <p>build.gradle如下</p>
-<pre><code class="lang-gradle"> productFlavors &#123;
+<pre class="highlight"><code class="gradle"> productFlavors &#123;
         oem1 &#123;
             manifestPlaceholders = [
-                    oemIcon : &quot;@drawable/oem1&quot;,
+                    oemIcon : <span class="hljs-string">"@drawable/oem1"</span>,
             ]
         &#125;
  &#125;
 </code></pre>
 <p>AndroidManifest.xml如下</p>
-<pre><code class="lang-xml">&lt;meta-data
-            android:name=&quot;OEM_LOGO&quot;
-            android:resource=&quot;$&#123;oemIcon&#125;&quot;
-            /&gt;
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">meta-data</span>
+            <span class="hljs-attr">android:name</span>=<span class="hljs-string">"OEM_LOGO"</span>
+            <span class="hljs-attr">android:resource</span>=<span class="hljs-string">"$&#123;oemIcon&#125;"</span>
+            /&gt;</span>
 </code></pre>
-<p>java程序如下<br>MainActivity.java</p>
-<pre><code class="lang-java">
-img.setImageResource(Util.getMetaDataInt(this,&quot;OEM_LOGO&quot;));
+<p>java程序如下<br>
+MainActivity.java</p>
+<pre class="highlight"><code class="java">
+img.setImageResource(Util.getMetaDataInt(<span class="hljs-keyword">this</span>,<span class="hljs-string">"OEM_LOGO"</span>));
 </code></pre>
 <p>Util.java</p>
-<pre><code class="lang-java">public class Util &#123;
+<pre class="highlight"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Util</span> </span>&#123;
 
-    public static int getMetaDataInt(Context context,String name) &#123;
-        try &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMetaDataInt</span><span class="hljs-params">(Context context,String name)</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
             ApplicationInfo appInfo = context.getApplicationContext().getPackageManager()
                     .getApplicationInfo(context.getApplicationContext().getPackageName(),
                             PackageManager.GET_META_DATA);
-            int logo = appInfo.metaData.getInt(name);
-            return logo;
-        &#125; catch (Exception e) &#123;
+            <span class="hljs-keyword">int</span> logo = appInfo.metaData.getInt(name);
+            <span class="hljs-keyword">return</span> logo;
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
             e.printStackTrace();
         &#125;
-        return -1;
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
     &#125;
 
 &#125;
+
 </code></pre>
 <p>主要思路就是利用META_DATA来货渠道资源的int值并且返回到程序中，达到动态生成的目的</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hanhan12312/MoreOEMDemo">源码地址，点击进入</a></p>
@@ -593,11 +602,11 @@ img.setImageResource(Util.getMetaDataInt(this,&quot;OEM_LOGO&quot;));
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>Android利用Gradle多渠道打包如何动态替换资源，文字</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">580</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">552</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
     <p><span class="copy-title">发布时间:</span>2017-03-04, 12:37:00</p>
     <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html" title="Android利用Gradle多渠道打包如何动态替换资源，文字">http://cpphello.com/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html</a>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html" title="Android利用Gradle多渠道打包如何动态替换资源，文字">http://martinhan.com/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
