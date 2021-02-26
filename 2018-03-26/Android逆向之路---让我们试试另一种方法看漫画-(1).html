@@ -6,17 +6,20 @@
   <meta name="keywords" content="">
   <meta name="description" content="Android逆向之路---让我们试试另一种方法看漫画-(1) | You的小站">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="mHicmpfymM">
+<meta name="description" content="关于我 我是 MartinHan，90 后程序员 现就职于某 IT 公司，Android 开发工程师， 个人偏爱逆向， 偶尔用其他语言写一些小工具。 平时喜欢动漫， today: 什么是开心，如何过的开心  联系我 github: https:&#x2F;&#x2F;github.com&#x2F;martinhan01 邮箱: hanhan145#163.com 我的公众号： 程序技术指北(谨慎关注！)  个人微信：加我记">
 <meta property="og:type" content="website">
 <meta property="og:title" content="You的小站">
-<meta property="og:url" content="http://martinhan.com/baidu_verify_mHicmpfymM.html">
+<meta property="og:url" content="http://martinhan.com/about/index.html">
 <meta property="og:site_name" content="You的小站">
-<meta property="og:description" content="mHicmpfymM">
+<meta property="og:description" content="关于我 我是 MartinHan，90 后程序员 现就职于某 IT 公司，Android 开发工程师， 个人偏爱逆向， 偶尔用其他语言写一些小工具。 平时喜欢动漫， today: 什么是开心，如何过的开心  联系我 github: https:&#x2F;&#x2F;github.com&#x2F;martinhan01 邮箱: hanhan145#163.com 我的公众号： 程序技术指北(谨慎关注！)  个人微信：加我记">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-02-21T11:45:47.028Z">
-<meta property="article:modified_time" content="2021-02-21T11:45:47.028Z">
+<meta property="og:image" content="http://martinhan.com/images/wx_mp_qrcode_300.png">
+<meta property="og:image" content="http://martinhan.com/about/index/img/qrcode.png">
+<meta property="article:published_time" content="2016-11-03T09:04:50.000Z">
+<meta property="article:modified_time" content="2021-02-21T13:14:06.838Z">
 <meta property="article:author" content="MartinHan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/wx_mp_qrcode_300.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -117,7 +120,7 @@
     
         
             
-            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
+            <li><div data-rel="生活">生活<small>(2)</small></div>
                 
             </li>
             
@@ -125,7 +128,7 @@
     
         
             
-            <li><div data-rel="生活">生活<small>(2)</small></div>
+            <li><div data-rel="Android逆向">Android逆向<small>(13)</small></div>
                 
             </li>
             
@@ -466,7 +469,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2021-02-21 19:45:47'>2018-03-26 03:40</time>
+        创建时间:<time class="date" title='更新时间: 2021-02-26 16:42:39'>2018-03-26 03:40</time>
         
     </div>
     <div class="article-meta">
@@ -531,7 +534,7 @@ ps:避免广告嫌疑，以下统称kk漫画了。</p>
 <p>如你所见，本文使用的是5.2.0版本<br>
 内部版本号versionCode: ‘52000’</p>
 <p>拆包之后，先看看app包名是<code>com.kuaikan.comic</code>，所以我们主要就看这个文件夹下的大体结构<br>
-<img src="http://cpphello.com/images/2018-03-26_035332.png" width="400" height="487"></p>
+<img src="http://martinhan.com/images/2018-03-26_035332.png" width="400" height="487"></p>
 <p>然后我发现了他的LogUtil类，那就进去看看吧。看到了如下代码，看不懂不要着急，我稍做解释</p>
 <pre class="highlight"><code class="smali"><span class="hljs-keyword">.line</span> 16
    <span class="hljs-built_in"> new-instance </span>v0, <span class="hljs-class">Ljava/io/File;</span>
@@ -630,7 +633,7 @@ FileUtil.b = sb.toString();
 <h2 id="一起去看协议吧"><a class="markdownIt-Anchor" href="#一起去看协议吧"></a> 一起去看协议吧</h2>
 <p>按照上面说的方法，debug log开关就算是打开了，然后我们尝试着请求一个漫画，看看他是不是把所有信息都打印出来了。</p>
 <p>我呢，就用一个例子来试试吧。“搜神记”，如图</p>
-<img src="http://cpphello.com/images/2018-03-26_041251.png" width="253" height="403"> 
+<img src="http://martinhan.com/images/2018-03-26_041251.png" width="253" height="403"> 
 <p>点击后，我们看log日志,<br>
 我截取一些看着比较有用的日志，来贴出来</p>
 <p>下面的是他的打点统计日志</p>
@@ -643,9 +646,9 @@ FileUtil.b = sb.toString();
 
 </code></pre>
 <p>此时此刻我的页面是这个样子的，为什么要给大家看这个呢，因为看了页面，才能知道他的数据源获取</p>
-<img src="http://cpphello.com/images/2018-03-26_041808.png" width="253" height="403"> 
+<img src="http://martinhan.com/images/2018-03-26_041808.png" width="253" height="403"> 
 <p>数据源如下，已经在log里发现了<br>
-<img src="http://cpphello.com/images/2018-03-26_041724.png" width="1588" height="678"></p>
+<img src="http://martinhan.com/images/2018-03-26_041724.png" width="1588" height="678"></p>
 <p>我们点击当前页面的开始阅读，然后继续看log。</p>
 <p>log如下,log太多了，我就截取一部分关键的了</p>
 <pre class="highlight"><code class>03-26 04:23:14.672: D/OkHttp(7288): &#123;&quot;code&quot;:200,&quot;data&quot;:&#123;&quot;comment_view_message&quot;:&quot;吐槽神马的尽管来&quot;,&quot;can_view&quot;:true,&quot;cover_image_url&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;created_at&quot;:1509616533,&quot;recommend&quot;:&#123;&quot;recommend_list&quot;:[&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/161212/804va2fbp.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/161212/804va2fbp.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;奇幻&quot;,&quot;古风&quot;,&quot;剧情&quot;],&quot;topic_id&quot;:885,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;美人为将&quot;&#125;,&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170222/jvwhcv89p.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170222/jvwhcv89p.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;古风&quot;,&quot;穿越&quot;],&quot;topic_id&quot;:1035,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;蓬山远&quot;&#125;,&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170922/jlihj7f6n.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170922/jlihj7f6n.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;古风&quot;,&quot;宫斗&quot;],&quot;topic_id&quot;:1518,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;妃·夕妍雪&quot;&#125;],&quot;title&quot;:&quot;猜你喜欢&quot;&#125;,&quot;is_favourite&quot;:false,&quot;title&quot;:&quot;搜神记：上古神话开启&quot;,&quot;widgets&quot;:[],&quot;recommend_count&quot;:0,&quot;updated_at&quot;:1509615372,&quot;selling_kk_currency&quot;:0,&quot;zoomable&quot;:0,&quot;push_flag&quot;:1,&quot;previous_comic_id&quot;:null,&quot;share&quot;:&#123;&quot;award&quot;:false,&quot;activity_id&quot;:null,&quot;show_draw_record&quot;:false,&quot;title&quot;:&quot;&quot;&#125;,&quot;customized_share&quot;:[&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:1,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:4,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:3,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！传送门：https://m.kuaikanmanhua.com/comics/57778 &quot;,&quot;share_platform&quot;:5,&quot;title&quot;:&quot;&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;&quot;,&quot;share_platform&quot;:2,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;],&quot;id&quot;:57778,&quot;comic_type&quot;:0,&quot;is_login&quot;:false,&quot;is_liked&quot;:false,&quot;images&quot;:[&quot;http://p1.kkmh.com/image/c57778/171104/ly6huctjr.webp-c.w1080?sign=abc129032198c237159d029e0715d759&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/gkfv3xx80.webp-c.w1080?sign=3a8807108a14ed9f49a2750dbe168ba3&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/tjc901nwz.webp-c.w1080?sign=a2d7be2867052a445587e21ccb7ee14b&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/5kzfzqffd.webp-c.w1080?sign=6b52f8285c515d8a266af32981bae787&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/cahur12gy.webp-c.w1080?sign=f514ff5bd33c0c6e4f27ec19f55dc919&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/0pigomyew.webp-c.w1080?sign=003061dd0a43130cf177fc3b193b94fb&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/0qfpkk2vk.web
@@ -671,7 +674,7 @@ http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c4361375
 <h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
 <p>如有雷同，概不负责啊，有什么问题欢迎给博主指出。</p>
 <h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
-<p>个人网站：<a target="_blank" rel="noopener" href="http://cpphello.com/">MartinHan的小站</a></p>
+<p>个人网站：<a href="http://martinhan.com/">MartinHan的小站</a></p>
 <p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
 <p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
 
@@ -691,7 +694,7 @@ http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c4361375
     <p><span class="copy-title">文章字数:</span><span class="post-count">4.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="MartinHan">MartinHan</a></p>
     <p><span class="copy-title">发布时间:</span>2018-03-26, 03:40:00</p>
-    <p><span class="copy-title">最后更新:</span>2021-02-21, 19:45:47</p>
+    <p><span class="copy-title">最后更新:</span>2021-02-26, 16:42:39</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html" title="Android逆向之路---让我们试试另一种方法看漫画-(1)">http://martinhan.com/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
