@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="问题 最近发现自己的android机在开网易新闻，知乎等app的时候，明明自己没有杀进程，从后台返回回来的时候还是会再次显示广告，而且又正巧在知乎上看到了有人在提问，于是逆向分析。**就用知乎作为例子吧。**我用的5.4.1版本 先说结果： 不是因为杀进程、杀后台的原因造成的，这是知乎的业务逻辑。 知乎就是为了显示更多次数的广告，故意设计成这个样子的。 你启动知乎的时候如果没显示广告，那么等你切">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---为什么从后台切换回app又显示广告了">
+<meta property="og:url" content="http://martinhan.com/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="问题 最近发现自己的android机在开网易新闻，知乎等app的时候，明明自己没有杀进程，从后台返回回来的时候还是会再次显示广告，而且又正巧在知乎上看到了有人在提问，于是逆向分析。**就用知乎作为例子吧。**我用的5.4.1版本 先说结果： 不是因为杀进程、杀后台的原因造成的，这是知乎的业务逻辑。 知乎就是为了显示更多次数的广告，故意设计成这个样子的。 你启动知乎的时候如果没显示广告，那么等你切">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/zhihuad.png">
+<meta property="og:image" content="http://martinhan.com/images/androidonresume.png">
+<meta property="article:published_time" content="2017-11-03T10:37:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/zhihuad.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html","path":"2017-11-03/Android逆向之路---为什么从后台切换回app又显示广告了.html","title":"Android逆向之路---为什么从后台切换回app又显示广告了"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---为什么从后台切换回app又显示广告了 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E9%80%86%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text"> 开始逆向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%A2%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF%E5%BC%80%E5%A7%8B%E5%AF%BB%E6%89%BEactivity"><span class="nav-number">3.</span> <span class="nav-text"> 换一种思路开始寻找Activity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E5%AF%BB%E6%89%BElaunchadhelper%E9%87%8C%E9%9D%A2%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text"> 继续寻找LaunchAdHelper里面的控制变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E6%89%BE%E5%9B%9E%E5%88%B0%E4%BA%86mainactivity"><span class="nav-number">5.</span> <span class="nav-text"> 再次找回到了MainActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">6.</span> <span class="nav-text"> 结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E7%BB%93%E5%B0%BE"><span class="nav-number">7.</span> <span class="nav-text"> 写在结尾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">8.</span> <span class="nav-text"> 关于我</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---为什么从后台切换回app又显示广告了 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---为什么从后台切换回app又显示广告了
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-03 18:37:00" itemprop="dateCreated datePublished" datetime="2017-11-03T18:37:00+08:00">2017-11-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+<p>最近发现自己的android机在开网易新闻，知乎等app的时候，明明自己没有杀进程，从后台返回回来的时候还是会再次显示广告，而且又正巧在知乎上看到了有人在提问，于是逆向分析。**就用知乎作为例子吧。**我用的5.4.1版本</p>
+<p><strong>先说结果：</strong></p>
+<p>不是因为杀进程、杀后台的原因造成的，这是知乎的业务逻辑。</p>
+<p>知乎就是为了显示更多次数的广告，故意设计成这个样子的。</p>
+<p>你启动知乎的时候如果没显示广告，那么等你切到后台再回来就显示一次。</p>
+<p>你启动知乎的时候如果显示广告了，那么你切到后台了不杀死知乎，那么他就不显示。</p>
+<h2 id="开始逆向"><a class="markdownIt-Anchor" href="#开始逆向"></a> 开始逆向</h2>
+<span id="more"></span>
+<p>讨厌的广告界面如下</p>
+<img src="http://martinhan.com/images/zhihuad.png" width="200" height="350"> 
+<p>准备工作，利用apktool拆包，然后开始逆向分析。<br />
+首先通过搜索字符串方法，搜索“发现更大的直接”然后找到了下面的字符串</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;title_find_bigger_world&quot;</span>&gt;</span>发现更大的世界<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+</code></pre>
+<p>然后根据这个name的值发现了这个广告界面布局文件是&quot;fragment_launch_ad.xml&quot;<br />
+继续找，<br />
+根据id然后对应&quot;public.xml&quot;等方法，<br />
+可以最终找到其实这个页面就是&quot;LaunchAdFragment.java&quot;<br />
+首先我们找到讨厌的广告页面了</p>
+<h2 id="换一种思路开始寻找activity"><a class="markdownIt-Anchor" href="#换一种思路开始寻找activity"></a> 换一种思路开始寻找Activity</h2>
+<p>我从后台切回来的时候肯定是当前Activity在作祟，他执行了一些程序才唤起的&quot;LaunchAdFragment&quot;</p>
+<p>按照这个思路我就像看看知乎嘴上层的activity叫什么名字，连上adb执行如下命令</p>
+<pre class="highlight"><code class="shell">adb shell dumpsys activity
+</code></pre>
+<p>然后发现了，原来这个activity的名字叫&quot;MainActivity&quot;啊<br />
+activity栈如下</p>
+<pre class="highlight"><code class="">Running activities (most recent first):
+      TaskRecord&#123;b4d2961 #339 A=com.zhihu.android U=0 StackId=1 sz=1&#125;
+        Run #4: ActivityRecord&#123;bc733c u0 com.zhihu.android/.app.ui.activity.MainActivity t339&#125;
+      TaskRecord&#123;35c713e #340 A=com.android.gallery3d U=0 StackId=1 sz=1&#125;
+        Run #3: ActivityRecord&#123;cd14b9f u0 com.android.gallery3d/com.huawei.gallery.app.GalleryMain t340&#125;
+      TaskRecord&#123;1fb8a4b #333 A=com.android.settings U=0 StackId=1 sz=1&#125;
+        Run #2: ActivityRecord&#123;d3eec28 u0 com.android.settings/.HWSettings t333&#125;
+      TaskRecord&#123;69570b7 #335 A=com.tencent.mm U=0 StackId=1 sz=1&#125;
+        Run #1: ActivityRecord&#123;a82f024 u0 com.tencent.mm/.ui.LauncherUI t335&#125;
+      TaskRecord&#123;e43bab9 #295 I=com.android.settings/.deviceinfo.UsbConnModeChooserActivity U=0 StackId=1 sz=1&#125;
+        Run #0: ActivityRecord&#123;9d10efe u0 com.android.settings/.deviceinfo.UsbConnModeChooserActivity t295&#125;
+
+</code></pre>
+<p>综上所述，这个MainActivity和LaunchAdFragment肯定有关系，我就在MainActivity里面，然后就在MainActivity里面搜索LaunchAdFragment，</p>
+<p><strong>发现了居然在onResume里面调用了LaunchAdFragment</strong><br />
+根据直觉来说，我觉得应该问题就在这里了。我找到了知乎居然有下面这些逻辑。(看不懂没关系，往下读，我已经手动的转成了Java)</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.line</span> 533
+   <span class="hljs-keyword"> :cond_3</span>
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;getInstance()<span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v5
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;isShowLaunchAd()Z
+
+   <span class="hljs-built_in"> move-result </span>v5
+
+   <span class="hljs-built_in"> if-eqz </span>v5,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 535
+   <span class="hljs-built_in"> const-string </span>v5, <span class="hljs-string">&quot;input_method&quot;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/MainActivity;</span>-&gt;getSystemService(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> check-cast </span>v0, <span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>
+
+<span class="hljs-keyword">    .line</span> 536
+<span class="hljs-keyword">    .local</span> v0, <span class="hljs-string">&quot;imm&quot;</span>:<span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Landroid/view/inputmethod/InputMethodManager;</span>-&gt;isActive()Z
+
+   <span class="hljs-built_in"> move-result </span>v5
+
+   <span class="hljs-built_in"> if-nez </span>v5,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 538
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/fragment/LaunchAdFragment;</span>-&gt;buildIntent()<span class="hljs-class">Lcom/zhihu/android/app/util/ZHIntent;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v5
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v5&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/MainActivity;</span>-&gt;startFragment(<span class="hljs-class">Lcom/zhihu/android/app/util/ZHIntent;</span>)V
+</code></pre>
+<p>对应的Java代码</p>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">onResume</span><span class="hljs-params">()</span> &#123;
+    <span class="hljs-comment">// 判断是否需要加载广告，</span>
+    <span class="hljs-type">boolean</span> <span class="hljs-variable">showAd</span> <span class="hljs-operator">=</span> LaunchAdHelper.getInstance().isShowLaunchAd();
+    <span class="hljs-keyword">if</span>(!showAd) <span class="hljs-keyword">return</span> ;
+    <span class="hljs-comment">//判断系统键盘是否是active的</span>
+    <span class="hljs-type">InputMethodManager</span> <span class="hljs-variable">imm</span> <span class="hljs-operator">=</span> ((InputMethodManager)getSystemService(<span class="hljs-string">&quot;input_method&quot;</span>));
+    <span class="hljs-keyword">if</span>(imm.isActive()) <span class="hljs-keyword">return</span> ;
+    <span class="hljs-comment">//打开广告页面</span>
+    <span class="hljs-type">Intent</span> <span class="hljs-variable">intent</span> <span class="hljs-operator">=</span> LaunchAdFragment.buildIntent();
+    startFragment(intent);
+&#125;
+</code></pre>
+<p>具体的逻辑已经在代码里面加了注释，所以说，到底显示还是不显示广告主要看这个方法了</p>
+<pre class="highlight"><code class="java">LaunchAdHelper.getInstance().isShowLaunchAd()
+</code></pre>
+<h2 id="继续寻找launchadhelper里面的控制变量"><a class="markdownIt-Anchor" href="#继续寻找launchadhelper里面的控制变量"></a> 继续寻找LaunchAdHelper里面的控制变量</h2>
+<p>然后找到这个类，跟进这个方法，具体看源码</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span> isShowLaunchAd()Z
+<span class="hljs-keyword">    .locals</span> 2
+
+<span class="hljs-keyword">    .prologue</span>
+   <span class="hljs-built_in"> const/4 </span>v0, 0x0
+
+<span class="hljs-keyword">    .line</span> 105
+   <span class="hljs-built_in"> iget-boolean </span>v1, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+   <span class="hljs-built_in"> if-eqz </span>v1,<span class="hljs-keyword"> :cond_0</span>
+
+<span class="hljs-keyword">    .line</span> 106
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+<span class="hljs-keyword">    .line</span> 107
+   <span class="hljs-built_in"> const/4 </span>v0, 0x1
+
+<span class="hljs-keyword">    .line</span> 110
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> return </span>v0<span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>转换成java代码如下</p>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isShowLaunchAd</span><span class="hljs-params">()</span> &#123;
+    <span class="hljs-keyword">if</span>(!mIsAllowShowLaunchAd) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    mIsAllowShowLaunchAd = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+</code></pre>
+<p>好了，至少到现在大家应该知道了，显示不显示广告主要靠这个LaunchAdHelper里面的成员变量mIsAllowShowLaunchAd</p>
+<p>谁能够改变控制这个变量，业务逻辑主要就是控制他了。<br />
+而且已经出现了业务逻辑就是，如果显示了一次，那么这个变量就会为false，然后就不显示了。（至少现在是这样）</p>
+<p>然后搜索LaunchAdHelper发现了他在onStart里面初始了这个变量</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span> onStart(<span class="hljs-class">Landroid/content/Context;</span>)V
+
+    //------略------
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0,    <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+<span class="hljs-keyword">    .line</span> 88
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> const/4 </span>v0, 0x0
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsFromInnerActivity:Z
+
+<span class="hljs-keyword">    .line</span> 89
+   <span class="hljs-built_in"> iget-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsAllowShowLaunchAd:Z
+
+   <span class="hljs-built_in"> iput-boolean </span>v0, p0, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;mIsLaunchAdShow:Z
+
+    //------略------<span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>其实这段代码的意思就是初始化了一下这个mIsAllowShowLaunchAd，设置成true，那么紧接着问题就来了，谁调用了LaunchAdHelper的onStart方法呢，</p>
+<p>他的父类是Object啊，只是一个普通的类，</p>
+<p>继续全局搜索</p>
+<h2 id="再次找回到了mainactivity"><a class="markdownIt-Anchor" href="#再次找回到了mainactivity"></a> 再次找回到了MainActivity</h2>
+<p>然后发现绕了一圈我们又绕回来了，在MainActivity里面调用了这个方法，结果如下</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> protected</span> onStart()V
+<span class="hljs-keyword">    .locals</span> 1
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 460
+   <span class="hljs-built_in"> invoke-super </span>&#123;p0&#125;, <span class="hljs-class">Lcom/zhihu/android/app/ui/activity/BaseFragmentActivity;</span>-&gt;onStart()V
+
+<span class="hljs-keyword">    .line</span> 461
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;getInstance()<span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+    
+    <span class="hljs-comment">#下面这两句就是调用了初始化广告的方法</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, p0&#125;, <span class="hljs-class">Lcom/zhihu/android/app/util/LaunchAdHelper;</span>-&gt;onStart(<span class="hljs-class">Landroid/content/Context;</span>)V
+
+<span class="hljs-keyword">    .line</span> 462
+   <span class="hljs-built_in"> return-void
+</span><span class="hljs-keyword">.end method</span>
+</code></pre>
+<p>好了，现在为止，大概明白了吧。</p>
+<p>在MainActivity的onStart方法里面调用了LaunchAdHelper的onStart方法，随后在这里面初始化将mIsAllowShowLaunchAd 设置成true的。</p>
+<p>然后再onResume里面再显示广告显示一次了再次onResume就不显示了<br />
+但是如果再次调用onStart那么又初始化了，设置成了显示广告，<br />
+那么具体什么时候会调用Activity的onStart呢，<br />
+官方文档是这么说的：</p>
+<img src="http://martinhan.com/images/androidonresume.png" width="956" height="125"> 
+<p>具体意思就是显示的时候就会调用onStart。</p>
+<h2 id="结果"><a class="markdownIt-Anchor" href="#结果"></a> 结果</h2>
+<p>其实结果已经在文章开始部分说过了，不记得的话往前翻翻吧</p>
+<h2 id="写在结尾"><a class="markdownIt-Anchor" href="#写在结尾"></a> 写在结尾</h2>
+<p>这就是知乎的这个闪屏广告显示的逻辑，</p>
+<p>有个以为接到了这种业务逻辑的时候程序员会不会心里内心一万只羊驼奔腾飞过</p>
+<p>还有，他们没混淆app吗，混淆过的方法不应该是</p>
+<pre class="highlight"><code class="smali">a.b.a1(p1,p3);
+</code></pre>
+<p>这个样子的吗。</p>
+<p>转眼一看软件版本5.4.1，恍然大悟。</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人博客：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客网站：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html" rel="prev" title="Android逆向之路---改apk包名、达到多开效果">
+                  <i class="fa fa-chevron-left"></i> Android逆向之路---改apk包名、达到多开效果
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-03-12/%E7%AE%97%E6%B3%95---%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%9D%E8%B7%AF%E7%90%86%E8%A7%A3%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F(%E9%99%84%E6%BA%90%E7%A0%81).html" rel="next" title="算法---一种简单的思路理解快速排序(附源码)">
+                  算法---一种简单的思路理解快速排序(附源码) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"81ab68a745c6f0d8471460c31c7ba452"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

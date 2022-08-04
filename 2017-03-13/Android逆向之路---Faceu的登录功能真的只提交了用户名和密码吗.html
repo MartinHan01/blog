@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="问题 几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。  准备工作 首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。  需要的工具  apktool (拆包APK用) dex2jar (反编译dex文件用)">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗">
+<meta property="og:url" content="http://martinhan.com/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="问题 几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。  准备工作 首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。  需要的工具  apktool (拆包APK用) dex2jar (反编译dex文件用)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/20170313120949110.png">
+<meta property="og:image" content="http://martinhan.com/images/20170313123206107.png">
+<meta property="og:image" content="http://martinhan.com/images/20170313135451409.png">
+<meta property="article:published_time" content="2017-03-13T14:36:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/20170313120949110.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html","path":"2017-03-13/Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗.html","title":"Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text"> 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">2.1.</span> <span class="nav-text"> 需要的工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%86%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text"> 拆包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text"> 定位代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%86%E5%90%91%E7%99%BB%E5%BD%95%E4%BB%A3%E7%A0%81%E6%9F%A5%E7%9C%8B%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text"> 逆向登录代码，查看传递参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">6.</span> <span class="nav-text"> 写在最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2017-03-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-13 22:36:00" itemprop="dateCreated datePublished" datetime="2017-03-13T22:36:00+08:00">2017-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+<p>几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。</p>
+<h2 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h2>
+<p>首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。</p>
+<h3 id="需要的工具"><a class="markdownIt-Anchor" href="#需要的工具"></a> 需要的工具</h3>
+<ul>
+<li>apktool (拆包APK用)</li>
+<li>dex2jar (反编译dex文件用)</li>
+</ul>
+<p>需要的工具下载地址：<a target="_blank" rel="noopener" href="https://github.com/hanhan12312/android_reverse_practice/tree/master/tools">https://github.com/hanhan12312/android_reverse_practice/tree/master/tools</a></p>
+<h2 id="拆包"><a class="markdownIt-Anchor" href="#拆包"></a> 拆包</h2>
+<p>首先，我们利用apktool拆包apk，执行命令</p>
+<pre class="highlight"><code class="shell">apktool d faceu.apk
+</code></pre>
+<p>这样在当前文件夹就得到了一个faceu的文件夹。</p>
+<span id="more"></span>
+<h2 id="定位代码"><a class="markdownIt-Anchor" href="#定位代码"></a> 定位代码</h2>
+<p>我们打开Faceu软件，点击下面的已有账号在此登录，然后弹出来登录界面，如图所示<br />
+<img src="http://martinhan.com/images/20170313120949110.png" width="300" height="550"><br />
+我们利用字符串搜索法，这个页面的注册的EditText的hint字为&quot;Faceu号/手机号&quot;，我们搜索res文件夹内所有文件的内容，搜索此关键字找到两处，位置都在res/values/strings.xml文件内</p>
+<p>strings.xml</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;str_account_hint&quot;</span>&gt;</span>Faceu号 / 手机号<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;str_search_user&quot;</span>&gt;</span>Faceu号/手机号<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+
+</code></pre>
+<p>根据name我们也能知道，account_hint是账号的输入框，而另一个是用于搜索的。<br />
+我们知道一个布局文件肯定有用到过这个值。所以我们在工程内搜索&quot;str_account_hint&quot;，可是结果却发现只有两处引用到，如图<br />
+<img src="http://martinhan.com/images/20170313123206107.png" alt="这里写图片描述" /><br />
+看来faceu的程序员们是没有在布局中引用，那就有可能在java代码内引用到，那就去看看&quot;str_account_hint&quot;在代码对应的值是多少。<br />
+紧接着我们顺着str_account_hint这个名字在res/values/public.xml文件内搜索&quot;str_account_hint&quot;，public.xml是在编译期间生成的文字对应编译后资源的id。<br />
+public.xml</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">public</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;string&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;str_account_hint&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;0x7f070047&quot;</span> /&gt;</span>
+</code></pre>
+<p>由此我们可以看出在java代码内对应的是0x7f070047。因此我们再次在代码里面搜索0x7f070047试试。<br />
+找到了引用到这个常量的地方。</p>
+<p>在文件com/lemon/faceu/login/b内</p>
+<pre class="highlight"><code class="smali">   <span class="hljs-built_in"> const </span>v2, 0x7f070047
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v2&#125;, <span class="hljs-class">Landroid/content/res/Resources;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v1&#125;, Lcom/lemon/faceu/uimodule/view/AccountEditText-&gt;setHintText(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+</code></pre>
+<p>熟悉smali语法的话，我们能够读懂，这个翻译成Java代码其实就是</p>
+<pre class="highlight"><code class="java">    <span class="hljs-type">String</span> <span class="hljs-variable">v1</span> <span class="hljs-operator">=</span> context.getString(<span class="hljs-number">0x7f070047</span>);
+    editText.setHintText(v1);
+</code></pre>
+<p>目的是找到到这个字符串。</p>
+<p>到此为止我们分析一下当前的类是个什么类，是个Activity?Fragment?还是自定义View。</p>
+<p>我们找到当前页面网上翻几行，看看还有没有用到什么别的资源id,找到了如下代码</p>
+<pre class="highlight"><code class="smali">
+    <span class="hljs-built_in"> const </span>v0, 0x7f0e026e
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p1, v0&#125;, <span class="hljs-class">Landroid/view/View;</span>-&gt;findViewById(I)<span class="hljs-class">Landroid/view/View;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> check-cast </span>v0, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>
+
+   <span class="hljs-built_in"> iput-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>
+
+
+</code></pre>
+<p>很明显，这个凭借PasswordEditText名称我们也能发现他就是密码输入的EditText<br />
+翻译成java代码</p>
+<pre class="highlight"><code class="java">    <span class="hljs-type">PasswordEditText</span> <span class="hljs-variable">v0</span> <span class="hljs-operator">=</span> (PasswordEditText)<span class="hljs-built_in">this</span>.findViewById(<span class="hljs-number">0x7f0e026e</span>);
+    <span class="hljs-built_in">this</span>.bpP = v0;
+</code></pre>
+<p>根据这一句话我们在public.xml里面找到对应的xml</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">public</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;id&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;cet_login_password&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;0x7f0e026e&quot;</span> /&gt;</span>
+</code></pre>
+<p>然后我们再看看有没有布局文件引用到了cet_login_password，于是找到了4处<br />
+<img src="http://martinhan.com/images/20170313135451409.png" alt="cet_login_password" /></p>
+<p>我们进入fragment_login.xml发现他只有登录页面的上半部分。却没有下面的取消和确认按钮。可以猜测他并不是Activity,Fragment，因为没有标志性的onCreate方法，父类最终也没有找到Activity，Fragment等。很可能是一个负责处理业务的类。</p>
+<p>但是我们知道了当前的成员变量bpP就是对应的密码的EditText了，那么看看都哪里调用这个bpP了。<br />
+通过对当前类分析，我最终找到了Lu方法里面对应到了登录按钮的。</p>
+<h2 id="逆向登录代码查看传递参数"><a class="markdownIt-Anchor" href="#逆向登录代码查看传递参数"></a> 逆向登录代码，查看传递参数</h2>
+<p>经过一番努力总算找到了登录界面，登录代码，现在我们进行分析，并且加入一段我们自己的代码，进行二次打包。<br />
+下面是分析详解</p>
+<p>Lcom/lemon/faceu/login/b;</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">  .method</span> Lu()V
+<span class="hljs-keyword">    .locals</span> 4
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 216
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;Ls()Z
+    <span class="hljs-comment">#检测用户名是否合法</span>
+
+   <span class="hljs-built_in"> move-result </span>v0
+    <span class="hljs-comment">#如果不合法就返回</span>
+
+   <span class="hljs-built_in"> if-eqz </span>v0,<span class="hljs-keyword"> :cond_0</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;Lt()Z
+    <span class="hljs-comment">#检测密码是否合法</span>
+
+   <span class="hljs-built_in"> move-result </span>v0
+    <span class="hljs-comment">#如果不合法就返回</span>
+
+   <span class="hljs-built_in"> if-nez </span>v0,<span class="hljs-keyword"> :cond_1</span>
+
+<span class="hljs-keyword">    .line</span> 241
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> return-void
+</span>
+<span class="hljs-keyword">    .line</span> 220
+   <span class="hljs-keyword"> :cond_1</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;Uv()V
+
+<span class="hljs-keyword">    .line</span> 222
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;LoginFragment&quot;</span>
+
+   <span class="hljs-built_in"> const-string </span>v1, <span class="hljs-string">&quot;startLogin&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0, v1&#125;, <span class="hljs-class">Lcom/lemon/faceu/sdk/utils/c;</span>-&gt;i(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span>)V
+    <span class="hljs-comment">#调用Faceu自己的统计打点方法</span>
+
+<span class="hljs-keyword">    .line</span> 223
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;getAccount()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+    <span class="hljs-comment">#调用AccountEditText的getAccount方法，并将用户户名存入v0 </span>
+
+   <span class="hljs-built_in"> iput-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="hljs-class">Ljava/lang/String;</span>
+    <span class="hljs-comment">#将aAs赋值为用户名</span>
+
+<span class="hljs-keyword">    .line</span> 224
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;getEditText()<span class="hljs-class">Landroid/widget/EditText;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Landroid/widget/EditText;</span>-&gt;getText()<span class="hljs-class">Landroid/text/Editable;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/Object;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+    <span class="hljs-comment">#将密码从bpP取出来，并取出String类型的密码复制给v0</span>
+
+<span class="hljs-keyword">    .line</span> 227
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>-&gt;xJ()<span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> iget-object </span>v2, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>-&gt;setAccount(<span class="hljs-class">Ljava/lang/String;</span>)V
+    <span class="hljs-comment">#将现在的用户名存入sharedprefence，以便于记住用户名下次直接显示</span>
+
+<span class="hljs-keyword">    .line</span> 229
+   <span class="hljs-built_in"> new-instance </span>v1, <span class="hljs-class">Ljava/util/HashMap;</span>
+    <span class="hljs-comment">#new一个HashMap存储进v1</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v1&#125;, <span class="hljs-class">Ljava/util/HashMap;</span>-&gt;&lt;init&gt;()V
+    <span class="hljs-comment">#初始化v1</span>
+
+<span class="hljs-keyword">    .line</span> 230
+   <span class="hljs-built_in"> const-string </span>v2, <span class="hljs-string">&quot;account&quot;</span>
+
+   <span class="hljs-built_in"> iget-object </span>v3, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v2, v3&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将用户名存入HashMap</span>
+
+
+<span class="hljs-keyword">    .line</span> 231
+   <span class="hljs-built_in"> const-string </span>v2, <span class="hljs-string">&quot;pwd&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/i/g;</span>-&gt;bS(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v2, v0&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将密码调用bS方法加密并且存入map</span>
+
+<span class="hljs-keyword">    .line</span> 232
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;councode&quot;</span>
+
+   <span class="hljs-built_in"> const-string </span>v2, <span class="hljs-string">&quot;86&quot;</span>
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#国家编号86，存入map</span>
+
+<span class="hljs-keyword">    .line</span> 233
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;manufacture&quot;</span>
+
+   <span class="hljs-built_in"> sget-object </span>v2, <span class="hljs-class">Landroid/os/Build;</span>-&gt;MANUFACTURER:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将厂商信息存入map</span>
+
+<span class="hljs-keyword">    .line</span> 234
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;model&quot;</span>
+
+   <span class="hljs-built_in"> sget-object </span>v2, <span class="hljs-class">Landroid/os/Build;</span>-&gt;MODEL:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将model信息存入map</span>
+
+<span class="hljs-keyword">    .line</span> 235
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;version&quot;</span>
+
+   <span class="hljs-built_in"> sget </span>v2, <span class="hljs-class">Lcom/lemon/faceu/common/d/b;</span>-&gt;aAL:I
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v2&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;valueOf(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将软件版本信息存入map</span>
+
+<span class="hljs-keyword">    .line</span> 236
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;deviceinfo&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xt()<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+    <span class="hljs-comment">#将调用com.lemon.faceu.common.b.a-&gt;xt()方法，取回JsonObject并且赋值给v2</span>
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Ljava/util/Map;</span>-&gt;put(<span class="hljs-class">Ljava/lang/Object;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/Object;</span>
+    <span class="hljs-comment">#将JSONObject存入map</span>
+
+<span class="hljs-keyword">    .line</span> 238
+   <span class="hljs-built_in"> new-instance </span>v0, <span class="hljs-class">Lcom/lemon/faceu/common/t/a;</span>
+
+   <span class="hljs-built_in"> sget-object </span>v2, <span class="hljs-class">Lcom/lemon/faceu/common/d/a;</span>-&gt;azO:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Landroid/os/Looper;</span>-&gt;getMainLooper()<span class="hljs-class">Landroid/os/Looper;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v3
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v0, v2, v1, v3&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/t/a;</span>-&gt;&lt;init&gt;(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/util/Map;</span><span class="hljs-class">Landroid/os/Looper;</span>)V
+
+<span class="hljs-keyword">    .line</span> 239
+   <span class="hljs-built_in"> iget-object </span>v1, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;aKe:<span class="hljs-class">Lcom/lemon/faceu/common/t/a$a;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/t/a;</span>-&gt;a(<span class="hljs-class">Lcom/lemon/faceu/common/t/a$a;</span>)V
+
+<span class="hljs-keyword">    .line</span> 240
+   <span class="hljs-built_in"> const-string </span>v1, <span class="hljs-string">&quot;login&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0, v1&#125;, <span class="hljs-class">Lcom/lemon/faceu/sdk/i/b;</span>-&gt;a(<span class="hljs-class">Ljava/lang/Runnable;</span><span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> goto </span>:goto_0<span class="hljs-keyword">
+.end method</span>  
+
+<span class="hljs-comment">#此方法主要校验用户名是否合法，错误的话输出错误信息，返回值为boolean</span>
+<span class="hljs-keyword">.method</span> Ls()Z   
+<span class="hljs-keyword">    .locals</span> 5
+
+<span class="hljs-keyword">    .prologue</span>
+   <span class="hljs-built_in"> const/4 </span>v1, 0x0 
+    <span class="hljs-comment">#使v0寄存器为0</span>
+<span class="hljs-keyword">    .line</span> 177
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+    <span class="hljs-comment">#将成员变量bpO赋值给v0，此时v0就是用户名</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;getAccount()<span class="hljs-class">Ljava/lang/String;</span>
+    
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+    <span class="hljs-comment">#调用AccountEditText的getAccount方法，并将返回值存入v2</span>
+
+<span class="hljs-keyword">    .line</span> 178
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;length()I
+    <span class="hljs-comment">#取出用户名长度</span>
+
+   <span class="hljs-built_in"> move-result </span>v0
+    <span class="hljs-comment">#v0 = 用户名长度</span>
+
+   <span class="hljs-built_in"> if-lez </span>v0,<span class="hljs-keyword"> :cond_0</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2, v1&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;charAt(I)C
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/Character;</span>-&gt;isDigit(C)Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> if-eqz </span>v0,<span class="hljs-keyword"> :cond_0</span>
+
+<span class="hljs-keyword">    .line</span> 180
+   <span class="hljs-built_in"> invoke-static </span>&#123;v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/u/t;</span>-&gt;dz(<span class="hljs-class">Ljava/lang/String;</span>)Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> if-nez </span>v0,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 181
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+
+   <span class="hljs-built_in"> const </span>v2, 0x7f0700ae
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+<span class="hljs-keyword">    .line</span> 202
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> return </span>v1
+
+<span class="hljs-keyword">    .line</span> 185
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;length()I
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> const/16 </span>v3, 0x14
+
+   <span class="hljs-built_in"> if-le </span>v0, v3,<span class="hljs-keyword"> :cond_1</span>
+
+<span class="hljs-keyword">    .line</span> 186
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+
+   <span class="hljs-built_in"> const </span>v2, 0x7f070087
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> goto </span>:goto_0
+
+<span class="hljs-keyword">    .line</span> 188
+   <span class="hljs-keyword"> :cond_1</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;length()I
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> if-lez </span>v0,<span class="hljs-keyword"> :cond_2</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2, v1&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;charAt(I)C
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/sdk/utils/h;</span>-&gt;u(C)Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> if-nez </span>v0,<span class="hljs-keyword"> :cond_2</span>
+
+<span class="hljs-keyword">    .line</span> 189
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+
+   <span class="hljs-built_in"> const </span>v2, 0x7f070086
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> goto </span>:goto_0
+
+   <span class="hljs-keyword"> :cond_2</span>
+   <span class="hljs-built_in"> move </span>v0, v1
+
+<span class="hljs-keyword">    .line</span> 192
+   <span class="hljs-keyword"> :goto_1</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;length()I
+
+   <span class="hljs-built_in"> move-result </span>v3
+
+   <span class="hljs-built_in"> if-ge </span>v0, v3,<span class="hljs-keyword"> :cond_4</span>
+
+<span class="hljs-keyword">    .line</span> 193
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2, v0&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;charAt(I)C
+
+   <span class="hljs-built_in"> move-result </span>v3
+
+<span class="hljs-keyword">    .line</span> 194
+   <span class="hljs-built_in"> const/16 </span>v4, 0x5f
+
+   <span class="hljs-built_in"> if-eq </span>v3, v4,<span class="hljs-keyword"> :cond_3</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v3&#125;, <span class="hljs-class">Ljava/lang/Character;</span>-&gt;isDigit(C)Z
+
+   <span class="hljs-built_in"> move-result </span>v4
+
+   <span class="hljs-built_in"> if-nez </span>v4,<span class="hljs-keyword"> :cond_3</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v3&#125;, <span class="hljs-class">Lcom/lemon/faceu/sdk/utils/h;</span>-&gt;u(C)Z
+
+   <span class="hljs-built_in"> move-result </span>v3
+
+   <span class="hljs-built_in"> if-nez </span>v3,<span class="hljs-keyword"> :cond_3</span>
+
+<span class="hljs-keyword">    .line</span> 195
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>
+
+   <span class="hljs-built_in"> const </span>v2, 0x7f070085
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> goto </span>:goto_0
+
+<span class="hljs-keyword">    .line</span> 192
+   <span class="hljs-keyword"> :cond_3</span>
+   <span class="hljs-built_in"> add-int/lit8 </span>v0, v0, 0x1
+
+   <span class="hljs-built_in"> goto </span>:goto_1
+
+<span class="hljs-keyword">    .line</span> 202
+   <span class="hljs-keyword"> :cond_4</span>
+   <span class="hljs-built_in"> const/4 </span>v1, 0x1
+
+   <span class="hljs-built_in"> goto </span>:goto_0<span class="hljs-keyword">
+.end method</span>
+<span class="hljs-comment">#此方法主要校验密码是否合法，错误的话输出错误信息，做一些动画之类，正确返回true</span>
+<span class="hljs-keyword">.method</span> Lt()Z
+<span class="hljs-keyword">    .locals</span> 2
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 206
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;getEditText()<span class="hljs-class">Landroid/widget/EditText;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Landroid/widget/EditText;</span>-&gt;getText()<span class="hljs-class">Landroid/text/Editable;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/Object;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/String;</span>-&gt;length()I
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+<span class="hljs-keyword">    .line</span> 207
+   <span class="hljs-built_in"> const/4 </span>v1, 0x6
+
+   <span class="hljs-built_in"> if-lt </span>v0, v1,<span class="hljs-keyword"> :cond_0</span>
+
+   <span class="hljs-built_in"> const/16 </span>v1, 0x10
+
+   <span class="hljs-built_in"> if-le </span>v0, v1,<span class="hljs-keyword"> :cond_1</span>
+
+<span class="hljs-keyword">    .line</span> 208
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>
+
+   <span class="hljs-built_in"> const </span>v1, 0x7f0700b5
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v1&#125;, <span class="hljs-class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="hljs-class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;setTips(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+<span class="hljs-keyword">    .line</span> 209
+   <span class="hljs-built_in"> const/4 </span>v0, 0x0
+
+<span class="hljs-keyword">    .line</span> 211
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> return </span>v0
+
+   <span class="hljs-keyword"> :cond_1</span>
+   <span class="hljs-built_in"> const/4 </span>v0, 0x1
+
+   <span class="hljs-built_in"> goto </span>:goto_0<span class="hljs-keyword">
+.end method</span>
+
+</code></pre>
+<p>我们主要看Lu方法里面的以下几行，他调用了com.lemon.faceu.common.b.a-&gt;xt()方法，这个主要是用于窃取我们的手机型号，系统，厂商等信息，我们进入方法看看</p>
+<pre class="highlight"><code class="smali">   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;deviceinfo&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xt()<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+    <span class="hljs-comment">#将调用com.lemon.faceu.common.b.a-&gt;xt()方法，取回JsonObject并且赋值给v2</span>
+
+</code></pre>
+<p>我们进入方法看看</p>
+<pre class="highlight"><code class="smali">
+<span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span><span class="hljs-keyword"> static</span> xt()<span class="hljs-class">Lorg/json/JSONObject;</span>
+<span class="hljs-keyword">    .locals</span> 5
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 34
+   <span class="hljs-built_in"> new-instance </span>v1, <span class="hljs-class">Lorg/json/JSONObject;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v1&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;&lt;init&gt;()V
+
+<span class="hljs-keyword">    .line</span> 36
+   <span class="hljs-keyword"> :try_start_0</span>
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;cpu&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xv()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+    <span class="hljs-comment">#取出你的cpu信息放入json</span>
+
+<span class="hljs-keyword">    .line</span> 37
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;radio&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xx()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+    <span class="hljs-comment">#机型的RADIO信息存入json</span>
+
+<span class="hljs-keyword">    .line</span> 38
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;os_version&quot;</span>
+
+   <span class="hljs-built_in"> sget </span>v2, <span class="hljs-class">Landroid/os/Build$VERSION;</span>-&gt;SDK_INT:I
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span>I)<span class="hljs-class">Lorg/json/JSONObject;</span>
+    <span class="hljs-comment">#取出你系统版本</span>
+
+
+<span class="hljs-keyword">    .line</span> 39
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;imei&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>-&gt;xJ()<span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+    <span class="hljs-comment">#取出IMEI号</span>
+
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/e/a;</span>-&gt;getContext()<span class="hljs-class">Landroid/content/Context;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v2&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;bd(<span class="hljs-class">Landroid/content/Context;</span>)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 40
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;imsi&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xy()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 41
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;iccid&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xz()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 42
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;android_id&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xw()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 43
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;model&quot;</span>
+
+   <span class="hljs-built_in"> sget-object </span>v2, <span class="hljs-class">Landroid/os/Build;</span>-&gt;MODEL:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 44
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;core_count&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xA()I
+
+   <span class="hljs-built_in"> move-result </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span>I)<span class="hljs-class">Lorg/json/JSONObject;</span>
+
+<span class="hljs-keyword">    .line</span> 45
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;wifi&quot;</span>
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xu()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="hljs-class">Lorg/json/JSONObject;</span>-&gt;put(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Lorg/json/JSONObject;</span>
+   <span class="hljs-keyword"> :try_end_0</span>
+<span class="hljs-keyword">    .catch</span> <span class="hljs-class">Lorg/json/JSONException;</span> &#123;:try_start_0 ..<span class="hljs-keyword"> :try_end_0</span>&#125;<span class="hljs-keyword"> :catch_0</span>
+
+<span class="hljs-keyword">    .line</span> 49
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> return-object </span>v1
+
+<span class="hljs-keyword">    .line</span> 46
+   <span class="hljs-keyword"> :catch_0</span>
+   <span class="hljs-built_in"> move-exception </span>v0
+
+<span class="hljs-keyword">    .line</span> 47
+   <span class="hljs-built_in"> const-string </span>v2, <span class="hljs-string">&quot;DeviceInfo&quot;</span>
+
+   <span class="hljs-built_in"> new-instance </span>v3, <span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v3&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;&lt;init&gt;()V
+
+   <span class="hljs-built_in"> const-string </span>v4, <span class="hljs-string">&quot;jsonexception, &quot;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v3, v4&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v3
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Lorg/json/JSONException;</span>-&gt;getMessage()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v3, v0&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;v2, v0&#125;, <span class="hljs-class">Lcom/lemon/faceu/sdk/utils/c;</span>-&gt;e(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> goto </span>:goto_0<span class="hljs-keyword">
+.end method</span>
+
+</code></pre>
+<p>我们能看到他获取了我们的cpu，radio，os_version(系统版本),imei，MODEL,cpu_count,mac地址。<br />
+看了半天代码，我们加入一些我们的代码，让程序自己把提交的信息打印出来吧。</p>
+<pre class="highlight"><code class="smali">
+   <span class="hljs-built_in"> const-string </span>v0, <span class="hljs-string">&quot;MartinHan--map&quot;</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1&#125;, <span class="hljs-class">Ljava/util/HashMap;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+   <span class="hljs-built_in"> move-result-object </span>v3
+   <span class="hljs-built_in"> invoke-static </span>&#123;v0, v3&#125;, <span class="hljs-class">Landroid/util/Log;</span>-&gt;v(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span>)I
+
+   <span class="hljs-built_in"> const-string </span>v3, <span class="hljs-string">&quot;MartinHan---url&quot;</span>
+   <span class="hljs-built_in"> invoke-static </span>&#123;v3, v2&#125;, <span class="hljs-class">Landroid/util/Log;</span>-&gt;v(<span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span>)I
+    
+</code></pre>
+<p>然后我们执行代码</p>
+<pre class="highlight"><code class="shell">apktool d faceu
+cd faceu/disk
+<span class="hljs-meta prompt_">#</span><span class="language-bash">签名 生成文件明为_signed.apk</span> 
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHan.jks&quot; -signedjar &quot;_signed.apk&quot; &quot;faceu.apk&quot; &quot;111111&quot; &lt;&lt; EOF
+111111
+
+adb install _signed.apk
+
+</code></pre>
+<p>这样的流程走下来，我们的二次打包apk就安装到手机上啦，看看我们输入我们帐号，点击登录。会打印出log信息。<br />
+如下所示</p>
+<pre class="highlight"><code class="logcat">03-13 14:17:15.269 10240-10240/com.lemon.faceu V/MartinHan--map: &#123;account=159xxxxxxxx, deviceinfo=&#123;&quot;android_id&quot;:&quot;62fjdhu42d070400&quot;,&quot;wifi&quot;:&quot;08:33:61:cc:b9:fc&quot;,&quot;model&quot;:&quot;HUAWEI G630-U00&quot;,&quot;imei&quot;:&quot;81338398767854654&quot;,&quot;iccid&quot;:&quot;&quot;,&quot;cpu&quot;:&quot;ARMv7 Processor rev 3 (v7l) &quot;,&quot;radio&quot;:&quot;203040,203040&quot;,&quot;imsi&quot;:&quot;&quot;,&quot;core_count&quot;:4,&quot;os_version&quot;:18&#125;, model=HUAWEI G630-U00, pwd=4d259481d57ffc1c6b4b68cd73dbd301, councode=86, manufacture=HUAWEI, version=270540806&#125;
+
+03-13 14:17:15.269 10240-10240/com.lemon.faceu V/MartinHan---url: https://api2.faceu.mobi/faceu/v3/login.php
+</code></pre>
+<p>如上诉代码所示，我们在faceu登录一次，faceu会上传我们的很多个人信息<br />
+mac地址，手机型号，imei，cpu信息，radio，系统版本，国家代码，<br />
+并且找到了faceu登录的地址是<a target="_blank" rel="noopener" href="https://api2.faceu.mobi/faceu/v3/login.php">https://api2.faceu.mobi/faceu/v3/login.php</a></p>
+<p>以上就是我的所有思路，从问题开始，一直找代码，最后动态的打log实现在https加密前就让app自己吐出数据。</p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>其实我想不仅faceu，像是其他的厂商也会手机我们的个人信息，完成统计。并且通过大数据分析使用软件的人群，手机型号。<br />
+希望所有喜欢逆向的朋友们一起探讨，多多交流。</p>
+<blockquote>
+<p>注：如有侵权，请联系我</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-03-04/Android%E5%88%A9%E7%94%A8Gradle%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%A6%82%E4%BD%95%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2%E8%B5%84%E6%BA%90%EF%BC%8C%E6%96%87%E5%AD%97.html" rel="prev" title="Android利用Gradle多渠道打包如何动态替换资源，文字">
+                  <i class="fa fa-chevron-left"></i> Android利用Gradle多渠道打包如何动态替换资源，文字
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017-03-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80.html" rel="next" title="Android逆向之路---IDEA动态调试smali语言">
+                  Android逆向之路---IDEA动态调试smali语言 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"969e920b9f34e248bb85f7f2a1fd5ca0"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

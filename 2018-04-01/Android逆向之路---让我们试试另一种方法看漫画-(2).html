@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 上次我们分析到了快看漫画的协议部分，这次我们根据他的协议来手动写个脚本，然后执行以后，可以把他的漫画自动下载到电脑上面， 然后自动拼接图片，这样就可以实现在电脑上当成一个长图来看漫画了，没有广告，没有app的一些限制，先上图，一起看看成果   本文分析基于：快看漫画5.2.0(52000) 事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---让我们试试另一种方法看漫画-(2)">
+<meta property="og:url" content="http://martinhan.com/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言 上次我们分析到了快看漫画的协议部分，这次我们根据他的协议来手动写个脚本，然后执行以后，可以把他的漫画自动下载到电脑上面， 然后自动拼接图片，这样就可以实现在电脑上当成一个长图来看漫画了，没有广告，没有app的一些限制，先上图，一起看看成果   本文分析基于：快看漫画5.2.0(52000) 事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/2018-04-01_154508.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-04-01_160823.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-04-01_163451.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-04-01_164709.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-04-01_164720.png">
+<meta property="article:published_time" content="2018-04-01T07:46:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/2018-04-01_154508.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html","path":"2018-04-01/Android逆向之路---让我们试试另一种方法看漫画-(2).html","title":"Android逆向之路---让我们试试另一种方法看漫画-(2)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---让我们试试另一种方法看漫画-(2) | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text"> 找到正确的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text"> 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E5%88%86%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.</span> <span class="nav-text"> 开始分析协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%9C%AC%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="nav-number">5.</span> <span class="nav-text"> 制作我们自己的脚本的思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="nav-number">6.</span> <span class="nav-text"> 我的脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">7.</span> <span class="nav-text"> 声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%8A%E4%B8%80%E6%AE%B5%E8%90%BD"><span class="nav-number">8.</span> <span class="nav-text"> 告一段落</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">9.</span> <span class="nav-text"> 写在最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">10.</span> <span class="nav-text"> 关于我</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---让我们试试另一种方法看漫画-(2) | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---让我们试试另一种方法看漫画-(2)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-01 15:46:00" itemprop="dateCreated datePublished" datetime="2018-04-01T15:46:00+08:00">2018-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>上次我们分析到了快看漫画的协议部分，这次我们根据他的协议来手动写个脚本，然后执行以后，可以把他的漫画自动下载到电脑上面，<br />
+然后自动拼接图片，这样就可以实现在电脑上当成一个长图来看漫画了，没有广告，没有app的一些限制，先上图，一起看看成果</p>
+<img src="http://martinhan.com/images/2018-04-01_154508.png" width="439" height="338"> 
+<p>本文分析基于：快看漫画5.2.0(52000)<br />
+事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有做呢，也希望在大家的监督之下一点一点的全部完成吧。<br />
+ps:避免广告嫌疑，以下统称kk漫画了。</p>
+<p>为什么选择这个app？<br />
+排名靠前啊，反正就选到了，<br />
+有对别的感兴趣的同学也欢迎投稿，博主会尽自己所能，给大家带来点好玩的。</p>
+<span id="more"></span>
+<p>觉得看好多地方比较突然的，可以先转到上一篇，然后再来看这篇文章。<br />
+传送门：<a href="http://martinhan.com/2018/03/26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1)/">Android逆向之路—让我们试试另一种方法看漫画-(1)</a></p>
+<h2 id="找到正确的协议"><a class="markdownIt-Anchor" href="#找到正确的协议"></a> 找到正确的协议</h2>
+<p>上次我们找到了了协议的大概位置，这次我们要针对整个请求的过程进行精准的分析。包括每个接口的作用。<br />
+首先把log清空，然后点击他的开始阅读，我抓到了以下log<br />
+我以漫画:《李泰和方小甜的平行世界》为例子<br />
+<img src="http://martinhan.com/images/2018-04-01_160823.png" width="1549" height="525"></p>
+<p>经过我的分析，先和大家说结果：<br />
+<strong>1,4主要就是请求漫画的接口了</strong><br />
+3,6主要是请求了一些广告信息<br />
+7可以理解为上传一些打点数据<br />
+2主要是获取了一些评论回复信息<br />
+5可能是和一些社交相关的，这个是我猜的</p>
+<p>首先根据Log信息，我们能发现这些接口的作用，当然了，博主还有另一种办法，我们根据这些接口信息，依次的去找源码</p>
+<h2 id="源码分析"><a class="markdownIt-Anchor" href="#源码分析"></a> 源码分析</h2>
+<p>先分析</p>
+<p><a target="_blank" rel="noopener" href="https://api.kkmh.com/v2/comic/22535?is_preview=0">https://api.kkmh.com/v2/comic/22535?is_preview=0</a></p>
+<p>我在源码里面搜v2/comic/，为什么这么搜，因为真正有开发经验的人是知道的，后面的一般开发的时候会写成可变的参数，<br />
+前面的url一般也是，我们开发的时候会有测试服务器和正式服务器，前面的是会变的，<br />
+搜索结果如下：</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.method</span><span class="hljs-keyword"> public</span><span class="hljs-keyword"> abstract</span> getComicDetail(JI)<span class="hljs-class">Lretrofit2/Call;</span>
+<span class="hljs-keyword">    .param</span> p1    <span class="hljs-comment"># J</span>
+<span class="hljs-keyword">        .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/Path;</span>
+            value = <span class="hljs-string">&quot;comic_id&quot;</span><span class="hljs-keyword">
+        .end annotation</span><span class="hljs-keyword">
+    .end param</span>
+<span class="hljs-keyword">    .param</span> p3    <span class="hljs-comment"># I</span>
+<span class="hljs-keyword">        .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/Query;</span>
+            value = <span class="hljs-string">&quot;is_preview&quot;</span><span class="hljs-keyword">
+        .end annotation</span><span class="hljs-keyword">
+    .end param</span>
+<span class="hljs-keyword">    .annotation</span><span class="hljs-keyword"> system</span> <span class="hljs-class">Ldalvik/annotation/Signature;</span>
+        value = &#123;
+            <span class="hljs-string">&quot;(JI)&quot;</span>,
+            <span class="hljs-string">&quot;Lretrofit2/Call&quot;</span>,
+            <span class="hljs-string">&quot;&lt;&quot;</span>,
+            <span class="hljs-string">&quot;Lcom/kuaikan/comic/rest/model/API/ComicDetailResponse;&quot;</span>,
+            <span class="hljs-string">&quot;&gt;;&quot;</span>
+        &#125;<span class="hljs-keyword">
+    .end annotation</span>
+
+<span class="hljs-keyword">    .annotation</span> runtime <span class="hljs-class">Lretrofit2/http/GET;</span>
+        value = <span class="hljs-string">&quot;/v2/comic/&#123;comic_id&#125;&quot;</span><span class="hljs-keyword">
+    .end annotation</span><span class="hljs-keyword">
+.end method</span>
+</code></pre>
+<p>怎么样，这个看着太费劲了，我还是手动转成java来看</p>
+<pre class="highlight"><code class="java"><span class="hljs-meta">@GET(&quot;/v2/comic/&#123;comic_id&#125;&quot;)</span>
+<span class="hljs-meta">@Query(&quot;is_preview&quot;)</span>
+<span class="hljs-meta">@Path(&quot;comic_id&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> Call.retrofit2 <span class="hljs-title function_">getComicDetail</span><span class="hljs-params">()</span>;
+</code></pre>
+<p>根据方法名字其实就已经可以猜的可以了，然后利用动态调试，我们可以在APIRestClient.smali里面调用的地方打好断点，<br />
+(具体的动态调试方法，以前也说过，不熟悉的同学可以去翻我以前的文章)</p>
+<pre class="highlight"><code class="smali">   <span class="hljs-built_in"> const/4 </span>v0, 0x1
+
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v1, p1, p2, v0&#125;, <span class="hljs-class">Lcom/kuaikan/comic/rest/SignInterface;</span>-&gt;getComicDetail(JI)<span class="hljs-class">Lretrofit2/Call;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-interface </span>&#123;v0, p4&#125;, <span class="hljs-class">Lretrofit2/Call;</span>-&gt;enqueue(<span class="hljs-class">Lretrofit2/Callback;</span>)V
+
+<span class="hljs-keyword">    .line</span> 202
+   <span class="hljs-built_in"> return-void
+</span></code></pre>
+<p>然后我们能够看出来，这个主要就是利用retrofit框架，来进行网络请求。</p>
+<h2 id="开始分析协议"><a class="markdownIt-Anchor" href="#开始分析协议"></a> 开始分析协议</h2>
+<p>首先通过log，或者动态调试我们已经拿到他请求回来的json数据了</p>
+<pre class="highlight"><code class="json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">200</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;comment_view_message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;吐槽神马的尽管来&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;can_view&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;cover_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1467150603</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;recommend_list&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;male_vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/171213/rt79rf2bj.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/171213/rt79rf2bj.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_tag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;奇幻&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;剧情&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;topic_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">544</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_source&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;AI推荐&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;整容游戏&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;male_vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/171212/rl5z4ftks.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/171212/rl5z4ftks.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_tag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;都市&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;topic_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">782</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_source&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;AI推荐&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;密会&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;male_vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/161220/7tsm5zh6g.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/161220/7tsm5zh6g.webp-w320.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_tag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;灵异&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;topic_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">786</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_source&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;AI推荐&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;百怪夜谭&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;猜你喜欢&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_favourite&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;第1话 爱的供养&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;widgets&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;recommend_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;updated_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1489143638</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;selling_kk_currency&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;zoomable&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;push_flag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;previous_comic_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;award&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;activity_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;show_draw_record&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;customized_share&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share_platform&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">4</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;picture&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share_platform&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;picture&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share_platform&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;picture&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！传送门：https://m.kuaikanmanhua.com/comics/22535 &quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share_platform&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">5</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;picture&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;share_platform&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;好看哭！《李泰和方小甜的平行世界》这个漫画太优秀了！&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;picture&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/hi585uspn.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">22535</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;comic_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_login&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_liked&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;images&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/ni3jq73um.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/dkytvh9tb.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/bnffqu5qj.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/aolh65hqg.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/g7sqrvbcy.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/2m64twttm.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/eaf8vdmeu.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/a3jpxb2xf.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/c22535/171215/Wyu5BaDjG.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/c22535/171215/qgwMVAIvz.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/unl0hyycu.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/zjari95lw.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/nvmdki6lh.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/5s3nddorm.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/c4fpmayxv.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/d7ac181j7.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/g4wehvwku.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/vqa24zdne.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/xq0k49c0b.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/u4exvr3m5.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/ba50c68yu.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/r4ih3xd17.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/2q6rf6te8.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/mmp8h7aj2.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/62rxlx12n.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/k7ht36vn4.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/iylzwx29w.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/y2vqk0mq7.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/8ja8e70cs.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/rpp8t58iq.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/ethht9qmf.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/i2sazavwb.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/435u6zdjf.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/6tv8bqpg9.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/owxw2tmt9.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/ekh44qmx0.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/oo5x5z0m8.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/lqatu6m7r.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/2ydiojudy.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/i55bo2j8x.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/fs2uvkx6r.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/wtzg35e7i.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/lbajscux3.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/9nb3tyagb.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/r6ivjlxhb.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/byzo0k17q.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/yvc0psfj9.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/wfqmv3l2s.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/05dva698t.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/vys1sdghs.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/yzrxwhgkx.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/l373i5iyp.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/q6d2hv0sy.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/4lpxmpwf0.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/7dhye2una.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/170310/xl4wuhcrq.webp-w640&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;tencent_share_title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;最近发现一部超好看的漫画:李泰和方小甜的平行世界&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;storyboard_cnt&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">30</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;image_infos&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;a5de7dd6bbc497db5ed12f298111c272&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;6b8b3a865a1ddf711ad71452eec1ad30&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4f4d306a2a102aa989b8c7a3b658431f&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;378bf2c19fdd4a0fd3eb6ee146c7be7f&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;5435475d65f21de30414fa1749b52aa7&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;cf22f5be2e388b61e8b82827895e0bb5&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4415c68c3b28b6a44b9673f2992b8364&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;c869489f0d0940896eb25c91329dee08&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;5ffa28d7671f97557c77156147939e21&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;8f636aed79bf9ae50f11933c9d4d732b&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;cd7139fe2446d909c7402abcdcc0dd47&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;39c84ab2949cd3b820f09d4692fb2a62&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;af718ad639b59a426cde65271c366e6d&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;5e12172168957b71266a5bfdb8beafec&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4d92699063b072739dbe782ad7e6ddbf&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;7c714d5713c9b2422ed8dec402b7fd11&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;9d12808cadb037d2685711d71b131450&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;026615ec2f26a04390a7293616d687d4&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;d87475d57208b2dde95253fa81a487ea&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;32318591ebf3417e5f6d4e28c9127fba&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;e52e90c0f2ea49db9984f8523a089665&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;3e89642afb9d3ec69bf18f3ed18b0fdc&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;b7b067915ed2725763f7e5c9c63a48d6&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;b3093850b87fa4a350a4803b62f82fbc&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;a4e02ca44d58f5ebbc7142937f69296e&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;73de978ec21bfca1eb953349341674b3&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;7d54db0da6ed34116f2546f100717dfa&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;6dd19891de33dcd8bf8400d04bca82b9&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;8e27c2b56222f3343fd473d13871a42d&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;90dd36feb5698ecd776d80139d8bc138&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;7844984a79c747c469423060e67bda36&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4f14da7ffdf1b0d70fe168c3a4ed66a1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;7fe98dc3ca0cc4d1655485e44a8703b4&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;48bb94fc304ba8d5c906450b028343b3&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;78e4201ed552e6d3f860c9a9887243e1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;8c4b8ce67f2fe045cb134a30bb393a04&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;07127d72aea50fbcc0a55f4efb5353c2&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;818e2b0bb456b089e685da175eb5735e&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;31670324abe8fef90d9efe65c2b7838e&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;f5e20fedf06f1543e02abfb0c7b9cd73&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;78b5993f46492921873f643efc8590e9&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;dcd6bf9589dcbffb044dc6bf21c68a37&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;247c655ee1b6428a65ac00058771db12&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ba25ca3e2e325a33433297e1330c9dfe&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;f54893ef269f8e93c5f15463c24ee49f&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1a504b37b1f0496e1bba6bb430c0a7d5&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;a8360e2fd73b4347a62e7c71b2174c26&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;49aa257f7e56345b1c23c8aee338e146&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;17ad09e8fc85e72e87f3f9522b3cdc42&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;6274771113b60223485615437172734d&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;d118ea13e0e705687434b08e2b79bfeb&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;16d0edfb22f56fefbe4afe982e1a6d98&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;77b835206f8aaa317e7b9bfb1d13731d&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;f626de71fe25ca19cf6dba693d372e39&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;efd890a68fb91b4547366d4cc7cdb8a1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">625</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;width&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">800</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;key&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;a8a7e8c74833d794da68780c518c740a&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">506</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;next_comic_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">15884</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;sina_share_title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;最近在@快看漫画 上发现一部超好看的漫画:李泰和方小甜的平行世界,和我一起来看吧~完整内容戳:&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;https://m.kuaikanmanhua.com/comics/22535&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;likes_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">529608</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;banner_info&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;tencent_share_params&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;快看!一分钟一个超赞故事!&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;comments_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">17046</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_free&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;topic&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;discover_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/180314/jp128u992.webp-w320&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;cover_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/180314/w9omjgy9w.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;短篇合集，讲述一场自来水污染导致人类出现的奇奇怪怪的疾病。细思极恐，高能慎入！看作者的脑洞能有多大！【授权/每周五更新 责编：拉面】&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1453890436</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_favourite&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;李泰和方小甜的平行世界&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;male_vertical_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/180314/jp128u992.webp-w320&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;updated_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1453890436</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;special_offer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;is_free&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">699</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;剧情&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;related_authors&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;pub_feed&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;avatar_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/160530/744atwg2u.webp-w180.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;grade&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;nickname&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;潇潇潇潇如&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;reg_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;phone&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">6021212</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;user&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;pub_feed&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;avatar_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/160530/744atwg2u.webp-w180.w&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;grade&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;nickname&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;潇潇潇潇如&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;reg_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;phone&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">6021212</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;label_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">17</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;male_cover_image_url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://f2.kkmh.com/image/180314/w9omjgy9w.webp-w640&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;order&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">761</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;comics_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">35</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;published&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;serial_no&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;published&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">&#125;</span>
+</code></pre>
+<p>以上的这些是完整的json数据，我们当然只说重点了。<br />
+加载机制：<br />
+关于kk漫画的加载机制，假如你现在在看第2章的漫画，当你看到一半多的时候，他就会请求这个接口，提前把第3章漫画的图片的url地址都拿下来。<br />
+依此类推。<br />
+我们需要关注的是，他如何找到下一个漫画的id，然后又如何判断下一个漫画的标题等等。</p>
+<p>我们可以通过在程序里打断点，动态调试，或者看静态源码，或者Log信息，最终发现返回的数据如下，<br />
+关于重点的一些信息，我做了标记</p>
+<img src="http://martinhan.com/images/2018-04-01_163451.png" width="1069" height="1613">
+<h2 id="制作我们自己的脚本的思路"><a class="markdownIt-Anchor" href="#制作我们自己的脚本的思路"></a> 制作我们自己的脚本的思路</h2>
+<p>思路：我们首先请求第一章的id,我们现在的id是22535，根据刚刚的Log分析可知。<br />
+然后我们请求回来之后，把images里面的图片都保存到指定的文件夹，准备合并。<br />
+然后请求下一章节，继续，直到所有漫画都下载到本地。<br />
+合并每个文件夹里面的图片，最后这些长图就是我们想看的漫画了。</p>
+<p>我用的python写的这个脚本，因为个人平时都是用java，有些地方写的不好，也欢迎大家指正</p>
+<h2 id="我的脚本"><a class="markdownIt-Anchor" href="#我的脚本"></a> 我的脚本</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/MyPractices/tree/master/kuaikanmanhua">github地址</a><br />
+运行环境：<br />
+python3.6+<br />
+Pillow库，<br />
+具体的可以查看ReadME，也可以联系本人</p>
+<p>运行方法：<br />
+python .\app.py ${id}</p>
+<pre class="highlight"><code class="shell">python .\app.py 22535
+</code></pre>
+<p>22535只是一个章节的id，</p>
+<p>我就以《漫画A作为例子》<br />
+然后脚本就会自动的在当前文件夹下面生成两个文件夹<br />
+漫画A和漫画A-result</p>
+<p>漫画A-result里面就是拼接好的漫画了<br />
+漫画A-是分批下载的一些临时文件</p>
+<p>具体如图：<br />
+<img src="http://martinhan.com/images/2018-04-01_164709.png" width="343" height="660"><br />
+<img src="http://martinhan.com/images/2018-04-01_164720.png" width="337" height="696"></p>
+<p>前面的就是我们下载的一些临时文件<br />
+后一张图就是我们做好的了</p>
+<h2 id="声明"><a class="markdownIt-Anchor" href="#声明"></a> 声明</h2>
+<p>本文只做技术研究，不做商用，如有同学做商用，恶意攻击服务器，等非法行为，本人概不负责</p>
+<h2 id="告一段落"><a class="markdownIt-Anchor" href="#告一段落"></a> 告一段落</h2>
+<p>好了好了，其实说到了这里，今天就说到这里吧，这次把一整本书的内容都提取出来了。<br />
+可以开开心心的在本地看漫画了。</p>
+<p>我希望呢，自己写博客，能够认认真真的写出一点东西分享给大家，而不是网上抄来抄去。希望能做一个踏踏实实做技术的人吧，不敢求太多，能给大家带来点好玩的就挺好。</p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>有什么问题欢迎给博主指出。<br />
+包括python，程序分析方面的问题，等。</p>
+<p>成品就不上传了，希望大家都能跑</p>
+<p>忽然想到id获取的问题，其实有几个思路，</p>
+<ul>
+<li>sd卡的根目录创建/KuaiKan文件夹，然后里面创建了一个空的kkmh_debug文件。使kk漫画处于debug模式下，自己抓Log</li>
+<li>博主可以去对app重新打包，然后加上一些个人的代码，二次打包发布出来</li>
+<li>写个xposed插件供大家使用</li>
+</ul>
+<p>具体的可以下回说，也可以大家自己来发挥想象力啦，有什么问题欢迎联系我</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人网站：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html" rel="prev" title="Android逆向之路---让我们试试另一种方法看漫画-(1)">
+                  <i class="fa fa-chevron-left"></i> Android逆向之路---让我们试试另一种方法看漫画-(1)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-04-16/Android%E6%8A%80%E6%9C%AF---ThreadLocal%E8%AF%A6%E8%A7%A3.html" rel="next" title="Android技术---ThreadLocal详解">
+                  Android技术---ThreadLocal详解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"1f59d73dd96197b5b6ea006d22bdb60c"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

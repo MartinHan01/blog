@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 最近在某乎上有人在问我如何将打好的包更改包名。了解我的同学大概都知道，我喜欢自己动手做实验，再将自己的方式分享给大家，这次我选择了一个阅读类型app，随机选的。先看效果">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---改apk包名、达到多开效果">
+<meta property="og:url" content="http://martinhan.com/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言 最近在某乎上有人在问我如何将打好的包更改包名。了解我的同学大概都知道，我喜欢自己动手做实验，再将自己的方式分享给大家，这次我选择了一个阅读类型app，随机选的。先看效果">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/migudouble.png">
+<meta property="og:image" content="http://martinhan.com/images/miguyuedu_01.png">
+<meta property="og:image" content="http://martinhan.com/images/miguwarndialog.png">
+<meta property="og:image" content="http://martinhan.com/images/miguhome.png">
+<meta property="article:published_time" content="2017-09-22T16:28:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/migudouble.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html","path":"2017-09-23/Android逆向之路---改apk包名、达到多开效果.html","title":"Android逆向之路---改apk包名、达到多开效果"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---改apk包名、达到多开效果 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text"> 准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text"> 思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E9%80%86%E5%90%91"><span class="nav-number">4.</span> <span class="nav-text"> 开始逆向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%86%E5%8C%85"><span class="nav-number">4.1.</span> <span class="nav-text"> 拆包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%8C%85%E5%90%8D"><span class="nav-number">4.2.</span> <span class="nav-text"> 更改包名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9smali%E7%9A%84%E5%8C%85%E5%90%8D"><span class="nav-number">4.3.</span> <span class="nav-text"> 更改smali的包名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D%E7%A7%B0"><span class="nav-number">5.</span> <span class="nav-text"> 更改文件夹名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%89%93%E5%8C%85"><span class="nav-number">6.</span> <span class="nav-text"> 开始打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">7.</span> <span class="nav-text"> 运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">8.</span> <span class="nav-text"> 思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E7%BB%93%E5%B0%BE"><span class="nav-number">9.</span> <span class="nav-text"> 写在结尾</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2017-09-23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---改apk包名、达到多开效果 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---改apk包名、达到多开效果
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-23 00:28:00" itemprop="dateCreated datePublished" datetime="2017-09-23T00:28:00+08:00">2017-09-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>最近在某乎上有人在问我如何将打好的包更改包名。了解我的同学大概都知道，我喜欢自己动手做实验，再将自己的方式分享给大家，这次我选择了一个阅读类型app，随机选的。先看效果</p>
+<img src="http://martinhan.com/images/migudouble.png" width="200" height="350">  
+<span id="more"></span>
+如何做到的呢，那就把我的思路分享给大家。
+ps：侵删！仅供个人学习使用，不适宜商用。
+<h2 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h2>
+<p>咪咕阅读v7.1.1app<br />
+apktool<br />
+一个编辑器，（我用vscode装了smali高亮插件）</p>
+<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<ul>
+<li>利用apktool拆包咪咕阅读</li>
+<li>首先更改AndroidManifest.xml里面的包名</li>
+<li>全局更改com.xxx.xxxx类似的包名</li>
+<li>全局更改smali类型代码的包名字符串Lcom/xxx/xxxx</li>
+<li>全局更改所有com/xxx/xxxx文件夹的名称，因为java文件里面要求包名和文件夹路径要对应</li>
+<li>更改删除app原本的包名或签名校验相关smali代码</li>
+<li>apktool b打包apk</li>
+<li>jarsigner 签名 ，安装apk</li>
+</ul>
+<h2 id="开始逆向"><a class="markdownIt-Anchor" href="#开始逆向"></a> 开始逆向</h2>
+<h3 id="拆包"><a class="markdownIt-Anchor" href="#拆包"></a> 拆包</h3>
+<pre class="highlight"><code class="shell">apktool d com.ophone.reader.ui_7.1.1_129.apk
+</code></pre>
+<h3 id="更改包名"><a class="markdownIt-Anchor" href="#更改包名"></a> 更改包名</h3>
+<p>在AndroidMaifest.xml里面我们发现他的包名是 com.ophone.reader.ui<br />
+我就把我的包名改成com.ophone.reader.ui01吧</p>
+<p>将所有com.ophone.reader.ui替换成com.ophone.reader.ui01</p>
+<h3 id="更改smali的包名"><a class="markdownIt-Anchor" href="#更改smali的包名"></a> 更改smali的包名</h3>
+<p>将所有Lcom/ophone/reader/ui替换成<br />
+Lcom/ophone/reader/ui01</p>
+<h2 id="更改文件夹名称"><a class="markdownIt-Anchor" href="#更改文件夹名称"></a> 更改文件夹名称</h2>
+<p>更改所有com/ophone/reader/ui 的ui文件夹名为ui01<br />
+ps:其实以上三步可以写成程序吧，大体思路都是关于文件的读写，还有重命名等</p>
+<h2 id="开始打包"><a class="markdownIt-Anchor" href="#开始打包"></a> 开始打包</h2>
+<p>更改完了app的包名准备打包，</p>
+<pre class="highlight"><code class="shell">apktool b com.ophone.reader.ui_7.1.1_129
+</code></pre>
+<p>打好的包我的路径在<br />
+com.ophone.reader.ui_7.1.1_129/dist里面，<br />
+看到了我们逆向动了手脚的apk了</p>
+<img src="http://martinhan.com/images/miguyuedu_01.png" width="358" height="53">   
+<p>然后签名执行以下命令</p>
+<pre class="highlight"><code class="shell">jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHanKey.jks&quot; -signedjar _signed.apk &quot;.\com.ophone.reader.ui01_7.1.1_129.apk&quot; &quot;MartinHan&quot;
+</code></pre>
+<p>以上命令我就不解释了，可以具体自己查询。</p>
+<h2 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h2>
+<p>开始运行了，发现有如下问题，如图</p>
+<img src="http://martinhan.com/images/miguwarndialog.png" width="250" height="300">  
+<p>很明显啊，开发者加了签名校验，或者包名校验。</p>
+<h2 id="思路-2"><a class="markdownIt-Anchor" href="#思路-2"></a> 思路</h2>
+<p>后来我搜索了如下字符串“你安装版本xxxx”搜到了如下字符串</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;check_sign_notice&quot;</span>&gt;</span>您安装的版本不是官方版，建议您访问wap.cmread.com官网下载安装(注意:安装新版本需卸载当前版本)<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+</code></pre>
+<p>跟着这个name=check_sign_notice在public.xml里面看到了这个</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">public</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;string&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;check_sign_notice&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;0x7f0701bf&quot;</span> /&gt;</span>
+</code></pre>
+<p>由此可见，其实他的id就是7f0701bf。<br />
+继续全局搜索这个id我在WelcomePageActivity里面发现了如下代码，这段代码比较关键，需要我们细细研读。</p>
+<pre class="highlight"><code class="smali">    <span class="hljs-comment">#这里调用了setContentView方法</span>
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0, v0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;setContentView(<span class="hljs-class">Landroid/view/View;</span>)V
+
+    <span class="hljs-comment">#这里调用了com.cmread.bplusc.layout.as类的a方法，将结果传入v0，也就是根据这个</span>
+    <span class="hljs-comment">#v0来判断下面的条件</span>
+<span class="hljs-keyword">    .line</span> 171
+   <span class="hljs-built_in"> invoke-static </span>&#123;p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/layout/as;</span>-&gt;a(<span class="hljs-class">Landroid/content/Context;</span>)Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+    <span class="hljs-comment">#根据刚才的结果进行跳转</span>
+   <span class="hljs-built_in"> if-nez </span>v0,<span class="hljs-keyword"> :cond_3</span>
+    <span class="hljs-comment">#设置了WelcomePageActivity的E变量</span>
+<span class="hljs-keyword">    .line</span> 172
+   <span class="hljs-built_in"> iput-boolean </span>v4, p0, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;E:Z
+    <span class="hljs-comment">#下面的就不具体解释了，其实就是创建了那个对话框</span>
+<span class="hljs-keyword">    .line</span> 173
+   <span class="hljs-built_in"> iget-object </span>v0, p0, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;g:<span class="hljs-class">Landroid/content/Context;</span>
+
+<span class="hljs-keyword">    .line</span> 175
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;getResources()<span class="hljs-class">Landroid/content/res/Resources;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+    <span class="hljs-comment">#这就是那一段提示非官方版的文字</span>
+   <span class="hljs-built_in"> const </span>v3, 0x7f0701bf
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v2, v3&#125;, <span class="hljs-class">Landroid/content/res/Resources;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v2
+
+<span class="hljs-keyword">    .line</span> 176
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;getResources()<span class="hljs-class">Landroid/content/res/Resources;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v3
+
+   <span class="hljs-built_in"> const </span>v4, 0x7f070278
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v3, v4&#125;, <span class="hljs-class">Landroid/content/res/Resources;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v3
+
+<span class="hljs-keyword">    .line</span> 177
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>-&gt;getResources()<span class="hljs-class">Landroid/content/res/Resources;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v4
+
+   <span class="hljs-built_in"> const </span>v5, 0x7f070156
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v4, v5&#125;, <span class="hljs-class">Landroid/content/res/Resources;</span>-&gt;getString(I)<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v4
+
+   <span class="hljs-built_in"> new-instance </span>v5, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hu;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v5, p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hu;</span>-&gt;&lt;init&gt;(<span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>)V
+
+   <span class="hljs-built_in"> new-instance </span>v6, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hw;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v6, p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hw;</span>-&gt;&lt;init&gt;(<span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>)V
+
+   <span class="hljs-built_in"> new-instance </span>v7, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hx;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v7, p0&#125;, <span class="hljs-class">Lcom/cmread/bplusc/bookshelf/hx;</span>-&gt;&lt;init&gt;(<span class="hljs-class">Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;</span>)V
+
+<span class="hljs-keyword">    .line</span> 173
+   <span class="hljs-built_in"> invoke-static/range </span>&#123;v0 .. v8&#125;, <span class="hljs-class">Lcom/cmread/uilib/dialog/h;</span>-&gt;a(<span class="hljs-class">Landroid/content/Context;</span><span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Ljava/lang/String;</span><span class="hljs-class">Lcom/cmread/uilib/dialog/CommonReaderDialog$a;</span><span class="hljs-class">Lcom/cmread/uilib/dialog/CommonReaderDialog$a;</span><span class="hljs-class">Lcom/cmread/uilib/dialog/CommonReaderDialog$b;</span>Z)<span class="hljs-class">Lcom/cmread/uilib/dialog/CommonReaderDialog;</span>
+
+   <span class="hljs-built_in"> goto/16 </span>:goto_0
+
+
+<span class="hljs-keyword">    .</span>.....
+<span class="hljs-keyword">    .</span>.....
+<span class="hljs-keyword">    .</span>.....
+<span class="hljs-keyword">    .</span>.....
+<span class="hljs-keyword">    .</span>.....
+    <span class="hljs-comment"># goto_0具体位置代码如下，其实就是调用了父类的方法onKeyDown，然后就return了。</span>
+
+<span class="hljs-keyword">    .line</span> 1071
+   <span class="hljs-keyword"> :cond_0</span>
+   <span class="hljs-keyword"> :goto_0</span>
+   <span class="hljs-built_in"> invoke-super </span>&#123;p0, p1, p2&#125;, <span class="hljs-class">Lcom/cmread/uilib/activity/CMActivity;</span>-&gt;onKeyDown(I<span class="hljs-class">Landroid/view/KeyEvent;</span>)Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-keyword"> :goto_1</span>
+   <span class="hljs-built_in"> return </span>v0
+
+</code></pre>
+<p>到此为止，我们了解了以上的方法，就知道了，关键点就在于if-nez v0, :cond_3，<br />
+现在吧if-nez改成if-eqz，然后再次打包运行<br />
+如图：<br />
+<img src="http://martinhan.com/images/miguhome.png" width="273" height="468"></p>
+<h2 id="写在结尾"><a class="markdownIt-Anchor" href="#写在结尾"></a> 写在结尾</h2>
+<p>一切都彻底搞定啦，打到了本文章开始的效果，咪咕阅读双开，更改了他的包名，而且还过了校验。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-09-06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96.html" rel="prev" title="Gradle编译优化--让你的打包速度快一倍">
+                  <i class="fa fa-chevron-left"></i> Gradle编译优化--让你的打包速度快一倍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017-11-03/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2%E5%9B%9Eapp%E5%8F%88%E6%98%BE%E7%A4%BA%E5%B9%BF%E5%91%8A%E4%BA%86.html" rel="next" title="Android逆向之路---为什么从后台切换回app又显示广告了">
+                  Android逆向之路---为什么从后台切换回app又显示广告了 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c2018323961cdc78789648bc144f1805"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

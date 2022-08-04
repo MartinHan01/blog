@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 上周博主周末发烧了，所以停更，烧了好几天，不得不说真的是好难受。 所以呢，希望大家也多注意注意身体。多锻炼，毕竟身体才是革命的本钱 本文分析基于：快看漫画5.2.0(52000) 事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有做呢，也希望在大家的监督之下一点一点的全部完成吧。 ps:避免广告嫌疑，以下统称kk漫画了。 为什么选择这个ap">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---让我们试试另一种方法看漫画-(1)">
+<meta property="og:url" content="http://martinhan.com/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言 上周博主周末发烧了，所以停更，烧了好几天，不得不说真的是好难受。 所以呢，希望大家也多注意注意身体。多锻炼，毕竟身体才是革命的本钱 本文分析基于：快看漫画5.2.0(52000) 事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有做呢，也希望在大家的监督之下一点一点的全部完成吧。 ps:避免广告嫌疑，以下统称kk漫画了。 为什么选择这个ap">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/2018-03-26_035332.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-03-26_041251.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-03-26_041808.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-03-26_041724.png">
+<meta property="og:image" content="http://p1.kkmh.com/image/c57778/171104/pzsmr1sls.webp-c.w1080?sign=18e97d8dfad73802d55500a19d1fb7d0&t=5abbf9b2">
+<meta property="og:image" content="http://p1.kkmh.com/image/c57778/171104/ef89i1pdz.webp-c.w1080?sign=f961707f8198e7d37d0d79c88a12a839&t=5abbf9b2">
+<meta property="og:image" content="http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c43613757a19d60cec457f501ee&t=5abbf9b2">
+<meta property="article:published_time" content="2018-03-25T19:40:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/2018-03-26_035332.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html","path":"2018-03-26/Android逆向之路---让我们试试另一种方法看漫画-(1).html","title":"Android逆向之路---让我们试试另一种方法看漫画-(1)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---让我们试试另一种方法看漫画-(1) | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text"> 声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E6%9E%81%E7%9B%AE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text"> 终极目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E6%AC%A1%E7%9A%84%E5%B0%8F%E7%9B%AE%E6%A0%87"><span class="nav-number">4.</span> <span class="nav-text"> 本次的小目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E5%86%85%E9%83%A8log%E5%BC%80%E5%85%B3"><span class="nav-number">5.</span> <span class="nav-text"> 找到内部log开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%8B%E7%9C%8B%E5%BF%AB%E7%9C%8B%E6%BC%AB%E7%94%BB%E5%A4%A7%E6%A6%82%E7%94%A8%E4%BA%86%E4%BB%80%E4%B9%88%E6%8A%80%E6%9C%AF"><span class="nav-number">6.</span> <span class="nav-text"> 看看快看漫画大概用了什么技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%B5%B7%E5%8E%BB%E7%9C%8B%E5%8D%8F%E8%AE%AE%E5%90%A7"><span class="nav-number">7.</span> <span class="nav-text"> 一起去看协议吧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%8A%E4%B8%80%E6%AE%B5%E8%90%BD"><span class="nav-number">8.</span> <span class="nav-text"> 告一段落</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">9.</span> <span class="nav-text"> 写在最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">10.</span> <span class="nav-text"> 关于我</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2018-03-26/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(1).html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---让我们试试另一种方法看漫画-(1) | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---让我们试试另一种方法看漫画-(1)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-26 03:40:00" itemprop="dateCreated datePublished" datetime="2018-03-26T03:40:00+08:00">2018-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>上周博主周末发烧了，所以停更，烧了好几天，不得不说真的是好难受。<br />
+所以呢，希望大家也多注意注意身体。多锻炼，毕竟身体才是革命的本钱</p>
+<p>本文分析基于：快看漫画5.2.0(52000)<br />
+事先说明，这是一个系列，关于快看漫画的系列，不过在今天写看漫画这个系列的时候，博主后面的工作也还没有做呢，也希望在大家的监督之下一点一点的全部完成吧。<br />
+ps:避免广告嫌疑，以下统称kk漫画了。</p>
+<p>为什么选择这个app？<br />
+排名靠前啊，反正就选到了，<br />
+有对别的感兴趣的同学也欢迎投稿，博主会尽自己所能，给大家带来点好玩的。</p>
+<h2 id="声明"><a class="markdownIt-Anchor" href="#声明"></a> 声明</h2>
+<p>本文对kk漫画只做技术研究，不做商用，如有雷同，概不负责</p>
+<h2 id="终极目标"><a class="markdownIt-Anchor" href="#终极目标"></a> 终极目标</h2>
+<p>不用kk漫画官方app看漫画，逆向协议，逆向代码，</p>
+<span id="more"></span>
+<h2 id="本次的小目标"><a class="markdownIt-Anchor" href="#本次的小目标"></a> 本次的小目标</h2>
+<p>找到内部log开关，看看开发者打印了什么重要日志<br />
+然后大体看下此app内部都用了什么技术<br />
+抓到kk漫画的部分协议，尝试性分析</p>
+<h2 id="找到内部log开关"><a class="markdownIt-Anchor" href="#找到内部log开关"></a> 找到内部log开关</h2>
+<p>首先下载好app后利用apktool拆包</p>
+<pre class="highlight"><code class="shell"> apktool d .\com.kuaikan.comic_5.2.0_52000.apk
+</code></pre>
+<p>如你所见，本文使用的是5.2.0版本<br />
+内部版本号versionCode: ‘52000’</p>
+<p>拆包之后，先看看app包名是<code>com.kuaikan.comic</code>，所以我们主要就看这个文件夹下的大体结构<br />
+<img src="http://martinhan.com/images/2018-03-26_035332.png" width="400" height="487"></p>
+<p>然后我发现了他的LogUtil类，那就进去看看吧。看到了如下代码，看不懂不要着急，我稍做解释</p>
+<pre class="highlight"><code class="smali"><span class="hljs-keyword">.line</span> 16
+   <span class="hljs-built_in"> new-instance </span>v0, <span class="hljs-class">Ljava/io/File;</span>
+
+   <span class="hljs-built_in"> new-instance </span>v1, <span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v1&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;&lt;init&gt;()V
+
+   <span class="hljs-built_in"> sget-object </span>v2, <span class="hljs-class">Lcom/kuaikan/comic/util/FileUtil;</span>-&gt;b:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v2&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> const-string </span>v2, <span class="hljs-string">&quot;/kkmh_debug&quot;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1, v2&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v1&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v0, v1&#125;, <span class="hljs-class">Ljava/io/File;</span>-&gt;&lt;init&gt;(<span class="hljs-class">Ljava/lang/String;</span>)V
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/io/File;</span>-&gt;exists()Z
+
+   <span class="hljs-built_in"> move-result </span>v0
+
+   <span class="hljs-built_in"> sput-boolean </span>v0, <span class="hljs-class">Lcom/kuaikan/comic/util/LogUtil;</span>-&gt;a:Z
+</code></pre>
+<p>博主帮你转java，你再看，看不懂你可以打人，当然是别人啊</p>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(FileUtil.b + <span class="hljs-string">&quot;/kkmh_debug&quot;</span>).exists()
+</code></pre>
+<p>smali啰哩啰唆，其实转成java就这么一行，<br />
+我们就靠直觉，一起来猜，这个FileUtil.b + /kkmh_debug是不是就有很大的概率就是那个debug_log的开关了呢。</p>
+<p>我们创建文件试一试，有个疑问？FileUtil.b路径在哪里呢，那我们就跟过去看看</p>
+<pre class="highlight"><code class="smali"><span class="hljs-comment"># direct methods</span>
+<span class="hljs-keyword">.method</span><span class="hljs-keyword"> static</span><span class="hljs-keyword"> constructor</span> &lt;clinit&gt;()V
+<span class="hljs-keyword">    .locals</span> 2
+
+<span class="hljs-keyword">    .prologue</span>
+<span class="hljs-keyword">    .line</span> 36
+   <span class="hljs-built_in"> new-instance </span>v0, <span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> invoke-direct </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;&lt;init&gt;()V
+
+   <span class="hljs-built_in"> invoke-static </span>&#123;&#125;, <span class="hljs-class">Landroid/os/Environment;</span>-&gt;getExternalStorageDirectory()<span class="hljs-class">Ljava/io/File;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v1
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/Object;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> const-string </span>v1, <span class="hljs-string">&quot;/KuaiKan&quot;</span>
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="hljs-class">Ljava/lang/String;</span>)<span class="hljs-class">Ljava/lang/StringBuilder;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/StringBuilder;</span>-&gt;toString()<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> move-result-object </span>v0
+
+   <span class="hljs-built_in"> sput-object </span>v0, <span class="hljs-class">Lcom/kuaikan/comic/util/FileUtil;</span>-&gt;b:<span class="hljs-class">Ljava/lang/String;</span>
+
+   <span class="hljs-built_in"> return-void
+</span><span class="hljs-keyword">.end method</span>
+</code></pre>
+<p>别着急，博主再帮你手动转成java来看</p>
+<pre class="highlight"><code class="java">
+<span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+sb.append(Environemt.getExternalStorageDirectory())
+sb.append(|<span class="hljs-string">&quot;/KuaiKan&quot;</span>);
+FileUtil.b = sb.toString();
+
+</code></pre>
+<p>以上的这些话在<clinit>方法里面，其实你可以理解为就是类在初始化的时候，虚拟机会执行这些代码，以便于给b赋值初值，这个方法你平时不会自己用到，但是虚拟机会用到啊。</p>
+<p>所以呢，按照上面的来说，我们基本上定位好了，那么我就在我的sd卡的根目录创建好了/KuaiKan文件夹，然后里面创建了一个空的kkmh_debug文件。</p>
+<h2 id="看看快看漫画大概用了什么技术"><a class="markdownIt-Anchor" href="#看看快看漫画大概用了什么技术"></a> 看看快看漫画大概用了什么技术</h2>
+<p>其实有一些可能不是kk漫画程序员主动用的，而是引入了一些第三方库，他们自带的，那些我就不一一列举了</p>
+<ul>
+<li>frecso图片加载框架</li>
+<li>butterknife</li>
+<li>极光推送</li>
+<li>shareSDK</li>
+<li>google的zxing二维码识别</li>
+<li>jakewharton的retrofit2</li>
+<li>hybird</li>
+<li>okhttp</li>
+<li>七牛云存储</li>
+</ul>
+<p>太多了，就不一一列举了，有兴趣大家自己去看</p>
+<h2 id="一起去看协议吧"><a class="markdownIt-Anchor" href="#一起去看协议吧"></a> 一起去看协议吧</h2>
+<p>按照上面说的方法，debug log开关就算是打开了，然后我们尝试着请求一个漫画，看看他是不是把所有信息都打印出来了。</p>
+<p>我呢，就用一个例子来试试吧。“搜神记”，如图</p>
+<img src="http://martinhan.com/images/2018-03-26_041251.png" width="253" height="403"> 
+<p>点击后，我们看log日志,<br />
+我截取一些看着比较有用的日志，来贴出来</p>
+<p>下面的是他的打点统计日志</p>
+<pre class="highlight"><code class="">03-26 04:14:06.682: D/TrackRouterManger(7288): [ (TrackRouterManger.java:242)#h ] level=2,current node=Node&#123;id=111, parentId=11, path='发现/推荐', page='FindRec', kid.size=2&#125;
+</code></pre>
+<p>一些activity栈的信息</p>
+<pre class="highlight"><code class="">03-26 04:14:06.692: V/ActivityRecordMgr(7288): [ (ActivityRecordMgr.java:102)#d ] -----------------Activity stack begin---------------------
+03-26 04:14:06.692: V/ActivityRecordMgr(7288): [ (ActivityRecordMgr.java:105)#d ] Activity Stack[0]com.kuaikan.comic.ui.MainActivity@429f4e08 # lifeState=onPause
+03-26 04:14:06.692: V/ActivityRecordMgr(7288): [ (ActivityRecordMgr.java:107)#d ] -----------------Activity stack end-----------------------
+
+</code></pre>
+<p>此时此刻我的页面是这个样子的，为什么要给大家看这个呢，因为看了页面，才能知道他的数据源获取</p>
+<img src="http://martinhan.com/images/2018-03-26_041808.png" width="253" height="403"> 
+<p>数据源如下，已经在log里发现了<br />
+<img src="http://martinhan.com/images/2018-03-26_041724.png" width="1588" height="678"></p>
+<p>我们点击当前页面的开始阅读，然后继续看log。</p>
+<p>log如下,log太多了，我就截取一部分关键的了</p>
+<pre class="highlight"><code class="">03-26 04:23:14.672: D/OkHttp(7288): &#123;&quot;code&quot;:200,&quot;data&quot;:&#123;&quot;comment_view_message&quot;:&quot;吐槽神马的尽管来&quot;,&quot;can_view&quot;:true,&quot;cover_image_url&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;created_at&quot;:1509616533,&quot;recommend&quot;:&#123;&quot;recommend_list&quot;:[&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/161212/804va2fbp.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/161212/804va2fbp.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;奇幻&quot;,&quot;古风&quot;,&quot;剧情&quot;],&quot;topic_id&quot;:885,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;美人为将&quot;&#125;,&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170222/jvwhcv89p.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170222/jvwhcv89p.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;古风&quot;,&quot;穿越&quot;],&quot;topic_id&quot;:1035,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;蓬山远&quot;&#125;,&#123;&quot;male_vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170922/jlihj7f6n.webp-w320.w&quot;,&quot;vertical_image_url&quot;:&quot;http://f2.kkmh.com/image/170922/jlihj7f6n.webp-w320.w&quot;,&quot;recommend_tag&quot;:[&quot;古风&quot;,&quot;宫斗&quot;],&quot;topic_id&quot;:1518,&quot;recommend_source&quot;:&quot;AI推荐&quot;,&quot;title&quot;:&quot;妃·夕妍雪&quot;&#125;],&quot;title&quot;:&quot;猜你喜欢&quot;&#125;,&quot;is_favourite&quot;:false,&quot;title&quot;:&quot;搜神记：上古神话开启&quot;,&quot;widgets&quot;:[],&quot;recommend_count&quot;:0,&quot;updated_at&quot;:1509615372,&quot;selling_kk_currency&quot;:0,&quot;zoomable&quot;:0,&quot;push_flag&quot;:1,&quot;previous_comic_id&quot;:null,&quot;share&quot;:&#123;&quot;award&quot;:false,&quot;activity_id&quot;:null,&quot;show_draw_record&quot;:false,&quot;title&quot;:&quot;&quot;&#125;,&quot;customized_share&quot;:[&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:1,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:4,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;改编自树下野狐同名小说《搜神记》，传说中三皇五帝时代，随着天下公认的领袖去世，各族群雄蠢蠢欲动。在此动荡时代，一位少年横空出世，机缘巧合下进入了一个爱恨情仇的古代神话世界……\r\n&quot;,&quot;share_platform&quot;:3,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！传送门：https://m.kuaikanmanhua.com/comics/57778 &quot;,&quot;share_platform&quot;:5,&quot;title&quot;:&quot;&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;,&#123;&quot;description&quot;:&quot;&quot;,&quot;share_platform&quot;:2,&quot;title&quot;:&quot;好看哭！《搜神记》这个漫画太优秀了！&quot;,&quot;picture&quot;:&quot;http://f2.kkmh.com/image/171104/7tmqcg0ho.webp-w750&quot;,&quot;url&quot;:&quot;https://m.kuaikanmanhua.com/comics/57778&quot;&#125;],&quot;id&quot;:57778,&quot;comic_type&quot;:0,&quot;is_login&quot;:false,&quot;is_liked&quot;:false,&quot;images&quot;:[&quot;http://p1.kkmh.com/image/c57778/171104/ly6huctjr.webp-c.w1080?sign=abc129032198c237159d029e0715d759&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/gkfv3xx80.webp-c.w1080?sign=3a8807108a14ed9f49a2750dbe168ba3&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/tjc901nwz.webp-c.w1080?sign=a2d7be2867052a445587e21ccb7ee14b&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/5kzfzqffd.webp-c.w1080?sign=6b52f8285c515d8a266af32981bae787&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/cahur12gy.webp-c.w1080?sign=f514ff5bd33c0c6e4f27ec19f55dc919&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/0pigomyew.webp-c.w1080?sign=003061dd0a43130cf177fc3b193b94fb&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/0qfpkk2vk.web
+03-26 04:23:14.672: D/OkHttp(7288): kmh.com/image/c57778/171104/ldt0b3mh6.webp-c.w1080?sign=f836b25c6cec5298effaae4fc67576a6&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/ffo7egep9.webp-c.w1080?sign=eb956afe89173b48eece50bae6e5b440&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/psi8565i7.webp-c.w1080?sign=0543fefa2c40dc869e8042ce807ad04a&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/t5scd1m3a.webp-c.w1080?sign=3dbc1ab67096f721d606560f87c31717&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/yd6tw60hx.webp-c.w1080?sign=c41f7038b79a759114f488610bf56b90&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/8fu1zst61.webp-c.w1080?sign=63bb65a0a9a67fa0072475b1b67341b5&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/bmjr223nj.webp-c.w1080?sign=ca09d02f0a6a1839b1bd6ecf009f6cd3&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/zwpd4aqxx.webp-c.w1080?sign=68d5cf64f352656b4e99e5868bf110b4&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/qiw9poat9.webp-c.w1080?sign=c31ff1a362338d37357ed0b6be1d56b7&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/5v7c6ot27.webp-c.w1080?sign=a23052b5c561b5699617039266f76c16&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/h6st3nd4n.webp-c.w1080?sign=7f874a231c23ea71fb6333f3dc986f3f&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/mjpq7cyjc.webp-c.w1080?sign=81aedeaa44ed94956e3fbe67db2cb60a&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/9utqlqmiz.webp-c.w1080?sign=14dd3c96c0c82c7fa18e7bb60df32bab&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/7rbz4ngds.webp-c.w1080?sign=64e436f9c5f80a52b096ad4a619a4854&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/irzb8xzf8.webp-c.w1080?sign=57b4246122d006c79a72c3999bd0ea99&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/63ag2ajch.webp-c.w1080?sign=5c7a6b2c514c1c13166e6b79d74d93d9&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/pzsmr1sls.webp-c.w1080?sign=18e97d8dfad73802d55500a19d1fb7d0&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/ef89i1pdz.webp-c.w1080?sign=f961707f8198e7d37d0d79c88a12a839&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c43613757a19d60cec457f501ee&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/t8wu5827b.webp-c.w1080?sign=1c7cd2cfd8048f1c70867453acf42e2f&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/pmmjncy60.webp-c.w1080?sign=6aae69e1b636686d54e371a5e15b727f&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/pow2olll2.webp-c.w1080?sign=814bb733cc9826731c000e2ff91f66ae&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/4vn79h8y7.webp-c.w1080?sign=bca52794d26cf135de7ce3de91e7e5d9&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/a5p0pd48g.webp-c.w1080?sign=39127851a5b94e657ec5ab253d6f1cf8&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/8jbdc523r.webp-c.w1080?sign=1ab92b8c2a569c1539cd4f9e53ffc81a&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/ov2w7hrih.webp-c.w1080?sign=d0c9b82b207280b359cc8cc04fc1be30&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/v7q7i0tig.webp-c.w1080?sign=871b1aaecc9e32db85831d1eadb02cf3&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/xighrl3a2.webp-c.w1080?sign=f9702db0ca898eb20ffede1821a638b2&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/3nvs5ehm7.webp-c.w1080?sign=797392c3571dee1be605309ada441b00&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/u2dcjj2v9.webp-c.w1080?sign=a35d816c0eac09b2cb1430c6a4ae90b1&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/shwqkh0nb.webp-c.w1080?sign=c03c5bb74a67ced367247526e131d435&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/joaf56gi4.webp-c.w1080?sign=3d2f66d155e362333ae40724ca33bbe9&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/le26yhiwo.webp-c.w1080?sign=9741fcc15f12fe0fba453f018153861c&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/k0cfwj0h6.webp-c.w1080?sign=8b6e0232fa6922522e985272930abdd6&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/dx2f0nr2k.webp-c.w1080?sign=4b95278e39a6d8d868e020ac8b87af47&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/mptqvh12h.webp-c.
+03-26 04:23:14.672: D/OkHttp(7288): w1080?sign=093d740152a24175a9f737b396c3b9fb&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/ks8tfc49e.webp-c.w1080?sign=93ec93bee7e709f0ca044f7241d800e4&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/rcow9dctl.webp-c.w1080?sign=84c14293dad2aea2a4334f386de5f676&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/ejjemvlgt.webp-c.w1080?sign=ce253e0f8f1c3ed665c57548e03e88c8&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/6mzzltu91.webp-c.w1080?sign=920ea61288f8e312824cab3523e43a3f&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/20yw7tdpv.webp-c.w1080?sign=e37730a45857f01b60f580bcb62992f2&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/dpqkp2wl0.webp-c.w1080?sign=3e294f3ae32b6db922094e182cc22e7d&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/qfc33d23w.webp-c.w1080?sign=751cc3cc92830a9fe0f1b5fe23f6cecd&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/l5iqe7wnm.webp-c.w1080?sign=1c7bcaf56e0757e9c8a5d26895416e2a&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/mruj2pynw.webp-c.w1080?sign=6851c78caae814ce3993e9f391805d3e&amp;t=5abbf9b2&quot;,&quot;http://p1.kkmh.com/image/c57778/171104/9p528qqa0.webp-c.w1080?sign=56b08c5c33a22549cd9563f596618fb0&amp;t=5abbf9b2&quot;],&quot;tencent_share_title&quot;:&quot;最近发现一部超好看的漫画:搜神记&quot;,&quot;storyboard_cnt&quot;:1,&quot;image_infos&quot;:[&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;952dfc47a04418776d4d73de2d5368e5&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;03d2ab0a6b36ddd29f5b4b1ba78d2127&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;2ec602d95c558a211ccd94f37e1770d3&quot;,&quot;height&quot;:500&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;f2db8348b69c27c77ea129157d82db76&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;0104a2504d59d41c03bfb311ac6a7ea1&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;dca1ee4fd1a24667358b1a55eb30ee66&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;15ef78d7753b1c433d590d79b3ccec5e&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;7c3d64cf7122a0de3ffd37ddb7aabef5&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;a9224c1ffe66c0382e6eee3496c6ab70&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;820a413bc6589b532d5854d6c937554e&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;63c815ec28692fd721ba7fe1ee8a3bfe&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;3430bd74bef55c778cd818b3b4867e5c&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;ced4682dd93f24dd4dde06e0d9f7f674&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;07b03cb6fcd2f98273815d0b137ff76c&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;e1a1b70af35b9fa48872b06fe0753424&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;ad4df94db7b48a703e2a7dcd5b7c08f3&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;7c4b3caea151bed943465cc35691b43c&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;5f7ae4d70cbfef52489f8bd5d95188d6&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;e6a07bfaa39d018bbf828fab1cb4f1a4&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;c6e794df442df12d3f7e96d8848ce6a5&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;b8f120e3fae32412f5ff5e4dee3813de&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;2b372a464a9b245ec7b6908e481bc046&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;cc07f3d93445a5c0d9e1c011eb9d4348&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;2191ed6af451241e4a94ca85782f086b&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;3b1bb36b5a010acae4b8a65e8987d79d&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;bb98ec1d8098f80898a51bef7bbe64ee&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;f59f7a9242f83cfce854773a2a69e67f&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;c069854147401d73422a96c8a5b6e273&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;a94cbe3fd850e617c1a5d16c87f11516&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;2211baa0d6b48dab3dc39caec4248e17&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;4c1d022196cecdb26c71ece4f2cd0f23&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;969cbcae3ad521ab2a7b2d7bf8a6a0c3&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;240aa85af9aa2e68b8f48b1bcbad856f&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;85426449db27644dd0ee01f04044d7ff&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;446f8ca3b314d9ffa3a57a2a6711190d&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;03cc165dab6f0300b8460b4d4147db35&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;84b9bb73ea4439b8712cd0448fe6260b&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;c62604339652a4619fc593ada3b205ff&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:1280,&quot;key&quot;:&quot;11be18c0a6e28303de60191306e4e9ec&quot;,&quot;height&quot;:1000&#125;,&#123;&quot;width&quot;:
+
+</code></pre>
+<p>好了好了，到了这里，相信你就已经发现了，漫画的种种url已经暴露出来了，比如下面这个</p>
+<pre class="highlight"><code class="">http://p1.kkmh.com/image/c57778/171104/pzsmr1sls.webp-c.w1080?sign=18e97d8dfad73802d55500a19d1fb7d0&amp;t=5abbf9b2
+
+http://p1.kkmh.com/image/c57778/171104/ef89i1pdz.webp-c.w1080?sign=f961707f8198e7d37d0d79c88a12a839&amp;t=5abbf9b2
+
+http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c43613757a19d60cec457f501ee&amp;t=5abbf9b2
+
+</code></pre>
+<img src="http://p1.kkmh.com/image/c57778/171104/pzsmr1sls.webp-c.w1080?sign=18e97d8dfad73802d55500a19d1fb7d0&t=5abbf9b2" width="388" height="302">
+<img src="http://p1.kkmh.com/image/c57778/171104/ef89i1pdz.webp-c.w1080?sign=f961707f8198e7d37d0d79c88a12a839&t=5abbf9b2" width="388" height="302">
+<img src="http://p1.kkmh.com/image/c57778/171104/y2qai7jw2.webp-c.w1080?sign=1e5c7c43613757a19d60cec457f501ee&t=5abbf9b2" width="388" height="302">
+<h2 id="告一段落"><a class="markdownIt-Anchor" href="#告一段落"></a> 告一段落</h2>
+<p>好了好了，其实说到了这里，今天就说到这里吧，具体的如何自己写个工具把一整本书都提取出来，我们可以下次分着说。<br />
+慢慢来，别着急。</p>
+<p>我希望呢，自己写博客，能够认认真真的写出一点东西分享给大家，而不是网上抄来抄去。希望能做一个踏踏实实做技术的人吧，不敢求太多，能给大家带来点好玩的就挺好。</p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>如有雷同，概不负责啊，有什么问题欢迎给博主指出。</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人网站：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-03-12/%E7%AE%97%E6%B3%95---%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%9D%E8%B7%AF%E7%90%86%E8%A7%A3%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F(%E9%99%84%E6%BA%90%E7%A0%81).html" rel="prev" title="算法---一种简单的思路理解快速排序(附源码)">
+                  <i class="fa fa-chevron-left"></i> 算法---一种简单的思路理解快速排序(附源码)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-04-01/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E6%88%91%E4%BB%AC%E8%AF%95%E8%AF%95%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9C%8B%E6%BC%AB%E7%94%BB-(2).html" rel="next" title="Android逆向之路---让我们试试另一种方法看漫画-(2)">
+                  Android逆向之路---让我们试试另一种方法看漫画-(2) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"857303a466a88cde1cd8376d37c965d7"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

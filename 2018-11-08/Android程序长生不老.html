@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言的前言 众所周知，Android是免费开源的，所以我们每个人都可以获取到Android源码，最近手机耗电厉害，天天提醒，10分钟耗电20%。 不是，我这干啥了，就耗电这么快。后来就网上搜搜看看，到底是怎么回事。顺便逆向了一个万年历。 每个产品都想让自己的程序在后台能够长期的运行，不管是监测用户的行为，还是能够让自己正常的push，所以这个问题就引申出来了。 问：如何让自己的程序长期后台运行，">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android程序长生不老">
+<meta property="og:url" content="http://martinhan.com/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言的前言 众所周知，Android是免费开源的，所以我们每个人都可以获取到Android源码，最近手机耗电厉害，天天提醒，10分钟耗电20%。 不是，我这干啥了，就耗电这么快。后来就网上搜搜看看，到底是怎么回事。顺便逆向了一个万年历。 每个产品都想让自己的程序在后台能够长期的运行，不管是监测用户的行为，还是能够让自己正常的push，所以这个问题就引申出来了。 问：如何让自己的程序长期后台运行，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/2018-11-08_202804.png">
+<meta property="article:published_time" content="2018-11-08T09:03:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/2018-11-08_202804.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html","path":"2018-11-08/Android程序长生不老.html","title":"Android程序长生不老"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android程序长生不老 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%E7%9A%84%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言的前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%B8%87%E5%B9%B4%E5%8E%86app%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E6%B4%BB%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text"> 一个万年历app是如何保活的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E5%83%8F%E7%B4%A0%E6%82%AC%E6%B5%AE%E5%B1%82%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text"> 1像素悬浮层技术实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AC%BA%E9%AA%97%E7%B3%BB%E7%BB%9F%E6%88%91%E4%BB%AC%E7%9A%84app%E6%9C%89%E8%B4%A6%E6%88%B7%E7%B3%BB%E7%BB%9F%E7%84%B6%E5%90%8E%E9%80%9A%E8%BF%87%E5%AE%9A%E6%9C%9F%E5%90%8C%E6%AD%A5%E8%B4%A6%E6%88%B7%E4%BF%9D%E6%B4%BB"><span class="nav-number">5.</span> <span class="nav-text"> 欺骗系统我们的app有账户系统，然后通过定期同步账户保活</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E5%BE%AA%E7%8E%AF%E4%BB%BB%E5%8A%A1%E4%BF%9D%E6%B4%BB"><span class="nav-number">6.</span> <span class="nav-text"> 创建定时循环任务保活</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E7%9A%84%E9%BB%91hen%E7%A7%91liu%E6%8A%80mang%E7%9A%84%E5%91%A2"><span class="nav-number">7.</span> <span class="nav-text"> 还有什么其他的黑(hen)科(liu)技(mang)的呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">8.</span> <span class="nav-text"> 关于我</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android程序长生不老 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android程序长生不老
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-08 17:03:00" itemprop="dateCreated datePublished" datetime="2018-11-08T17:03:00+08:00">2018-11-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">计算机技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言的前言"><a class="markdownIt-Anchor" href="#前言的前言"></a> 前言的前言</h2>
+<p>众所周知，Android是免费开源的，所以我们每个人都可以获取到Android源码，最近手机耗电厉害，天天提醒，10分钟耗电20%。<br />
+不是，我这干啥了，就耗电这么快。后来就网上搜搜看看，到底是怎么回事。顺便逆向了一个万年历。</p>
+<p>每个产品都想让自己的程序在后台能够长期的运行，不管是监测用户的行为，还是能够让自己正常的push，所以这个问题就引申出来了。<br />
+问：如何让自己的程序长期后台运行，杀不死。</p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>看完我自己都惊了，感觉手机每天运行的都是什么乱七八糟，因为自己手机上装了这款app，而且这款app要求的权限异常的多，<br />
+所以就直接引起了我的注意，访问手机就账户列表，WIFI状态，照相机，读取联系人，锁屏，启动事件。<br />
+一个万年历就要这么多权限，不禁引起了好奇，所以决定一探究竟</p>
+<span id="more"></span>
+<h2 id="一个万年历app是如何保活的"><a class="markdownIt-Anchor" href="#一个万年历app是如何保活的"></a> 一个万年历app是如何保活的</h2>
+<p>说起万年历如何保活的，用白话来说，就是这么几个方法来实现</p>
+<ul>
+<li>监听屏幕亮灭，如果屏幕灭，那么创建一个1像素的悬浮层。屏幕亮，把这个1像素的页面关闭，防止意外获取到焦点惹恼用户</li>
+<li>利用账户系统，系统定期唤醒账号更新服务，欺骗系统我们的app有账号服务，然后定期同步账户，再做一些其他的事情</li>
+<li>android5.0以后可以利用JobSchedulerService，使我们的程序定时被运行，以及一些其他条件</li>
+</ul>
+<h2 id="1像素悬浮层技术实现"><a class="markdownIt-Anchor" href="#1像素悬浮层技术实现"></a> 1像素悬浮层技术实现</h2>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">package</span> cn.etouch.ecalendar.keeplive;
+
+<span class="hljs-keyword">import</span> android.app.Activity;
+<span class="hljs-keyword">import</span> android.os.Bundle;
+<span class="hljs-keyword">import</span> android.view.Window;
+<span class="hljs-keyword">import</span> android.view.WindowManager.LayoutParams;
+<span class="hljs-keyword">import</span> cn.etouch.ecalendar.manager.ad;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KeepLiveActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Activity</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">KeepLiveActivity</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(Bundle bundle)</span> &#123;
+        <span class="hljs-built_in">super</span>.onCreate(bundle);
+        
+        <span class="hljs-type">Window</span> <span class="hljs-variable">window</span> <span class="hljs-operator">=</span> getWindow();
+        window.setGravity(<span class="hljs-number">51</span>);
+        <span class="hljs-comment">//创建一个1像素的悬浮层</span>
+        <span class="hljs-type">LayoutParams</span> <span class="hljs-variable">attributes</span> <span class="hljs-operator">=</span> window.getAttributes();
+        attributes.x = <span class="hljs-number">0</span>;
+        attributes.y = <span class="hljs-number">0</span>;
+        attributes.width = <span class="hljs-number">1</span>;
+        attributes.height = <span class="hljs-number">1</span>;
+        window.setAttributes(attributes);
+        a = <span class="hljs-built_in">this</span>;
+        ad.b(<span class="hljs-string">&quot;ActivityManager---&gt;KeepLiveActivity onCreate&quot;</span>);
+    &#125;
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onResume</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-built_in">super</span>.onResume();
+        ad.b(<span class="hljs-string">&quot;ActivityManager---&gt;KeepLiveActivity onResume&quot;</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.b) &#123;
+            finish();
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-built_in">this</span>.b = <span class="hljs-literal">true</span>;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDestroy</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-built_in">super</span>.onDestroy();
+        a = <span class="hljs-literal">null</span>;
+        ad.b(<span class="hljs-string">&quot;ActivityManager---&gt;KeepLiveActivity onDestroy&quot;</span>);
+    &#125;
+&#125;
+</code></pre>
+<p>这个类的名称起的就很好，KeepLiveActivity，保活的页面，主要就是用于保活。<br />
+创建一个1像素的悬浮层，对于手机来讲是可见的，对于人眼来讲，几乎是不可见的，所以我们也无法发现</p>
+<h2 id="欺骗系统我们的app有账户系统然后通过定期同步账户保活"><a class="markdownIt-Anchor" href="#欺骗系统我们的app有账户系统然后通过定期同步账户保活"></a> 欺骗系统我们的app有账户系统，然后通过定期同步账户保活</h2>
+<p>先看看万年历是怎么做的</p>
+<img src="http://martinhan.com/images/2018-11-08_202804.png" width="200" height="350"> 
+<p>其中EcalendarAccountProvider,SyncAccountService,SyncAccountUtils就是利用系统账户更新功能定期同步账户，<br />
+我们可以看到万年历的代码</p>
+<pre class="highlight"><code class="java">
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EcalendarAccountProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ContentProvider</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Uri</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Uri.parse(<span class="hljs-string">&quot;content://cn.etouch.ecalendar.account.provider/data&quot;</span>);
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125;
+
+    <span class="hljs-keyword">public</span> Cursor <span class="hljs-title function_">query</span><span class="hljs-params">(Uri uri, String[] strArr, String str, String[] strArr2, String str2)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    &#125;
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getType</span><span class="hljs-params">(Uri uri)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>();
+    &#125;
+
+    <span class="hljs-keyword">public</span> Uri <span class="hljs-title function_">insert</span><span class="hljs-params">(Uri uri, ContentValues contentValues)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">delete</span><span class="hljs-params">(Uri uri, String str, String[] strArr)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">update</span><span class="hljs-params">(Uri uri, ContentValues contentValues, String str, String[] strArr)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+&#125;
+</code></pre>
+<p>首先提供一个账户相关的ContentProvider，可是这个内部实现却什么也不干，欺骗系统app使用了系统账户功能，但是实际上其实只是利用账户同步功能长生不老</p>
+<h2 id="创建定时循环任务保活"><a class="markdownIt-Anchor" href="#创建定时循环任务保活"></a> 创建定时循环任务保活</h2>
+<p>前提，android5.0 api21以上<br />
+利用系统的JobService来保活，</p>
+<p>万年历代码如下</p>
+<pre class="highlight"><code class="java"> <span class="hljs-meta">@TargetApi(21)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">c</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">if</span> (aj.v &gt;= <span class="hljs-number">21</span>) &#123;
+                <span class="hljs-type">Builder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Builder</span>(<span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ComponentName</span>(ApplicationManager.d, JobSchedulerService.class));
+                <span class="hljs-comment">//创建一个60s周期的任务</span>
+                builder.setPeriodic(<span class="hljs-number">60000</span>);
+                builder.setPersisted(<span class="hljs-literal">true</span>);
+                <span class="hljs-type">JobScheduler</span> <span class="hljs-variable">jobScheduler</span> <span class="hljs-operator">=</span> (JobScheduler) ApplicationManager.d.getSystemService(<span class="hljs-string">&quot;jobscheduler&quot;</span>);
+                <span class="hljs-keyword">if</span> (jobScheduler != <span class="hljs-literal">null</span>) &#123;
+                    jobScheduler.schedule(builder.build());
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+</code></pre>
+<p>创建一个60s周期的任务，不断的让系统定时调用我们的程序来保活</p>
+<h2 id="还有什么其他的黑hen科liu技mang的呢"><a class="markdownIt-Anchor" href="#还有什么其他的黑hen科liu技mang的呢"></a> 还有什么其他的黑(hen)科(liu)技(mang)的呢</h2>
+<p>以上说的是万年历的，据博主所知还有很多其他的方法，</p>
+<p>比如在锁屏后无限循环播放一段无声的音乐，作为用户来讲是听不到的，可是作为手机来讲是认为你正在放音乐，因此不能结束掉这个进程</p>
+<p>或者android4.4以前可以用jni，fork子进程的方法，可以保证卸载app后程序仍然可以在手机里运行</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人网站：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-09-13/%E7%94%9F%E6%B4%BB---%E5%86%99%E5%9C%A8%E5%8D%81%E4%B8%80.html" rel="prev" title="生活---写在十一">
+                  <i class="fa fa-chevron-left"></i> 生活---写在十一
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html" rel="next" title="Android逆向之路---让你的微信地区来自火星">
+                  Android逆向之路---让你的微信地区来自火星 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"2e1a723ee92053059a18789efc1955b1"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

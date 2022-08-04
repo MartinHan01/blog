@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。 这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家， 下载地址：点我下载">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---脱壳360加固">
+<meta property="og:url" content="http://martinhan.com/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言 众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。 这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家， 下载地址：点我下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/dumpdex1213.png">
+<meta property="og:image" content="http://martinhan.com/images/20181213230149.png">
+<meta property="article:published_time" content="2018-12-13T14:16:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/dumpdex1213.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html","path":"2018-12-13/Android逆向之路---脱壳360加固、与xposed hook注意事项.html","title":"Android逆向之路---脱壳360加固"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---脱壳360加固 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text"> 前提环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%84%B1%E5%A3%B3"><span class="nav-number">3.</span> <span class="nav-text"> 自动脱壳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xposed-hook-360%E5%8A%A0%E5%A3%B3%E5%90%8Eapp%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text"> xposed hook 360加壳后app注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">5.</span> <span class="nav-text"> 写在最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">6.</span> <span class="nav-text"> 关于我</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---脱壳360加固 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---脱壳360加固
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-13 22:16:00" itemprop="dateCreated datePublished" datetime="2018-12-13T22:16:00+08:00">2018-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。<br />
+这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家，</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Rv9CbvoOlj7TTXyDmbCh-g#list/path=%2F">点我下载</a></p>
+<span id="more"></span>
+<h2 id="前提环境"><a class="markdownIt-Anchor" href="#前提环境"></a> 前提环境</h2>
+<ul>
+<li>xposed</li>
+<li>root过的android手机</li>
+<li>dumpdex.apk文件(下载地址在上方)</li>
+</ul>
+<h2 id="自动脱壳"><a class="markdownIt-Anchor" href="#自动脱壳"></a> 自动脱壳</h2>
+<p>安装完成dumpdex.apk之后，在xposed里面软重启，激活。就好了。</p>
+<p><img src="http://martinhan.com/images/dumpdex1213.png" alt="dumpdex" /></p>
+<p>现在就可以脱壳了，我们可以找一个已经被加固的app，<br />
+在此就不列举app的名字了。</p>
+<p>我们点击app打开，这个时候WrBug会自动的帮我们脱壳完成。<br />
+此时此刻我们只需要去对应目录找dex文件就好了。</p>
+<p>路径如图：</p>
+<p><img src="http://martinhan.com/images/20181213230149.png" alt="dumpdex" /></p>
+<p>接下来就可以用adb pull命令将对应的dex文件取出，脱壳完毕。</p>
+<h2 id="xposed-hook-360加壳后app注意事项"><a class="markdownIt-Anchor" href="#xposed-hook-360加壳后app注意事项"></a> xposed hook 360加壳后app注意事项</h2>
+<p>由于360加壳之后，更改了classloader，因此我们用原本的classloader是会报类无法被找到的异常的。</p>
+<p>不过我们去分析源码便知道，我们要先hook到360的classloader，再从360的classloader里面获取到app运行时的类。</p>
+<p>360加固源码分析</p>
+<p>类com.stub.StubApp</p>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StubApp</span>
+  <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Application</span>
+&#123;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">loadDexToC</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> loadFromLib;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> needX86Bridge;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String strEntryApplication;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Application ?�A = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Application ??;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String ??;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Context ??;
+
+  <span class="hljs-keyword">static</span>
+  &#123;
+    strEntryApplication = <span class="hljs-string">&quot;com.qihoo360.crypt.entryRunApplication&quot;</span>;
+    ?? = <span class="hljs-literal">null</span>;
+    ?? = <span class="hljs-string">&quot;libjiagu&quot;</span>;
+    loadFromLib = <span class="hljs-literal">false</span>;
+    needX86Bridge = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VerifyError</span>(<span class="hljs-string">&quot;bad dex opcode&quot;</span>);
+  &#125;
+  <span class="hljs-comment">//--------略--------</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Application ᵢˋ(Context context) &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">if</span> (ᵢˎ == <span class="hljs-literal">null</span>) &#123;
+                <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader</span> <span class="hljs-operator">=</span> context.getClassLoader();
+                <span class="hljs-keyword">if</span> (classLoader != <span class="hljs-literal">null</span>) &#123;
+                    <span class="hljs-type">Class</span> <span class="hljs-variable">loadClass</span> <span class="hljs-operator">=</span> classLoader.loadClass(strEntryApplication);
+                    <span class="hljs-keyword">if</span> (loadClass != <span class="hljs-literal">null</span>) &#123;
+                        ᵢˎ = (Application) loadClass.newInstance();
+                    &#125;
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+        &#125;
+        <span class="hljs-keyword">return</span> ᵢˎ;
+    &#125;
+
+  <span class="hljs-comment">//--------略--------</span>
+&#125;
+</code></pre>
+<p>上面代码中有一个方法，这个方法的名称是乱码，你没看错，这个方法名称本身就是一串奇怪的字符，我们需要Hook到这个方法，然后拿出classloader才可以</p>
+<p>Hook代码如下</p>
+<pre class="highlight"><code class="java">XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.stub.StubApp&quot;</span>, lpparam.classLoader, <span class="hljs-string">&quot;ᵢˋ&quot;</span>, Context.class, <span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                    <span class="hljs-built_in">super</span>.afterHookedMethod(param);
+                    <span class="hljs-comment">//获取到360的Context对象，通过这个对象来获取classloader</span>
+                    <span class="hljs-type">Context</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> (Context) param.args[<span class="hljs-number">0</span>];
+                    <span class="hljs-comment">//获取360的classloader，之后hook加固后的代码就使用这个classloader</span>
+                    <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader</span> <span class="hljs-operator">=</span> context.getClassLoader();
+                    <span class="hljs-comment">//替换classloader,hook加固后的真正代码</span>
+
+                    XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.alibaba.fastjson.JSON&quot;</span>, classLoader, <span class="hljs-string">&quot;toJSONString&quot;</span>, Object.class, <span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                            <span class="hljs-built_in">super</span>.afterHookedMethod(param);
+                            XposedBridge.log(TAG + <span class="hljs-string">&quot;JSONObject&quot;</span>);
+                            XposedBridge.log(TAG + param.args[<span class="hljs-number">0</span>].toString());
+                            XposedBridge.log(TAG + param.getResult());
+                        &#125;
+                    &#125;);
+                &#125;
+            &#125;);
+</code></pre>
+<p>这样就可以了</p>
+<p><strong>注意!!!</strong></p>
+<p>由于360加固版本也会更新换代，升级，变形，也希望读者读到了这里可以自己思考。<br />
+今天是2018/12/13，如果你看到这篇文章的时间，360加固已经更新了N个版本，欢迎call我，一起来找到最新的破解办法。</p>
+<p>网上目前流传很多其他办法，例如：</p>
+<pre class="highlight"><code class="java">  XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.qihoo.util.StubApp579459766&quot;</span>, loadPackageParam.classLoader,
+                    <span class="hljs-string">&quot;getNewAppInstance&quot;</span>, Context.class, <span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+                        <span class="hljs-meta">@Override</span>
+                        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                            <span class="hljs-built_in">super</span>.afterHookedMethod(param);
+                            <span class="hljs-comment">//获取到360的Context对象，通过这个对象来获取classloader</span>
+                            <span class="hljs-type">Context</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> (Context) param.args[<span class="hljs-number">0</span>];
+                            <span class="hljs-comment">//获取360的classloader，之后hook加固后的就使用这个classloader</span>
+                            <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader</span> <span class="hljs-operator">=</span>context.getClassLoader();
+                            <span class="hljs-comment">//下面就是强classloader修改成360的classloader就可以成功的hook了</span>
+                            XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;xxx.xxx.xxx.xxx&quot;</span>, classLoader, <span class="hljs-string">&quot;xxx&quot;</span>, String.class, String.class, <span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+                                <span class="hljs-meta">@Override</span>
+                                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                                    <span class="hljs-built_in">super</span>.beforeHookedMethod(param);
+                                    Log.i(TAG, <span class="hljs-string">&quot;密钥： &quot;</span> + (String) param.args[<span class="hljs-number">0</span>]);
+                                    Log.i(TAG, <span class="hljs-string">&quot;内容： &quot;</span> + (String) param.args[<span class="hljs-number">1</span>]);
+                                   param.setResult((String) param.args[<span class="hljs-number">1</span>]);
+                                &#125;
+                            &#125;);
+</code></pre>
+<p>上方的方法其实已经是360加固16年的破解版本了，<br />
+现在是8102年了，还请读者自行辨析。</p>
+<p>目前16年的版本已经无效了，请使用最新的方法</p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>技术瞬息万变，30年河东30年河西，希望大家都可以抓住那些不变的东西，努力进取。</p>
+<p>争取在每次浪潮来临之际，能够赶上每一波更新，加油！</p>
+<p>注：感谢作者WrBug。</p>
+<p>项目github地址如下：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/WrBug/dumpDex">点我点我</a></p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人博客：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客网站：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-12-02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85.html" rel="prev" title="如何利用Fiddler对手机抓包">
+                  <i class="fa fa-chevron-left"></i> 如何利用Fiddler对手机抓包
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-12-18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90.html" rel="next" title="Android逆向之路---脱壳360加固原理解析">
+                  Android逆向之路---脱壳360加固原理解析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"80e0cb524be1298ae9f8d831ed8cb1ef"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

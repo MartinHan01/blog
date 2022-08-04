@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Table of Contents  13 布局和工作空间  13.1.1 默认的布局 13.1.2 项目的布局 13.1.3 自定义布局 13.1.4保存或加载布局成文件 13.1.5 布局快捷键的绑定 工作空间 13.2.1 工作空间的快捷键绑定      13 布局和工作空间 布局是与缓冲区列表相关联的窗口配置．缓冲区列表可以是任意选择的一组缓冲区．Spacemacs提供了一些设施来创建有">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="You的小站">
+<meta property="og:url" content="http://martinhan.com/org/emacs/chapter13.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="Table of Contents  13 布局和工作空间  13.1.1 默认的布局 13.1.2 项目的布局 13.1.3 自定义布局 13.1.4保存或加载布局成文件 13.1.5 布局快捷键的绑定 工作空间 13.2.1 工作空间的快捷键绑定      13 布局和工作空间 布局是与缓冲区列表相关联的窗口配置．缓冲区列表可以是任意选择的一组缓冲区．Spacemacs提供了一些设施来创建有">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-07T18:33:49.585Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.585Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://martinhan.com/org/emacs/chapter13.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/org/emacs/chapter13.html","path":"org/emacs/chapter13.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | You的小站
+</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#table-of-contents"><span class="nav-number">1.</span> <span class="nav-text"> Table of Contents</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-%E5%B8%83%E5%B1%80%E5%92%8C%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text"> 13 布局和工作空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1311-%E9%BB%98%E8%AE%A4%E7%9A%84%E5%B8%83%E5%B1%80"><span class="nav-number">2.1.</span> <span class="nav-text"> 13.1.1 默认的布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1312-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%B8%83%E5%B1%80"><span class="nav-number">2.2.</span> <span class="nav-text"> 13.1.2 项目的布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1313-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%83%E5%B1%80"><span class="nav-number">2.3.</span> <span class="nav-text"> 13.1.3 自定义布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1314%E4%BF%9D%E5%AD%98%E6%88%96%E5%8A%A0%E8%BD%BD%E5%B8%83%E5%B1%80%E6%88%90%E6%96%87%E4%BB%B6"><span class="nav-number">2.4.</span> <span class="nav-text"> 13.1.4保存或加载布局成文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1315-%E5%B8%83%E5%B1%80%E5%BF%AB%E6%8D%B7%E9%94%AE%E7%9A%84%E7%BB%91%E5%AE%9A"><span class="nav-number">2.5.</span> <span class="nav-text"> 13.1.5 布局快捷键的绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">2.6.</span> <span class="nav-text"> 工作空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1321-%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE%E7%BB%91%E5%AE%9A"><span class="nav-number">2.7.</span> <span class="nav-text"> 13.2.1 工作空间的快捷键绑定</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/org/">ORG</a></li>
+            <li><a href="/org/emacs/">EMACS</a></li>
+            <li>CHAPTER13</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="table-of-contents"><a class="markdownIt-Anchor" href="#table-of-contents"></a> Table of Contents</h1>
+<ol>
+<li><a href="#orgd54525c">13 布局和工作空间</a>
+<ol>
+<li><a href="#orgf108ab7">13.1.1 默认的布局</a></li>
+<li><a href="#org1dcf165">13.1.2 项目的布局</a></li>
+<li><a href="#org52e4e79">13.1.3 自定义布局</a></li>
+<li><a href="#org9b8d4ad">13.1.4保存或加载布局成文件</a></li>
+<li><a href="#orgc812729">13.1.5 布局快捷键的绑定</a></li>
+<li><a href="#org0d55421">工作空间</a></li>
+<li><a href="#org9b4fe0a">13.2.1 工作空间的快捷键绑定</a></li>
+</ol>
+</li>
+</ol>
+<p><a id="orgd54525c"></a></p>
+<h1 id="13-布局和工作空间"><a class="markdownIt-Anchor" href="#13-布局和工作空间"></a> 13 布局和工作空间</h1>
+<p>布局是与缓冲区列表相关联的窗口配置．缓冲区列表可以是任意选择的一组缓冲区．Spacemacs提供了一些设施来创建有意义的缓冲区列表，比如缓冲区和项目相关的缓冲区．</p>
+<p>当前布局的名字出现在mode-line的最左边(mode-line的第一个元素)．</p>
+<p>要创建一个新的布局类型，他的编号是不存在的．例如如果当前有两个布局，那么创建第三个的布局就是 SPC l 3</p>
+<p><a id="orgf108ab7"></a></p>
+<h2 id="1311-默认的布局"><a class="markdownIt-Anchor" href="#1311-默认的布局"></a> 13.1.1 默认的布局</h2>
+<p>这个默认(default)的布局(这个布局再emacs启动的时候就被创建了)是不会显示在mode-line的，但是是可以设置dotspacemacs-display-default-layout -&gt; t 来设置成为显示的．</p>
+<p>他将称默认为&quot;default&quot;，但是这个&quot;default&quot;名字也可以通过设置变量来改变．变量的名字就是&quot;dotspacemacs-default-layout-name&quot;．</p>
+<p>这个默认的布局是特殊的，因为他具有全局的范围，这意味着所有打开的缓冲区都属于它．因此使用默认的布局就跟感觉没使用一样．</p>
+<p><a id="org1dcf165"></a></p>
+<h2 id="1312-项目的布局"><a class="markdownIt-Anchor" href="#1312-项目的布局"></a> 13.1.2 项目的布局</h2>
+<p>一个项目的布局必然会绑定在一个projectile项目．创建一个项目使用快捷键SPC p l，layout的的名字就是这个项目根目录的名字．</p>
+<p><a id="org52e4e79"></a></p>
+<h2 id="1313-自定义布局"><a class="markdownIt-Anchor" href="#1313-自定义布局"></a> 13.1.3 自定义布局</h2>
+<p>自定义布局可以被使用spacemacs|define-custom-layout这个宏来定义，你可以通过按快捷键SPC l o．</p>
+<p>通俗的约定一般一个自定义的布局应该以&quot;@&quot;开始．</p>
+<p>举个例子：定义一个自定义layout，名字就叫ERC缓冲</p>
+<pre><code>(spacemacs|define-custom-layout &quot;@ERC&quot;
+  :binding &quot;E&quot;
+  :body
+  (progn
+    ;; hook to add all ERC buffers to the layout
+    (defun spacemacs-layouts/add-erc-buffer-to-persp ()
+      (persp-add-buffer (current-buffer)
+                        (persp-get-by-name
+                         erc-spacemacs-layout-name)))
+    (add-hook 'erc-mode-hook #'spacemacs-layouts/add-erc-buffer-to-persp)
+    ;; Start ERC
+    (call-interactively 'erc)))
+</code></pre>
+<p>使用快捷键SPC l o E 来在自己的布局内启用ERC，任何一个新的ERC缓冲区将会是这个自定义布局的一部分．</p>
+<p>一些自定义的布局是附送在spacemacss上的：</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">@Spacemacs</td>
+<td class="org-left">e</td>
+<td class="org-left">包含~/emaces.d的所有缓冲区的自定义视图</td>
+</tr>
+<tr>
+<td class="org-left">@ERT</td>
+<td class="org-left">E</td>
+<td class="org-left">包含所有ERC缓冲区的自定义视图(需要ERC布局开启)</td>
+</tr>
+<tr>
+<td class="org-left">@RCIRC</td>
+<td class="org-left">i</td>
+<td class="org-left">包含所有RCIRC缓冲区的自定义视图(需要RCIRC布局开启)</td>
+</tr>
+<tr>
+<td class="org-left">@Org</td>
+<td class="org-left">o</td>
+<td class="org-left">包含所有org-agenda缓冲区的自定义视图</td>
+</tr>
+</tbody>
+</table>
+<p><a id="org9b8d4ad"></a></p>
+<h2 id="1314保存或加载布局成文件"><a class="markdownIt-Anchor" href="#1314保存或加载布局成文件"></a> 13.1.4保存或加载布局成文件</h2>
+<p>SPC l s 可以保存布局到一个文件<br />
+SPC l L 可以从文件加载布局</p>
+<p>注意：通常的，spacemacs将自动的保存布局，名称为persp-auto-save.</p>
+<p>设置这个变量 dotspacemacs-auto-resume-layout t　将自动的还原最后保存的布局</p>
+<p><a id="orgc812729"></a></p>
+<h2 id="1315-布局快捷键的绑定"><a class="markdownIt-Anchor" href="#1315-布局快捷键的绑定"></a> 13.1.5 布局快捷键的绑定</h2>
+<p>布局快捷见的绑定和注册在一个瞬间状态．瞬态状态的文档字符串显示现有的布局，当前活动的布局有方括号，按一个布局的编号将会激活他（或者创建一个新的）并且退出这个瞬间状态．<br />
+同样可以使用快捷键Ctrl-<number>仅仅预览一个布局．按TAB将会激活之前选中的布局．</p>
+<p>按&quot;?&quot;来切换文档状态．</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">SPC l</td>
+<td class="org-left">激活瞬间状态(transient-state)</td>
+</tr>
+<tr>
+<td class="org-left">?</td>
+<td class="org-left">切换问这个文档状态</td>
+</tr>
+<tr>
+<td class="org-left">1..9, 0</td>
+<td class="org-left">切换到第n个布局</td>
+</tr>
+<tr>
+<td class="org-left">[C-1..C-9,C-0]</td>
+<td class="org-left">切换到第n个布局并且保持在瞬间状态激活</td>
+</tr>
+<tr>
+<td class="org-left"><tab></td>
+<td class="org-left">切换到上一个布局</td>
+</tr>
+<tr>
+<td class="org-left">a</td>
+<td class="org-left">在当前的布局上增加一个缓冲区</td>
+</tr>
+<tr>
+<td class="org-left">Ａ</td>
+<td class="org-left">在当前布局的缓冲区里增加所有另一个布局的缓冲区</td>
+</tr>
+<tr>
+<td class="org-left">b</td>
+<td class="org-left">选择一个缓冲区到当前的布局</td>
+</tr>
+<tr>
+<td class="org-left">d</td>
+<td class="org-left">删除当前的布局并保留其缓冲区</td>
+</tr>
+<tr>
+<td class="org-left">D</td>
+<td class="org-left">删除其他的布局并且保留其他的缓冲区</td>
+</tr>
+<tr>
+<td class="org-left">h</td>
+<td class="org-left">去默认布局</td>
+</tr>
+<tr>
+<td class="org-left">C-h</td>
+<td class="org-left">上一个列表的布局</td>
+</tr>
+<tr>
+<td class="org-left">l</td>
+<td class="org-left">用helm选择或创建一个布局</td>
+</tr>
+<tr>
+<td class="org-left">L</td>
+<td class="org-left">加载一个文件里的布局</td>
+</tr>
+<tr>
+<td class="org-left">C-l</td>
+<td class="org-left">列表里下一个布局</td>
+</tr>
+<tr>
+<td class="org-left">n</td>
+<td class="org-left">列表里下一个布局</td>
+</tr>
+<tr>
+<td class="org-left">N</td>
+<td class="org-left">列表里上一个布局</td>
+</tr>
+<tr>
+<td class="org-left">o</td>
+<td class="org-left">打开一个自定义布局</td>
+</tr>
+<tr>
+<td class="org-left">p</td>
+<td class="org-left">列表里上一个布局</td>
+</tr>
+<tr>
+<td class="org-left">r</td>
+<td class="org-left">删除当前的布局里的缓冲区</td>
+</tr>
+<tr>
+<td class="org-left">R</td>
+<td class="org-left">删除当前的布局</td>
+</tr>
+<tr>
+<td class="org-left">s</td>
+<td class="org-left">保存布局</td>
+</tr>
+<tr>
+<td class="org-left">ｔ</td>
+<td class="org-left">显示缓冲区而不将其添加到当前布局</td>
+</tr>
+<tr>
+<td class="org-left">w</td>
+<td class="org-left">工作区瞬间状态（需要启用eyebrowse）布局</td>
+</tr>
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">用其缓冲区杀死当前布局</td>
+</tr>
+<tr>
+<td class="org-left">X</td>
+<td class="org-left">用其缓冲区杀死其他布局</td>
+</tr>
+</tbody>
+</table>
+<p><a id="org0d55421"></a></p>
+<h2 id="工作空间"><a class="markdownIt-Anchor" href="#工作空间"></a> 工作空间</h2>
+<p>工作空间是子布局，他允许定义多个布局到一个给定的布局，他们的布局与这个布局共享相同的缓冲区．</p>
+<p>当前激活的工作空间的编号显示在窗口编号的前面，比如 &quot;①|④&quot;或&quot;1|4&quot;意味着第一个工作区的第四个窗口。</p>
+<p>切换到当前不居中不存在的工作空间将会创建一个新的工作区。比如启动后你可以按SPC l w 2 来创建2个在default布局里的工作空间。</p>
+<p>当创建的工作空间是没有名字的，你可以使用快捷键SPC l w R给他们命名。</p>
+<p><a id="org9b4fe0a"></a></p>
+<h2 id="1321-工作空间的快捷键绑定"><a class="markdownIt-Anchor" href="#1321-工作空间的快捷键绑定"></a> 13.2.1 工作空间的快捷键绑定</h2>
+<p>快捷键的注册和绑定是在一个临时状态。临时状态的文档字符串显示在现有存在的工作区并且当前激活的工作空间有方括号。按下一个工作空间的编号将会激活他（或者创建一个新的）并且退出这个临时状态。<br />
+也可以仅仅按Ctrl-<Number>预览一下。<br />
+按TAB将会激活上一个选中的工作空间。</p>
+<p>按 ? 来切换帮助的状态</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">快捷键绑定</th>
+<th scope="col" class="org-left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">SPC l w</td>
+<td class="org-left">激活这个临时状态</td>
+</tr>
+<tr>
+<td class="org-left">?</td>
+<td class="org-left">切换这个文档的状态</td>
+</tr>
+<tr>
+<td class="org-left">[1..9,0]</td>
+<td class="org-left">切换到第n个工作空间</td>
+</tr>
+<tr>
+<td class="org-left">[C-1..C-9,C-0]</td>
+<td class="org-left">切换第n个工作空间并且保持临时状态是激活的</td>
+</tr>
+<tr>
+<td class="org-left">TAB</td>
+<td class="org-left">选择上一个激活的工作空间</td>
+</tr>
+<tr>
+<td class="org-left">d</td>
+<td class="org-left">关闭当前的工作空间</td>
+</tr>
+<tr>
+<td class="org-left">n或l</td>
+<td class="org-left">切换下一个工作空间</td>
+</tr>
+<tr>
+<td class="org-left">N 或 p 或 h</td>
+<td class="org-left">切换上一个工作空间</td>
+</tr>
+<tr>
+<td class="org-left">R</td>
+<td class="org-left">给当前工作空间设置一个标签</td>
+</tr>
+<tr>
+<td class="org-left">w</td>
+<td class="org-left">根据标签选择工作空间</td>
+</tr>
+</tbody>
+</table>
+<p>这里还有一些和工作空间相关的全局的可用快捷键：</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">快捷键绑定</td>
+<td class="org-left">描述</td>
+</tr>
+<tr>
+<td class="org-left">gt</td>
+<td class="org-left">去下一个工作空间</td>
+</tr>
+<tr>
+<td class="org-left">gT</td>
+<td class="org-left">去上一个工作空间</td>
+</tr>
+<tr>
+<td class="org-left">SPC b w</td>
+<td class="org-left">通过缓冲区进入工作空间和窗口</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/org/">ORG</a></li>
+            <li><a href="/org/emacs/">EMACS</a></li>
+            <li>CHAPTER13</li>
+  </ul>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"7a59f4f75e763cd6a1ed03cc07e138d4"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-x0o7PC9P3M">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"martinhan.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 今天看到网友的微信地区是一个魔法学院，微信的地区怎么可能是魔法学院呢，肯定是这位网友自己搞了一些黑科技，然后改的。他能改，我们也能改，二话不说就开干。 先来看看我的成果">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android逆向之路---让你的微信地区来自火星">
+<meta property="og:url" content="http://martinhan.com/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html">
+<meta property="og:site_name" content="You的小站">
+<meta property="og:description" content="前言 今天看到网友的微信地区是一个魔法学院，微信的地区怎么可能是魔法学院呢，肯定是这位网友自己搞了一些黑科技，然后改的。他能改，我们也能改，二话不说就开干。 先来看看我的成果">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://martinhan.com/images/20181128240400.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-11-28_234641.png">
+<meta property="og:image" content="http://martinhan.com/images/2018-11-28_235259.png">
+<meta property="article:published_time" content="2018-11-28T14:28:00.000Z">
+<meta property="article:modified_time" content="2022-07-07T18:33:49.513Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/20181128240400.png">
+
+
+<link rel="canonical" href="http://martinhan.com/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://martinhan.com/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html","path":"2018-11-28/Android逆向之路---让你的微信地区来自火星.html","title":"Android逆向之路---让你的微信地区来自火星"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android逆向之路---让你的微信地区来自火星 | You的小站</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGP4LX7CF"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-KSGP4LX7CF","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fe764449afe8195d6f50b2530d5e4614"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">You的小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">大多数优秀的人不过一直在和时间赛跑</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text"> 需要运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E9%80%86%E5%90%91%E6%89%BE%E5%88%B0%E5%A4%A7%E8%87%B4%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text"> 开始逆向，找到大致位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%BE%AE%E4%BF%A1%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text"> 分析微信代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90"><span class="nav-number">2.3.</span> <span class="nav-text"> 大功告成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="nav-number">2.4.</span> <span class="nav-text"> 源码地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">2.5.</span> <span class="nav-text"> 写在最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%88%91"><span class="nav-number">2.6.</span> <span class="nav-text"> 关于我</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MartinHan"
+      src="/../img/avatar_trans.png">
+  <p class="site-author-name" itemprop="name">MartinHan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MartinHan01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MartinHan01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/hanchaohao" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hanchaohao" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://shoewann0402.github.io/" title="https:&#x2F;&#x2F;shoewann0402.github.io&#x2F;" rel="noopener" target="_blank">Shoewann</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liarlee.site/" title="https:&#x2F;&#x2F;liarlee.site&#x2F;" rel="noopener" target="_blank">liarlee</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://martinhan.com/2018-11-28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/../img/avatar_trans.png">
+      <meta itemprop="name" content="MartinHan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="You的小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android逆向之路---让你的微信地区来自火星 | You的小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android逆向之路---让你的微信地区来自火星
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-28 22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-28T22:28:00+08:00">2018-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-08 02:33:49" itemprop="dateModified" datetime="2022-07-08T02:33:49+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android-reverse/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>今天看到网友的微信地区是一个魔法学院，微信的地区怎么可能是魔法学院呢，肯定是这位网友自己搞了一些黑科技，然后改的。他能改，我们也能改，二话不说就开干。<br />
+先来看看我的成果<br />
+<img src="http://martinhan.com/images/20181128240400.png" width="300" height="300"></p>
+<span id="more"></span>
+<h1 id="需要运行环境"><a class="markdownIt-Anchor" href="#需要运行环境"></a> 需要运行环境</h1>
+<ul>
+<li>xposed环境</li>
+<li>root过的android手机</li>
+<li>微信最新版，我用的是6.7.3</li>
+</ul>
+<h2 id="开始逆向找到大致位置"><a class="markdownIt-Anchor" href="#开始逆向找到大致位置"></a> 开始逆向，找到大致位置</h2>
+<p>首先要知道微信的选择地区的页面在什么位置，然后我们再看对应代码。</p>
+<p>先保持在微信的选择地区页面。然后dump activity</p>
+<p>首先利用命令</p>
+<pre class="highlight"><code class="">adb shell dumpsys activity
+</code></pre>
+<p>从日志里面我们可以看到如下所示<br />
+重点在此</p>
+<pre class="highlight"><code class="">Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;
+
+        Hist #3: ActivityRecord&#123;2152aef u0 com.tencent.mm/.ui.tools.MultiStageCitySelectUI t266&#125;
+
+          Intent &#123; cmp=com.tencent.mm/.ui.tools.MultiStageCitySelectUI &#125;
+
+          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
+
+        Hist #2: ActivityRecord&#123;e722872 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI t266&#125;
+
+          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI &#125;
+
+          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
+
+        Hist #1: ActivityRecord&#123;4e7fec5 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI t266&#125;
+
+          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI &#125;
+
+          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
+
+        Hist #0: ActivityRecord&#123;5cb9f3a u0 com.tencent.mm/.ui.LauncherUI t266&#125;
+
+          Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;
+
+          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
+</code></pre>
+<p>看到了吧，重点就是在<code>com.tencent.mm.ui.tools.MultiStageCitySelectUI</code>这个页面里面了。</p>
+<p>我们需要分析微信的逻辑，随后hook他的方法。</p>
+<h2 id="分析微信代码"><a class="markdownIt-Anchor" href="#分析微信代码"></a> 分析微信代码</h2>
+<p>其实有一点我也很有疑问，微信的运行时内部的变量名字和方法名字，和我们静态分析的是不太对应的，对此暂时没有深入研究，如果有朋友知道的话可以提示我，欢迎一起探讨。</p>
+<p>由于我上面所说的这个问题，所以采用利用Xposed  hook 这个MultiStageCitySelectUI的onCreate方法，然后我们动态的在内存里分析。</p>
+<p>hook onCreate代码如下</p>
+<pre class="highlight"><code class="java">XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;</span>, classLoader, <span class="hljs-string">&quot;onCreate&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;Bundle.class, <span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                    <span class="hljs-built_in">super</span>.beforeHookedMethod(param);
+                    XposedBridge.log(<span class="hljs-string">&quot;MartinHan_xposed: wx success MultiStageCitySelectUI onCreate beforeHookedMethod&quot;</span>);
+                &#125;
+
+                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                    <span class="hljs-built_in">super</span>.afterHookedMethod(param);
+                    XposedBridge.log(<span class="hljs-string">&quot;MartinHan_xposed: wx success MultiStageCitySelectUI  afterHookedMethod&quot;</span>);
+                    <span class="hljs-type">Class</span> <span class="hljs-variable">mscsu</span> <span class="hljs-operator">=</span> XposedHelpers.findClass(<span class="hljs-string">&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;</span>, classLoader);
+                    Method[] methods = param.thisObject.getClass().getMethods();
+                    List&lt;Method&gt; myMethods = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>();
+                    <span class="hljs-keyword">for</span> (Method item : methods) &#123;
+                        <span class="hljs-keyword">if</span> (item.getDeclaringClass().equals(mscsu)) &#123;
+                            myMethods.add(item);
+                        &#125;
+                    &#125;
+                &#125;
+</code></pre>
+<p>如代码所示，我们还将属于MultiStageCitySelectUI类本身的方法筛选了出来，防盗了myMethods里面，方便于我们分析。</p>
+<p>打断打上，运行时分析。</p>
+<p>然后看运行时的成员变量，根据软件开发的经验，肯定有一个数据源，存着所有的地区列表。</p>
+<p>突然发现有一个wdN的变量，他的类型是RegionCodeDecoder$Region。</p>
+<p>这个的意思就是这个变量的类型是RegionCodeDecoder的子类Region类型。<br />
+然后打开结果如下</p>
+<img src="http://martinhan.com/images/2018-11-28_234641.png" width="377" height="393">
+<p>这个图片正好对应我们手机里的第三项，</p>
+<p>这也就说明其实这个列表有很大可能性就是我们需要篡改的列表了。</p>
+<p>然后紧跟着，思路就是hook 初始化这个变量的方法，然后在调用完成之后，再放入我们自己自定义的地区。</p>
+<p>代码如下：</p>
+<pre class="highlight"><code class="java">XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;</span>, classLoader, <span class="hljs-string">&quot;cJa&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-keyword">new</span> <span class="hljs-title class_">XC_MethodHook</span>() &#123;
+                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                    <span class="hljs-built_in">super</span>.beforeHookedMethod(param);
+                    XposedBridge.log(<span class="hljs-string">&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa beforeHookedMethod&quot;</span>);
+                &#125;
+
+                <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable &#123;
+                    <span class="hljs-built_in">super</span>.afterHookedMethod(param);
+                    XposedBridge.log(<span class="hljs-string">&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa  afterHookedMethod&quot;</span>);
+                    <span class="hljs-type">Object</span> <span class="hljs-variable">wdnObj</span> <span class="hljs-operator">=</span> XposedHelpers.findField(XposedHelpers.findClass(<span class="hljs-string">&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;</span>, classLoader), <span class="hljs-string">&quot;wdN&quot;</span>).get(param.thisObject);
+                    <span class="hljs-type">Class</span> <span class="hljs-variable">regionClazz</span> <span class="hljs-operator">=</span> XposedHelpers.findClass(<span class="hljs-string">&quot;com.tencent.mm.storage.RegionCodeDecoder$Region&quot;</span>, classLoader);
+                    <span class="hljs-type">Field</span> <span class="hljs-variable">codeField</span> <span class="hljs-operator">=</span> XposedHelpers.findField(regionClazz, <span class="hljs-string">&quot;code&quot;</span>);
+                    <span class="hljs-type">Field</span> <span class="hljs-variable">nameField</span> <span class="hljs-operator">=</span> XposedHelpers.findField(regionClazz, <span class="hljs-string">&quot;name&quot;</span>);
+                    <span class="hljs-type">Object</span> <span class="hljs-variable">arrayHarryporrt</span> <span class="hljs-operator">=</span> Array.get(wdnObj, <span class="hljs-number">0</span>);
+                    codeField.set(arrayHarryporrt, <span class="hljs-string">&quot;哈利波特魔法学校&quot;</span>);
+                    nameField.set(arrayHarryporrt, <span class="hljs-string">&quot;哈利波特魔法学校&quot;</span>);
+                    Array.set(wdnObj, <span class="hljs-number">0</span>, arrayHarryporrt);
+                &#125;
+            &#125;&#125;);
+</code></pre>
+<p>我们修改了Region对象的code和name。<br />
+这样wdN这个对象的第一项就变成了我们篡改之后的值了。</p>
+<p>下面展示效果<br />
+<img src="http://martinhan.com/images/2018-11-28_235259.png" width="414" height="441"></p>
+<h2 id="大功告成"><a class="markdownIt-Anchor" href="#大功告成"></a> 大功告成</h2>
+<p>然后选择我们篡改的第一项，哈利波特魔法学校，然后你的地区就会改变啦。</p>
+<p>有没有感觉很神奇呢。</p>
+<p>ps:改完之后ios设备无法看到你的地区，可能由于ios客户端判断的问题。</p>
+<h2 id="源码地址"><a class="markdownIt-Anchor" href="#源码地址"></a> 源码地址</h2>
+<p>要不要star一下呢</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MartinHan01/weixin_change_city">github地址，点我点我</a></p>
+<h2 id="写在最后"><a class="markdownIt-Anchor" href="#写在最后"></a> 写在最后</h2>
+<p>偶尔聊聊逆向，偶尔聊聊生活，做一个很懒的博主就是本人了。</p>
+<p>欢迎吐槽。</p>
+<h2 id="关于我"><a class="markdownIt-Anchor" href="#关于我"></a> 关于我</h2>
+<p>个人网站：<a href="http://martinhan.com/">MartinHan的小站</a></p>
+<p>博客：<a target="_blank" rel="noopener" href="http://blog.csdn.net/hanchaohao2012">hanhan12312的专栏</a></p>
+<p>知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hanchaohao/activities">MartinHan01</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-11-08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81.html" rel="prev" title="Android程序长生不老">
+                  <i class="fa fa-chevron-left"></i> Android程序长生不老
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-12-02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85.html" rel="next" title="如何利用Fiddler对手机抓包">
+                  如何利用Fiddler对手机抓包 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MartinHan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"martinhan01","repo":"blog","client_id":"47b854ef80944107000f","client_secret":"3b983b3a85e4bf19987b0fbb62882d48cc9b8790","admin_user":"martinhan01","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"1c95c001f98aa0ce231de4324a8b3576"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
