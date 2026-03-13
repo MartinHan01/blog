@@ -1,39 +1,44 @@
 <!doctype html>
 <html lang="cn"><head>
-<title>MartinHan的小站</title>
+<title>Gradle编译优化--让你的打包速度快一倍 - MartinHan的小站</title>
 <meta charset="UTF-8">
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 <link rel="shortcut icon" href="/images/head/head.jpg" type="image/jpg" />
-<meta name="description" content="记录生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MartinHan的小站">
-<meta property="og:url" content="https://martinhan.com/index.html">
+<meta name="description" content="前言最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle编译优化--让你的打包速度快一倍">
+<meta property="og:url" content="https://martinhan.com/2017/09/06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="MartinHan的小站">
-<meta property="og:description" content="记录生活">
+<meta property="og:description" content="前言最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。">
 <meta property="og:locale">
+<meta property="og:image" content="http://martinhan.com/images/2017-09-07_143730.png">
+<meta property="og:image" content="http://martinhan.com/images/gradle_last.png">
+<meta property="article:published_time" content="2017-09-06T13:06:00.000Z">
+<meta property="article:modified_time" content="2026-03-12T09:39:34.734Z">
 <meta property="article:author" content="MartinHan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/2017-09-07_143730.png">
 
 <link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1773390183791">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1773390183785">
 
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
 
-<link rel="stylesheet" href="/css/style.css?v=1773390183791">
+<link rel="stylesheet" href="/css/style.css?v=1773390183785">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1773390183791">
+        <link rel="stylesheet" href="/custom.css?v=1773390183785">
     
-        <link rel="stylesheet" href="/themes/umaru/index.css?v=1773390183791">
+        <link rel="stylesheet" href="/themes/umaru/index.css?v=1773390183785">
     
-        <link rel="stylesheet" href="/themes/asuka/index.css?v=1773390183791">
+        <link rel="stylesheet" href="/themes/asuka/index.css?v=1773390183785">
     
 
 
@@ -43,7 +48,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1773390183791"></script>
+<script async src="/js/app.js?v=1773390183785"></script>
 
  
 
@@ -73,7 +78,7 @@
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple true" href="/" title="回到首页">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
             <div class="mdui-list-item-content">
                 回到首页
@@ -535,7 +540,7 @@
 </style>
 
 
-    <script async src="/js/search.js?v=1773390183791"></script>
+    <script async src="/js/search.js?v=1773390183786"></script>
         
 
             
@@ -726,170 +731,18 @@
 </div>
 
     </div>
-</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><section class="nexmoe-posts">
-    <div class="nexmoe-post">
-        <a href="/2026/03/12/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="codeblocks--主题更换" loading="lazy">
-                    <h1>codeblocks--主题更换</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover">
+            <img src="/images/background/xiaomai.jpg" alt="Gradle编译优化--让你的打包速度快一倍" loading="lazy">
+            <h1>Gradle编译优化--让你的打包速度快一倍</h1>
+        </div>
+        
+    
+    <div class="nexmoe-post-meta">
     <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2026年03月12日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">常用配置</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            <h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><p>下载准备好的配置文件<br>default.conf</p>
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2020/04/13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="Android常用adb命令" loading="lazy">
-                    <h1>Android常用adb命令</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2020年04月13日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Android%E9%80%86%E5%90%91/">Android逆向</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2020/03/31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="一键更新package.json中所有模块为最新版本" loading="lazy">
-                    <h1>一键更新package.json中所有模块为最新版本</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2020年03月31日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">常用配置</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2019/11/05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="我是心有多大才能突然想起你" loading="lazy">
-                    <h1>我是心有多大才能突然想起你</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2019年11月05日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2019/02/13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="某口腔app发现了不友善词汇(f*ckMobile)" loading="lazy">
-                    <h1>某口腔app发现了不友善词汇(f*ckMobile)</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2019年02月13日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Android%E9%80%86%E5%90%91/">Android逆向</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在逆向一款口腔app的工作，然后发现了程序员对于一款机型叫了f*ckMobile。<br>不禁想起了之前虾米音乐关于beggarvip的事情。<br>具体就不提什么口腔app了，具体的大家可以自己猜<br>由此引发了一些思考</p>
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2019/01/23/%E6%89%BE%E5%88%B0%E4%BB%BB%E5%8A%A1%E6%A0%8F%E5%B9%BF%E5%91%8A%E5%BC%B9%E7%AA%97%E7%9A%84%E6%BA%90%E5%A4%B4/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="找到任务栏广告弹窗的源头" loading="lazy">
-                    <h1>找到任务栏广告弹窗的源头</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2019年01月23日</a>
+        <a class="nexmoefont icon-calendar-fill">2017年09月06日</a>
         
             <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
         
@@ -902,145 +755,81 @@
     
 </div>
 
-        <article>
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近每天早上到公司，在我的windows电脑的右下角任务栏，总是在闪烁一个礼物盒子诱惑你点击，然后你一点他就自动的打开浏览器，弹出设定好的广告页。很是头疼。</p>
-<p>当然最头疼的是每当他在闪烁的时候，你按ctrl alt delete，他就会自动消失。<br>还是要想办法解决一下这个问题</p>
-        </article>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近项目打包50个左右，居然要50分钟，这简直是太慢了，所以抽个空优化一下吧。顺便把结果分享给大家。先说结果，开始打包时间将近50分钟。优化后需要24分钟。</p>
+<span id="more"></span>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>要想优化，我们必须先知道优化哪里。有一个命令可以帮助我们</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gradlew --profile</span><br><span class="line">或者</span><br><span class="line">gradle --profile</span><br></pre></td></tr></table></figure>
+<p>这两个的区别我就不解释了，不清楚的话自己google。</p>
+<p>执行完这个命令之后，我们去’\build\reports\profile’路径，找到我们的profile-2017-xx-xx-xx-xx-xx.html文件。</p>
+<p>二话不说先上图，图一图二是优化前的耗时，图三图四是优化后的耗时。<br><img src="http://martinhan.com/images/2017-09-07_143730.png" width="450" height="230"><img src="http://martinhan.com/images/gradle_last.png" width="450" height="230"></p>
+<p>下面就把我优化的过程分享下吧。</p>
+<h3 id="耗时的任务"><a href="#耗时的任务" class="headerlink" title="耗时的任务"></a>耗时的任务</h3><p>我们看上图Summary,Configuration,Dependency Resolution,Task Execition,<br>我们看Task Excition，这里面有我们在编译期间每一次进行的耗时。<br>笔者在此就不发自己的了，因为还要打码。</p>
+<h4 id="No-1"><a href="#No-1" class="headerlink" title="No.1"></a>No.1</h4><p>首先在你项目的根目录调整你的gradle.properties文件<br>我在文件内加入了如下两行</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">org.gradle.jvmargs</span>=<span class="string">-Xms2048m -Xmx4096m </span></span><br></pre></td></tr></table></figure>
+<p>这两行其实就是设置你的jvm虚拟机内存，因人而异，看你机器配置。</p>
+<h4 id="No-2"><a href="#No-2" class="headerlink" title="No.2"></a>No.2</h4><p>同样是gradle.properties文件内，加入如下两行</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># When configured, Gradle will run in incubating parallel mode.</span></span><br><span class="line"><span class="comment"># This option should only be used with decoupled projects. More details, visit</span></span><br><span class="line"><span class="comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</span></span><br><span class="line"><span class="attr">org.gradle.parallel</span>=<span class="string">true</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># Enables new incubating mode that makes Gradle selective when configuring projects. </span></span><br><span class="line"><span class="comment"># Only relevant projects are configured which results in faster builds for large multi-projects.</span></span><br><span class="line"><span class="comment"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:configuration_on_demand</span></span><br><span class="line"><span class="attr">org.gradle.configureondemand</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
+<p>这两句官方给出的解释已经很详细，大概意思就是第一句是只能与解耦项目一起使用。<br>第二句是配置这句，会为大型项目加快build</p>
+<h4 id="No-3"><a href="#No-3" class="headerlink" title="No.3"></a>No.3</h4><p>找到你的项目下的build.gradle，加入如下语句</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    aaptOptions &#123;</span><br><span class="line">        cruncherEnabled <span class="keyword">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不检查png的合法性，这个大家可以根据自己的项目来判断是否开启。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我目前就改了这几处，可以将gradle提速一倍，希望能帮助到大家</p>
+
+    
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>Author：</strong>MartinHan<br>
+        
+        <strong>Link：</strong><a href="https://martinhan.com/2017/09/06/Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96/" title="https:&#x2F;&#x2F;martinhan.com&#x2F;2017&#x2F;09&#x2F;06&#x2F;Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;martinhan.com&#x2F;2017&#x2F;09&#x2F;06&#x2F;Gradle%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96&#x2F;</a><br>
+
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
     </div>
 
-    <div class="nexmoe-post">
-        <a href="/2019/01/02/%E5%BE%AE%E8%BD%AF%E6%8B%BC%E9%9F%B3%E6%94%B9%E4%B8%BA%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="微软拼音改为小鹤双拼" loading="lazy">
-                    <h1>微软拼音改为小鹤双拼</h1>
-                </div>
-                
-        </a>
 
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2019年01月02日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">常用配置</a>
-        
-        
-    </div>
-    
-    
-    
-    
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
     
 </div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1773390183724"></script>
+  
 
-        <article>
-            <h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><p>首先打开注册表</p>
-<p>windows + R </p>
-<p>regedit</p>
-        </article>
-    </div>
+  
+      <div class="nexmoe-post-footer">
+          <div class="valine"></div>
+<script src='https://lib.baomitu.com/valine/1.3.9/Valine.min.js'></script>
+<script>
+  new Valine({
+      el: '.valine',
+      appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+      appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+  })
+</script>
 
-    <div class="nexmoe-post">
-        <a href="/2018/12/18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="Android逆向之路---脱壳360加固原理解析" loading="lazy">
-                    <h1>Android逆向之路---脱壳360加固原理解析</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2018年12月18日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Android%E9%80%86%E5%90%91/">Android逆向</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>众所周知，上次说到了如何脱壳360加固，大致意思就是安装一个xposed插件，然后自动就会脱壳了，那么这个插件是如何工作的呢，本次重点说说这个。</p>
-<p>上次说道了dumpDex脱壳360加固，其实先说个大概，就是从ndk层和java层，适配不同的系统，hook关键函数，然后在运行时将dex文件dump出来。</p>
-<p>如果仅仅想知道如何使用，可以参见上一篇</p>
-<p><a href="http://martinhan.com/2018-12-13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html">点我：Android逆向之路—脱壳360加固、与xposed hook注意事项</a></p>
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2018/12/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="Android逆向之路---脱壳360加固" loading="lazy">
-                    <h1>Android逆向之路---脱壳360加固</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2018年12月13日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Android%E9%80%86%E5%90%91/">Android逆向</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。<br>这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家，</p>
-<p>下载地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Rv9CbvoOlj7TTXyDmbCh-g#list/path=%2F">点我下载</a></p>
-        </article>
-    </div>
-
-    <div class="nexmoe-post">
-        <a href="/2018/12/02/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Fiddler%E5%AF%B9%E6%89%8B%E6%9C%BA%E6%8A%93%E5%8C%85/">
-            
-                <div class="nexmoe-post-cover mdui-ripple">
-                    <img src="/images/background/xiaomai.jpg" alt="如何利用Fiddler对手机抓包" loading="lazy">
-                    <h1>如何利用Fiddler对手机抓包</h1>
-                </div>
-                
-        </a>
-
-        <div class="nexmoe-post-meta">
-    <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2018年12月02日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">常用配置</a>
-        
-        
-    </div>
-    
-    
-    
-    
-    
-</div>
-
-        <article>
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>记得刚开始接触程序的时候，就总想学会抓包。</p>
-<p>抓包，顾名思义其实就是将手机的所有网络请求都可以监测到。抓包可以帮助于我们自己写程序，方便调试。也可以在逆向他人程序的时候，提供一些帮助。</p>
-<p>本篇文章主要是利用Fiddler工具来对手机进行抓包，讨论如何抓包。</p>
-        </article>
-    </div>
-</section><nav class="nexmoe-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="nexmoefont icon-right"></i></a></nav></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+      </div>
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
         <div class="nexmoe-tool">
 
             
 
             
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%97%E6%97%B6%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">耗时的任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#No-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">No.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#No-2"><span class="toc-number">2.1.2.</span> <span class="toc-text">No.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#No-3"><span class="toc-number">2.1.3.</span> <span class="toc-text">No.3</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-number">3.</span> <span class="toc-text">结尾</span></a></li></ol>
+                </div>
+            </button>
             
 
             

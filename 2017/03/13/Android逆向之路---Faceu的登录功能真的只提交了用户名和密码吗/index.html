@@ -1,0 +1,1998 @@
+<!doctype html>
+<html lang="cn"><head>
+<title>Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗 - MartinHan的小站</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<link rel="shortcut icon" href="/images/head/head.jpg" type="image/jpg" />
+<meta name="description" content="问题几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。 准备工作首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。 需要的工具 apktool (拆包APK用) dex2jar (反编译dex文件用)  需要的工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗">
+<meta property="og:url" content="https://martinhan.com/2017/03/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97/index.html">
+<meta property="og:site_name" content="MartinHan的小站">
+<meta property="og:description" content="问题几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。 准备工作首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。 需要的工具 apktool (拆包APK用) dex2jar (反编译dex文件用)  需要的工具">
+<meta property="og:locale">
+<meta property="og:image" content="http://martinhan.com/images/20170313120949110.png">
+<meta property="og:image" content="http://martinhan.com/images/20170313123206107.png">
+<meta property="og:image" content="http://martinhan.com/images/20170313135451409.png">
+<meta property="article:published_time" content="2017-03-13T14:36:00.000Z">
+<meta property="article:modified_time" content="2026-03-12T09:39:34.733Z">
+<meta property="article:author" content="MartinHan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://martinhan.com/images/20170313120949110.png">
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1773390183787">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
+
+<link rel="stylesheet" href="/css/style.css?v=1773390183787">
+
+
+
+
+    
+        <link rel="stylesheet" href="/custom.css?v=1773390183787">
+    
+        <link rel="stylesheet" href="/themes/umaru/index.css?v=1773390183787">
+    
+        <link rel="stylesheet" href="/themes/asuka/index.css?v=1773390183787">
+    
+
+
+
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+<script src="/lib/lax.min.js" async></script>
+
+
+<script async src="/js/app.js?v=1773390183787"></script>
+
+ 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1Z7TFL96ZH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1Z7TFL96ZH');
+</script>
+<script src="https://unpkg.com/hexo-shiki-plugin@1.0.27/lib/codeblock.js"></script>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<meta name="generator" content="Hexo 8.1.1"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(/images/background/xiaomai.jpg)"></div><div class="nexmoe-character"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon nexmoe-avatar" href="/" title="MartinHan"><img src="/images/head/head.jpg" alt="MartinHan"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="MartinHan">
+            <img src="/images/head/head.jpg" alt="MartinHan" alt="MartinHan">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>Articles</span>27 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>Tags</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>Categories</span>6<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于我">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/friend.html" title="大伙伴们">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                大伙伴们
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/memos.html" title="小朋友圈">
+            <i class="mdui-list-item-icon nexmoefont icon-tangguo"></i>
+            <div class="mdui-list-item-content">
+                小朋友圈
+            </div>
+        </a>
+        
+    </div>
+    
+    
+        
+        <div class="nexmoe-widget-wrap" style="background: transparent;box-shadow: none;">
+    <div class="nexmoe-widget nexmoe-switch-theme">
+        <div class="theme-toggle-container" onclick="useToggle()">
+            <!-- 背景元素 -->
+            <div class="toggle-background">
+                <!-- 白云 -->
+                <div class="clouds">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                    <div class="cloud cloud3"></div>
+                </div>
+                <!-- 星空 -->
+                <div class="stars">
+                    <div class="star star1"></div>
+                    <div class="star star2"></div>
+                    <div class="star star3"></div>
+                    <div class="star star4"></div>
+                    <div class="star star5"></div>
+                </div>
+            </div>
+            <!-- 太阳/月亮滑块 -->
+            <div class="theme-slider">
+                <svg class="theme-icon sun" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" fill="#ffd700"/>
+                    <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="#ffd700" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="theme-icon moon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* 主题切换过渡动画 */
+    ::view-transition-group(root) {
+        animation-duration: 0.7s;
+        animation-timing-function: var(--expo-out);
+    }
+
+    ::view-transition-new(root) {
+        animation-name: reveal-light;
+        animation-fill-mode: both;
+    }
+
+    ::view-transition-old(root),
+    .dark::view-transition-old(root) {
+        animation: none;
+        animation-fill-mode: both;
+        z-index: -1;
+    }
+
+    .dark::view-transition-new(root) {
+        animation-name: reveal-dark;
+        animation-fill-mode: both;
+    }
+
+    @keyframes reveal-dark {
+        from {
+            clip-path: polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%);
+        }
+
+        to {
+            clip-path: polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%);
+        }
+    }
+
+    @keyframes reveal-light {
+        from {
+            clip-path: polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%);
+        }
+
+        to {
+            clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%);
+        }
+    }
+
+    /* 主题切换矩形样式 */
+    .nexmoe-switch-theme {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .theme-toggle-container {
+        position: relative;
+        width: inherit;
+        height: 70px;
+        background: linear-gradient(135deg, #87CEEB 0%, #E0F7FA 100%);
+        border-radius: 35px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: scale(0.8);
+    }
+
+    /* 深色主题下的背景 */
+    .dark .theme-toggle-container {
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%);
+    }
+
+    /* 背景元素容器 */
+    .toggle-background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    /* 白云样式 */
+    .clouds {
+        position: absolute;
+        left: 70%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .clouds {
+        opacity: 0;
+        right: -50px;
+    }
+
+    .cloud {
+        position: absolute;
+        background: white;
+        border-radius: 50px;
+        opacity: 0.8;
+        animation: cloudFloat 4s ease-in-out infinite;
+    }
+
+    .cloud1 {
+        width: 30px;
+        height: 20px;
+        top: 0;
+        left: 0;
+    }
+
+    .cloud2 {
+        width: 25px;
+        height: 15px;
+        top: 25px;
+        left: 10px;
+        animation-delay: 1s;
+    }
+
+    .cloud3 {
+        width: 20px;
+        height: 15px;
+        top: 10px;
+        left: 35px;
+        animation-delay: 2s;
+    }
+
+    /* 云朵浮动动画 */
+    @keyframes cloudFloat {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-5px) rotate(2deg);
+        }
+    }
+
+    /* 星空样式 */
+    .stars {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .stars {
+        opacity: 1;
+    }
+
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: starTwinkle 2s ease-in-out infinite;
+    }
+
+    .star1 {
+        width: 3px;
+        height: 3px;
+        top: 0;
+        left: 0;
+    }
+
+    .star2 {
+        width: 2px;
+        height: 2px;
+        top: 20px;
+        left: 25px;
+        animation-delay: 0.5s;
+    }
+
+    .star3 {
+        width: 4px;
+        height: 4px;
+        top: 10px;
+        left: 50px;
+        animation-delay: 1s;
+    }
+
+    .star4 {
+        width: 2px;
+        height: 2px;
+        top: 30px;
+        left: 35px;
+        animation-delay: 1.5s;
+    }
+
+    .star5 {
+        width: 3px;
+        height: 3px;
+        top: 15px;
+        left: 15px;
+        animation-delay: 2s;
+    }
+
+    /* 星星闪烁动画 */
+    @keyframes starTwinkle {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 3px white);
+        }
+    }
+
+    /* 太阳/月亮滑块 */
+    .theme-slider {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+
+    .dark .theme-slider {
+        left: calc(100% - 60px - 5px);
+        background: #f0f0f0;
+    }
+
+    /* 太阳和月亮图标 */
+    .theme-icon {
+        position: absolute;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sun {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    .moon {
+        opacity: 0;
+        transform: scale(0.8) rotate(-90deg);
+    }
+
+    .dark .sun {
+        opacity: 0;
+        transform: scale(0.8) rotate(90deg);
+    }
+
+    .dark .moon {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    /* 太阳和月亮的发光效果 */
+    @keyframes sunPulse {
+        0%, 100% {
+            filter: drop-shadow(0 0 6px #ffd700);
+        }
+        50% {
+            filter: drop-shadow(0 0 12px #ffd700) drop-shadow(0 0 18px rgba(255, 215, 0, 0.7));
+        }
+    }
+
+    @keyframes moonGlow {
+        0%, 100% {
+            filter: drop-shadow(0 0 4px #e0e7ff);
+        }
+        50% {
+            filter: drop-shadow(0 0 8px #e0e7ff) drop-shadow(0 0 12px rgba(224, 231, 255, 0.7));
+        }
+    }
+
+    /* 应用发光动画 */
+    .sun {
+        animation: sunPulse 3s ease-in-out infinite;
+    }
+
+    .moon {
+        animation: moonGlow 3s ease-in-out infinite;
+    }
+
+    /* 鼠标悬停效果 */
+    .theme-toggle-container:hover {
+        transform: scale(0.9);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 点击效果 */
+    .theme-toggle-container:active {
+        transform: scale(0.98);
+    }
+</style>
+<script>
+    const localTheme = typeof localStorage !== "undefined" && localStorage.getItem("hexo-theme")
+    let theme = localTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+    document.documentElement.className = theme
+
+    function switchTheme() {
+        theme = theme === "dark" ? "light" : "dark"
+        document.documentElement.className = theme
+        localStorage.setItem("hexo-theme", theme)
+    }
+
+    function useToggle() {
+        const isAppearanceTransition = document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        if (!isAppearanceTransition) switchTheme()
+        document.startViewTransition(switchTheme)
+    }
+</script>
+    
+        
+        <div style="position: relative;">
+    <div class="nexmoe-widget-wrap">
+        <div class="nexmoe-widget nexmoe-search">
+            
+                    <form id="search_form">
+                        <label><input oninput="sinput()" class="st-default-search-input search-input"
+                                style="color:var(--color-text-2);" id="search_value" name="q" type="search"
+                                placeholder="Search" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+                    </form>
+                    
+        </div>
+    </div>
+
+    <div class="search-body">
+
+    </div>
+</div>
+<style>
+    .search-body {
+        position: absolute;
+        width: calc(100% - 40px);
+        margin: 0 20px;
+        box-sizing: border-box;
+        top: 60px;
+        right: 0;
+        background-color: var(--color-card);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        color: var(--color-text-1);
+        border-radius: 12px;
+    }
+    .search-body a {
+        color: var(--color-text-1);
+    }
+    .search-body .keyword {
+        font-weight: bold;
+        color: var(--color-primary);
+    }
+    .search-result {
+       padding: 10px 20px;
+       border-bottom: 1px dashed var(--color-primary);
+       cursor: pointer;
+    }
+
+    .search-result-title {
+        font-size: 16px;
+        font-weight: bold;
+        white-space: nowrap;
+        /* 防止文本换行 */
+        overflow: hidden;
+        /* 隐藏溢出的内容 */
+        text-overflow: ellipsis;
+        /* 显示省略号来代表被修剪的文本 */
+    }
+
+    .search-result-text {
+        font-size: 14px;
+        white-space: nowrap;
+        /* 防止文本换行 */
+        overflow: hidden;
+        /* 隐藏溢出的内容 */
+        text-overflow: ellipsis;
+        /* 显示省略号来代表被修剪的文本 */
+    }
+    
+</style>
+
+
+    <script async src="/js/search.js?v=1773390183787"></script>
+        
+
+            
+    
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="mailto:hanhan145@163.com"
+			target="_blank"
+			mdui-tooltip="{content: 'mail'}"
+			style="
+				color: rgb(249,8,8);
+				background-color: rgba(249,8,8,.1);
+			"
+		>
+			<i
+				class="nexmoefont icon-mail-fill"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://github.com/martinhan01/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .15);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Android逆向/">Android逆向</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/小工具/">小工具</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/常用配置/">常用配置</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/生活/">生活</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/算法/">算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/计算机技术/">计算机技术</a>
+          <span class="category-list-count">5</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+    
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/">2026</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Recent Posts</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/12/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2/">codeblocks--主题更换</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4/">Android常用adb命令</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/">一键更新package.json中所有模块为最新版本</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0/">我是心有多大才能突然想起你</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile/">某口腔app发现了不友善词汇(f*ckMobile)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-link">
+		<ul>
+        
+            <li>
+                <a href="https://memos.tangyuxian.com/" target="_blank" >
+                    <img src="https://cdn.tangyuxian.com/PicGoImages/202304272004917.jpg" alt="糖糖的闺中小秘密"></img>
+                    <p style="color: var(--color-primary)">糖糖的闺中小秘密</p>
+                </a>
+            </li>
+        
+		</ul>
+    </div>
+</div>
+<style>
+.nexmoe-widget-wrap .nexmoe-link ul li a {
+    text-align : center;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a img {
+    max-width : 100%;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a p {
+    margin: 10px 0;
+}
+</style>
+
+    
+   
+    <div class="nexmoe-copyright">
+        &copy; 2026 MartinHan
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a>
+        <!-- <br><a target="_blank" href="https://beian.miit.gov.cn/">辽ICP备2021002341号</a> -->
+<div style="font-size: 12px">
+   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+   本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+   本站访客数<a id="busuanzi_value_site_uv"></a>人次
+</div>
+
+    </div>
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover">
+            <img src="/images/background/xiaomai.jpg" alt="Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗" loading="lazy">
+            <h1>Android逆向之路---Faceu的登录功能真的只提交了用户名和密码吗</h1>
+        </div>
+        
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2017年03月13日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Android%E9%80%86%E5%90%91/">Android逆向</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>几乎99%的软件都有登录功能，而登录这一个动作真的将我们的用户名和密码上传到了服务器吗，会不会有个人隐私呢。根据我们这个问题，我们用FaceU这个软件，逆向来看看他的登录功能到底都传了什么数据。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先下载faceu的APK，具体下载地址大家可以去各大应用市场，我下载的版本是v2.2.6。</p>
+<h3 id="需要的工具"><a href="#需要的工具" class="headerlink" title="需要的工具"></a>需要的工具</h3><ul>
+<li>apktool (拆包APK用)</li>
+<li>dex2jar (反编译dex文件用)</li>
+</ul>
+<p>需要的工具下载地址：<a target="_blank" rel="noopener" href="https://github.com/hanhan12312/android_reverse_practice/tree/master/tools">https://github.com/hanhan12312/android_reverse_practice/tree/master/tools</a></p>
+<h2 id="拆包"><a href="#拆包" class="headerlink" title="拆包"></a>拆包</h2><p>首先，我们利用apktool拆包apk，执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apktool d faceu.apk</span><br></pre></td></tr></table></figure>
+<p>这样在当前文件夹就得到了一个faceu的文件夹。</p>
+<span id="more"></span>
+<h2 id="定位代码"><a href="#定位代码" class="headerlink" title="定位代码"></a>定位代码</h2><p>我们打开Faceu软件，点击下面的已有账号在此登录，然后弹出来登录界面，如图所示<br><img src="http://martinhan.com/images/20170313120949110.png" width="300" height="550"><br>我们利用字符串搜索法，这个页面的注册的EditText的hint字为”Faceu号&#x2F;手机号”，我们搜索res文件夹内所有文件的内容，搜索此关键字找到两处，位置都在res&#x2F;values&#x2F;strings.xml文件内  </p>
+<p>strings.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;str_account_hint&quot;</span>&gt;</span>Faceu号 / 手机号<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;str_search_user&quot;</span>&gt;</span>Faceu号/手机号<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>根据name我们也能知道，account_hint是账号的输入框，而另一个是用于搜索的。<br>我们知道一个布局文件肯定有用到过这个值。所以我们在工程内搜索”str_account_hint”，可是结果却发现只有两处引用到，如图<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="http://martinhan.com/images/20170313123206107.png" alt="这里写图片描述" data-caption="这里写图片描述" loading="lazy"><br>看来faceu的程序员们是没有在布局中引用，那就有可能在java代码内引用到，那就去看看”str_account_hint”在代码对应的值是多少。<br>紧接着我们顺着str_account_hint这个名字在res&#x2F;values&#x2F;public.xml文件内搜索”str_account_hint”，public.xml是在编译期间生成的文字对应编译后资源的id。<br>public.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">public</span> <span class="attr">type</span>=<span class="string">&quot;string&quot;</span> <span class="attr">name</span>=<span class="string">&quot;str_account_hint&quot;</span> <span class="attr">id</span>=<span class="string">&quot;0x7f070047&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>由此我们可以看出在java代码内对应的是0x7f070047。因此我们再次在代码里面搜索0x7f070047试试。<br>找到了引用到这个常量的地方。  </p>
+<p>在文件com&#x2F;lemon&#x2F;faceu&#x2F;login&#x2F;b内</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const v2, 0x7f070047</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-virtual </span>&#123;v1, v2&#125;, <span class="class">Landroid/content/res/Resources;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">move-result-object </span>v1</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-virtual </span>&#123;v0, v1&#125;, Lcom/lemon/faceu/uimodule/view/AccountEditText-&gt;setHintText(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>熟悉smali语法的话，我们能够读懂，这个翻译成Java代码其实就是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">v1</span> <span class="operator">=</span> context.getString(<span class="number">0x7f070047</span>);</span><br><span class="line">editText.setHintText(v1);</span><br></pre></td></tr></table></figure>
+<p>目的是找到到这个字符串。</p>
+<p>到此为止我们分析一下当前的类是个什么类，是个Activity?Fragment?还是自定义View。</p>
+<p>我们找到当前页面网上翻几行，看看还有没有用到什么别的资源id,找到了如下代码</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in"> const </span>v0, 0x7f0e026e</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-virtual </span>&#123;p1, v0&#125;, <span class="class">Landroid/view/View;</span>-&gt;findViewById(I)<span class="class">Landroid/view/View;</span></span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">move-result-object </span>v0</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">check-cast </span>v0, <span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span></span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">iput-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>很明显，这个凭借PasswordEditText名称我们也能发现他就是密码输入的EditText<br>翻译成java代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PasswordEditText</span> <span class="variable">v0</span> <span class="operator">=</span> (PasswordEditText)<span class="built_in">this</span>.findViewById(<span class="number">0x7f0e026e</span>);</span><br><span class="line"><span class="built_in">this</span>.bpP = v0;</span><br></pre></td></tr></table></figure>
+<p>根据这一句话我们在public.xml里面找到对应的xml  </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">public</span> <span class="attr">type</span>=<span class="string">&quot;id&quot;</span> <span class="attr">name</span>=<span class="string">&quot;cet_login_password&quot;</span> <span class="attr">id</span>=<span class="string">&quot;0x7f0e026e&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后我们再看看有没有布局文件引用到了cet_login_password，于是找到了4处<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="http://martinhan.com/images/20170313135451409.png" alt="cet_login_password" data-caption="cet_login_password" loading="lazy"></p>
+<p>我们进入fragment_login.xml发现他只有登录页面的上半部分。却没有下面的取消和确认按钮。可以猜测他并不是Activity,Fragment，因为没有标志性的onCreate方法，父类最终也没有找到Activity，Fragment等。很可能是一个负责处理业务的类。</p>
+<p>但是我们知道了当前的成员变量bpP就是对应的密码的EditText了，那么看看都哪里调用这个bpP了。<br>通过对当前类分析，我最终找到了Lu方法里面对应到了登录按钮的。</p>
+<h2 id="逆向登录代码，查看传递参数"><a href="#逆向登录代码，查看传递参数" class="headerlink" title="逆向登录代码，查看传递参数"></a>逆向登录代码，查看传递参数</h2><p>经过一番努力总算找到了登录界面，登录代码，现在我们进行分析，并且加入一段我们自己的代码，进行二次打包。<br>下面是分析详解  </p>
+<p> Lcom&#x2F;lemon&#x2F;faceu&#x2F;login&#x2F;b;</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">  .method</span> Lu()V</span><br><span class="line"><span class="keyword">    .locals</span> 4</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .prologue</span></span><br><span class="line"><span class="keyword">    .line</span> 216</span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;Ls()Z</span><br><span class="line">    <span class="comment">#检测用户名是否合法</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line">    <span class="comment">#如果不合法就返回</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-eqz </span>v0,<span class="keyword"> :cond_0</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;Lt()Z</span><br><span class="line">    <span class="comment">#检测密码是否合法</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line">    <span class="comment">#如果不合法就返回</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-nez </span>v0,<span class="keyword"> :cond_1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 241</span><br><span class="line">   <span class="keyword"> :cond_0</span></span><br><span class="line">   <span class="keyword"> :goto_0</span></span><br><span class="line">   <span class="built_in"> return-void</span></span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="keyword">    .line</span> 220</span><br><span class="line">   <span class="keyword"> :cond_1</span></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;Uv()V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 222</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;LoginFragment&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const-string </span>v1, <span class="string">&quot;startLogin&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v0, v1&#125;, <span class="class">Lcom/lemon/faceu/sdk/utils/c;</span>-&gt;i(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/String;</span>)V</span><br><span class="line">    <span class="comment">#调用Faceu自己的统计打点方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 223</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;getAccount()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line">    <span class="comment">#调用AccountEditText的getAccount方法，并将用户户名存入v0 </span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> iput-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="class">Ljava/lang/String;</span></span><br><span class="line">    <span class="comment">#将aAs赋值为用户名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 224</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;getEditText()<span class="class">Landroid/widget/EditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Landroid/widget/EditText;</span>-&gt;getText()<span class="class">Landroid/text/Editable;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Ljava/lang/Object;</span>-&gt;toString()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line">    <span class="comment">#将密码从bpP取出来，并取出String类型的密码复制给v0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 227</span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/e/a;</span>-&gt;xJ()<span class="class">Lcom/lemon/faceu/common/e/a;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v1</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> iget-object </span>v2, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v2&#125;, <span class="class">Lcom/lemon/faceu/common/e/a;</span>-&gt;setAccount(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line">    <span class="comment">#将现在的用户名存入sharedprefence，以便于记住用户名下次直接显示</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 229</span><br><span class="line">   <span class="built_in"> new-instance </span>v1, <span class="class">Ljava/util/HashMap;</span></span><br><span class="line">    <span class="comment">#new一个HashMap存储进v1</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-direct </span>&#123;v1&#125;, <span class="class">Ljava/util/HashMap;</span>-&gt;&lt;init&gt;()V</span><br><span class="line">    <span class="comment">#初始化v1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 230</span><br><span class="line">   <span class="built_in"> const-string </span>v2, <span class="string">&quot;account&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> iget-object </span>v3, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;aAS:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v2, v3&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将用户名存入HashMap</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 231</span><br><span class="line">   <span class="built_in"> const-string </span>v2, <span class="string">&quot;pwd&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/common/i/g;</span>-&gt;bS(<span class="class">Ljava/lang/String;</span>)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v2, v0&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将密码调用bS方法加密并且存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 232</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;councode&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const-string </span>v2, <span class="string">&quot;86&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#国家编号86，存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 233</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;manufacture&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget-object </span>v2, <span class="class">Landroid/os/Build;</span>-&gt;MANUFACTURER:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将厂商信息存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 234</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;model&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget-object </span>v2, <span class="class">Landroid/os/Build;</span>-&gt;MODEL:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将model信息存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 235</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;version&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget </span>v2, <span class="class">Lcom/lemon/faceu/common/d/b;</span>-&gt;aAL:I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v2&#125;, <span class="class">Ljava/lang/String;</span>-&gt;valueOf(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将软件版本信息存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 236</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;deviceinfo&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xt()<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line">    <span class="comment">#将调用com.lemon.faceu.common.b.a-&gt;xt()方法，取回JsonObject并且赋值给v2</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-interface </span>&#123;v1, v0, v2&#125;, <span class="class">Ljava/util/Map;</span>-&gt;put(<span class="class">Ljava/lang/Object;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Ljava/lang/Object;</span></span><br><span class="line">    <span class="comment">#将JSONObject存入map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 238</span><br><span class="line">   <span class="built_in"> new-instance </span>v0, <span class="class">Lcom/lemon/faceu/common/t/a;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget-object </span>v2, <span class="class">Lcom/lemon/faceu/common/d/a;</span>-&gt;azO:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Landroid/os/Looper;</span>-&gt;getMainLooper()<span class="class">Landroid/os/Looper;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v3</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-direct </span>&#123;v0, v2, v1, v3&#125;, <span class="class">Lcom/lemon/faceu/common/t/a;</span>-&gt;&lt;init&gt;(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/util/Map;</span><span class="class">Landroid/os/Looper;</span>)V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 239</span><br><span class="line">   <span class="built_in"> iget-object </span>v1, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;aKe:<span class="class">Lcom/lemon/faceu/common/t/a$a;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="class">Lcom/lemon/faceu/common/t/a;</span>-&gt;a(<span class="class">Lcom/lemon/faceu/common/t/a$a;</span>)V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 240</span><br><span class="line">   <span class="built_in"> const-string </span>v1, <span class="string">&quot;login&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v0, v1&#125;, <span class="class">Lcom/lemon/faceu/sdk/i/b;</span>-&gt;a(<span class="class">Ljava/lang/Runnable;</span><span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0<span class="keyword"></span></span><br><span class="line"><span class="keyword">.end method</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment">#此方法主要校验用户名是否合法，错误的话输出错误信息，返回值为boolean</span></span><br><span class="line"><span class="keyword">.method</span> Ls()Z   </span><br><span class="line"><span class="keyword">    .locals</span> 5</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .prologue</span></span><br><span class="line">   <span class="built_in"> const/4 </span>v1, 0x0 </span><br><span class="line">    <span class="comment">#使v0寄存器为0</span></span><br><span class="line"><span class="keyword">    .line</span> 177</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line">    <span class="comment">#将成员变量bpO赋值给v0，此时v0就是用户名</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;getAccount()<span class="class">Ljava/lang/String;</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line">    <span class="comment">#调用AccountEditText的getAccount方法，并将返回值存入v2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 178</span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="class">Ljava/lang/String;</span>-&gt;length()I</span><br><span class="line">    <span class="comment">#取出用户名长度</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line">    <span class="comment">#v0 = 用户名长度</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-lez </span>v0,<span class="keyword"> :cond_0</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2, v1&#125;, <span class="class">Ljava/lang/String;</span>-&gt;charAt(I)C</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v0&#125;, <span class="class">Ljava/lang/Character;</span>-&gt;isDigit(C)Z</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-eqz </span>v0,<span class="keyword"> :cond_0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 180</span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v2&#125;, <span class="class">Lcom/lemon/faceu/common/u/t;</span>-&gt;dz(<span class="class">Ljava/lang/String;</span>)Z</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-nez </span>v0,<span class="keyword"> :cond_4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 181</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const </span>v2, 0x7f0700ae</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 202</span><br><span class="line">   <span class="keyword"> :goto_0</span></span><br><span class="line">   <span class="built_in"> return </span>v1</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 185</span><br><span class="line">   <span class="keyword"> :cond_0</span></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="class">Ljava/lang/String;</span>-&gt;length()I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const/16 </span>v3, 0x14</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-le </span>v0, v3,<span class="keyword"> :cond_1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 186</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const </span>v2, 0x7f070087</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 188</span><br><span class="line">   <span class="keyword"> :cond_1</span></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="class">Ljava/lang/String;</span>-&gt;length()I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-lez </span>v0,<span class="keyword"> :cond_2</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2, v1&#125;, <span class="class">Ljava/lang/String;</span>-&gt;charAt(I)C</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/sdk/utils/h;</span>-&gt;u(C)Z</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-nez </span>v0,<span class="keyword"> :cond_2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 189</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const </span>v2, 0x7f070086</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> :cond_2</span></span><br><span class="line">   <span class="built_in"> move </span>v0, v1</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 192</span><br><span class="line">   <span class="keyword"> :goto_1</span></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="class">Ljava/lang/String;</span>-&gt;length()I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v3</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-ge </span>v0, v3,<span class="keyword"> :cond_4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 193</span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2, v0&#125;, <span class="class">Ljava/lang/String;</span>-&gt;charAt(I)C</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v3</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 194</span><br><span class="line">   <span class="built_in"> const/16 </span>v4, 0x5f</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-eq </span>v3, v4,<span class="keyword"> :cond_3</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v3&#125;, <span class="class">Ljava/lang/Character;</span>-&gt;isDigit(C)Z</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v4</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-nez </span>v4,<span class="keyword"> :cond_3</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v3&#125;, <span class="class">Lcom/lemon/faceu/sdk/utils/h;</span>-&gt;u(C)Z</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v3</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-nez </span>v3,<span class="keyword"> :cond_3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 195</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpO:<span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const </span>v2, 0x7f070085</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0, v2&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v2&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/AccountEditText;</span>-&gt;setTips(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 192</span><br><span class="line">   <span class="keyword"> :cond_3</span></span><br><span class="line">   <span class="built_in"> add-int/lit8 </span>v0, v0, 0x1</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_1</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 202</span><br><span class="line">   <span class="keyword"> :cond_4</span></span><br><span class="line">   <span class="built_in"> const/4 </span>v1, 0x1</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0<span class="keyword"></span></span><br><span class="line"><span class="keyword">.end method</span></span><br><span class="line"><span class="comment">#此方法主要校验密码是否合法，错误的话输出错误信息，做一些动画之类，正确返回true</span></span><br><span class="line"><span class="keyword">.method</span> Lt()Z</span><br><span class="line"><span class="keyword">    .locals</span> 2</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .prologue</span></span><br><span class="line"><span class="keyword">    .line</span> 206</span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;getEditText()<span class="class">Landroid/widget/EditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Landroid/widget/EditText;</span>-&gt;getText()<span class="class">Landroid/text/Editable;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Ljava/lang/Object;</span>-&gt;toString()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Ljava/lang/String;</span>-&gt;length()I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v0</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 207</span><br><span class="line">   <span class="built_in"> const/4 </span>v1, 0x6</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-lt </span>v0, v1,<span class="keyword"> :cond_0</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const/16 </span>v1, 0x10</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> if-le </span>v0, v1,<span class="keyword"> :cond_1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 208</span><br><span class="line">   <span class="keyword"> :cond_0</span></span><br><span class="line">   <span class="built_in"> iget-object </span>v0, p0, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;bpP:<span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const </span>v1, 0x7f0700b5</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;p0, v1&#125;, <span class="class">Lcom/lemon/faceu/login/b;</span>-&gt;getString(I)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v1</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0, v1&#125;, <span class="class">Lcom/lemon/faceu/uimodule/view/PasswordEditText;</span>-&gt;setTips(<span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 209</span><br><span class="line">   <span class="built_in"> const/4 </span>v0, 0x0</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 211</span><br><span class="line">   <span class="keyword"> :goto_0</span></span><br><span class="line">   <span class="built_in"> return </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> :cond_1</span></span><br><span class="line">   <span class="built_in"> const/4 </span>v0, 0x1</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0<span class="keyword"></span></span><br><span class="line"><span class="keyword">.end method</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我们主要看Lu方法里面的以下几行，他调用了com.lemon.faceu.common.b.a-&gt;xt()方法，这个主要是用于窃取我们的手机型号，系统，厂商等信息，我们进入方法看看</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;deviceinfo&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xt()<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line">    <span class="comment">#将调用com.lemon.faceu.common.b.a-&gt;xt()方法，取回JsonObject并且赋值给v2</span></span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">我们进入方法看看</span><br><span class="line"></span><br><span class="line">```smali</span><br><span class="line"></span><br><span class="line"><span class="keyword">.method</span><span class="keyword"> public</span><span class="keyword"> static</span> xt()<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"><span class="keyword">    .locals</span> 5</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .prologue</span></span><br><span class="line"><span class="keyword">    .line</span> 34</span><br><span class="line">   <span class="built_in"> new-instance </span>v1, <span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-direct </span>&#123;v1&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;&lt;init&gt;()V</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 36</span><br><span class="line">   <span class="keyword"> :try_start_0</span></span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;cpu&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xv()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line">    <span class="comment">#取出你的cpu信息放入json</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 37</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;radio&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xx()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line">    <span class="comment">#机型的RADIO信息存入json</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 38</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;os_version&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget </span>v2, <span class="class">Landroid/os/Build$VERSION;</span>-&gt;SDK_INT:I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span>I)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line">    <span class="comment">#取出你系统版本</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 39</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;imei&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/e/a;</span>-&gt;xJ()<span class="class">Lcom/lemon/faceu/common/e/a;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line">    <span class="comment">#取出IMEI号</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v2&#125;, <span class="class">Lcom/lemon/faceu/common/e/a;</span>-&gt;getContext()<span class="class">Landroid/content/Context;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v2&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;bd(<span class="class">Landroid/content/Context;</span>)<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 40</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;imsi&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xy()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 41</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;iccid&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xz()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 42</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;android_id&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xw()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 43</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;model&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> sget-object </span>v2, <span class="class">Landroid/os/Build;</span>-&gt;MODEL:<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 44</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;core_count&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xA()I</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span>I)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 45</span><br><span class="line">   <span class="built_in"> const-string </span>v0, <span class="string">&quot;wifi&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;&#125;, <span class="class">Lcom/lemon/faceu/common/b/a;</span>-&gt;xu()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v2</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v1, v0, v2&#125;, <span class="class">Lorg/json/JSONObject;</span>-&gt;put(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/Object;</span>)<span class="class">Lorg/json/JSONObject;</span></span><br><span class="line">   <span class="keyword"> :try_end_0</span></span><br><span class="line"><span class="keyword">    .catch</span> <span class="class">Lorg/json/JSONException;</span> &#123;:try_start_0 ..<span class="keyword"> :try_end_0</span>&#125;<span class="keyword"> :catch_0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 49</span><br><span class="line">   <span class="keyword"> :goto_0</span></span><br><span class="line">   <span class="built_in"> return-object </span>v1</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 46</span><br><span class="line">   <span class="keyword"> :catch_0</span></span><br><span class="line">   <span class="built_in"> move-exception </span>v0</span><br><span class="line"></span><br><span class="line"><span class="keyword">    .line</span> 47</span><br><span class="line">   <span class="built_in"> const-string </span>v2, <span class="string">&quot;DeviceInfo&quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> new-instance </span>v3, <span class="class">Ljava/lang/StringBuilder;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-direct </span>&#123;v3&#125;, <span class="class">Ljava/lang/StringBuilder;</span>-&gt;&lt;init&gt;()V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> const-string </span>v4, <span class="string">&quot;jsonexception, &quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v3, v4&#125;, <span class="class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="class">Ljava/lang/String;</span>)<span class="class">Ljava/lang/StringBuilder;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v3</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Lorg/json/JSONException;</span>-&gt;getMessage()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v3, v0&#125;, <span class="class">Ljava/lang/StringBuilder;</span>-&gt;append(<span class="class">Ljava/lang/String;</span>)<span class="class">Ljava/lang/StringBuilder;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-virtual </span>&#123;v0&#125;, <span class="class">Ljava/lang/StringBuilder;</span>-&gt;toString()<span class="class">Ljava/lang/String;</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in"> move-result-object </span>v0</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> invoke-static </span>&#123;v2, v0&#125;, <span class="class">Lcom/lemon/faceu/sdk/utils/c;</span>-&gt;e(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/String;</span>)V</span><br><span class="line"></span><br><span class="line">   <span class="built_in"> goto </span>:goto_0<span class="keyword"></span></span><br><span class="line"><span class="keyword">.end method</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们能看到他获取了我们的cpu，radio，os_version(系统版本),imei，MODEL,cpu_count,mac地址。<br>看了半天代码，我们加入一些我们的代码，让程序自己把提交的信息打印出来吧。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">const-string </span>v0, <span class="string">&quot;MartinHan--map&quot;</span><span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-virtual </span>&#123;v1&#125;, <span class="class">Ljava/util/HashMap;</span>-&gt;toString()<span class="class">Ljava/lang/String;</span><span class="built_in"></span></span><br><span class="line"><span class="built_in">move-result-object </span>v3<span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-static </span>&#123;v0, v3&#125;, <span class="class">Landroid/util/Log;</span>-&gt;v(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/String;</span>)I</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">const-string </span>v3, <span class="string">&quot;MartinHan---url&quot;</span><span class="built_in"></span></span><br><span class="line"><span class="built_in">invoke-static </span>&#123;v3, v2&#125;, <span class="class">Landroid/util/Log;</span>-&gt;v(<span class="class">Ljava/lang/String;</span><span class="class">Ljava/lang/String;</span>)I</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后我们执行代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apktool d faceu</span><br><span class="line">cd faceu/disk</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">签名 生成文件明为_signed.apk</span> </span><br><span class="line">jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHan.jks&quot; -signedjar &quot;_signed.apk&quot; &quot;faceu.apk&quot; &quot;111111&quot; &lt;&lt; EOF</span><br><span class="line">111111</span><br><span class="line"></span><br><span class="line">adb install _signed.apk</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样的流程走下来，我们的二次打包apk就安装到手机上啦，看看我们输入我们帐号，点击登录。会打印出log信息。<br>如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">03-13 14:17:15.269 10240-10240/com.lemon.faceu V/MartinHan--map: &#123;account=159xxxxxxxx, deviceinfo=&#123;&quot;android_id&quot;:&quot;62fjdhu42d070400&quot;,&quot;wifi&quot;:&quot;08:33:61:cc:b9:fc&quot;,&quot;model&quot;:&quot;HUAWEI G630-U00&quot;,&quot;imei&quot;:&quot;81338398767854654&quot;,&quot;iccid&quot;:&quot;&quot;,&quot;cpu&quot;:&quot;ARMv7 Processor rev 3 (v7l) &quot;,&quot;radio&quot;:&quot;203040,203040&quot;,&quot;imsi&quot;:&quot;&quot;,&quot;core_count&quot;:4,&quot;os_version&quot;:18&#125;, model=HUAWEI G630-U00, pwd=4d259481d57ffc1c6b4b68cd73dbd301, councode=86, manufacture=HUAWEI, version=270540806&#125;</span><br><span class="line"></span><br><span class="line">03-13 14:17:15.269 10240-10240/com.lemon.faceu V/MartinHan---url: https://api2.faceu.mobi/faceu/v3/login.php</span><br></pre></td></tr></table></figure>
+
+<p>如上诉代码所示，我们在faceu登录一次，faceu会上传我们的很多个人信息<br>mac地址，手机型号，imei，cpu信息，radio，系统版本，国家代码，<br>并且找到了faceu登录的地址是<a target="_blank" rel="noopener" href="https://api2.faceu.mobi/faceu/v3/login.php">https://api2.faceu.mobi/faceu/v3/login.php</a></p>
+<p>以上就是我的所有思路，从问题开始，一直找代码，最后动态的打log实现在https加密前就让app自己吐出数据。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>其实我想不仅faceu，像是其他的厂商也会手机我们的个人信息，完成统计。并且通过大数据分析使用软件的人群，手机型号。<br>希望所有喜欢逆向的朋友们一起探讨，多多交流。</p>
+<blockquote>
+<p>注：如有侵权，请联系我</p>
+</blockquote>
+
+    
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>Author：</strong>MartinHan<br>
+        
+        <strong>Link：</strong><a href="https://martinhan.com/2017/03/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97/" title="https:&#x2F;&#x2F;martinhan.com&#x2F;2017&#x2F;03&#x2F;13&#x2F;Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;martinhan.com&#x2F;2017&#x2F;03&#x2F;13&#x2F;Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---Faceu%E7%9A%84%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E7%9C%9F%E7%9A%84%E5%8F%AA%E6%8F%90%E4%BA%A4%E4%BA%86%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E5%90%97&#x2F;</a><br>
+
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1773390183724"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          <div class="valine"></div>
+<script src='https://lib.baomitu.com/valine/1.3.9/Valine.min.js'></script>
+<script>
+  new Valine({
+      el: '.valine',
+      appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+      appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+  })
+</script>
+
+      </div>
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+        <div class="nexmoe-tool">
+
+            
+
+            
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">2.1.</span> <span class="toc-text">需要的工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%86%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">拆包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">定位代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%86%E5%90%91%E7%99%BB%E5%BD%95%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%9F%A5%E7%9C%8B%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">逆向登录代码，查看传递参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">6.</span> <span class="toc-text">写在最后</span></a></li></ol>
+                </div>
+            </button>
+            
+
+            
+
+            <a href="#nexmoe-content" class="backtop toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+        </div>
+    </div>
+</div></div><div id="nexmoe-pendant"><div class="nexmoe-drawer  nexmoe-pd" id="drawer" style="overflow-x: auto;overflow-y: auto;">
+
+     
+        
+
+        <div class="nexmoe-pd-item">
+    <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+</div>
+<script>
+    // ----- Variable declaration
+
+    var data = {
+        dt: new Date(),
+        hours: {
+            el: document.querySelector('#hours'),
+            val: 0
+        },
+
+        minutes: {
+            el: document.querySelector('#minutes'),
+            val: 0
+        },
+
+        seconds: {
+            el: document.querySelector('#seconds'),
+            val: 0
+        },
+
+        renderTime: 1000
+    };
+
+
+    // ----- Clock rendering logic
+
+    updateTime = () => {
+        let hour = data.dt.getHours();
+        let minute = data.dt.getMinutes();
+        let second = data.dt.getSeconds();
+
+        data.hours.el.classList.add('moving');
+        data.minutes.el.classList.add('moving');
+        data.seconds.el.classList.add('moving');
+
+        data.hours.val = hour == 0 && data.hours.val == 59 * 6 * 5 ? 360 : hour * 6 * 5;
+        data.minutes.val = minute == 0 && data.minutes.val == 59 * 6 ? 360 : minute * 6;
+        data.seconds.val = second == 0 && data.seconds.val == 59 * 6 ? 360 : second * 6;
+
+        data.hours.el.style.transform = `translate(-50%, -75%) rotate(${data.hours.val}deg)`;
+        data.minutes.el.style.transform = `translate(-50%, -75%) rotate(${data.minutes.val}deg)`;
+        data.seconds.el.style.transform = `translate(-50%, -75%) rotate(${data.seconds.val}deg)`;
+
+        data.dt.setSeconds(second + 1);
+    };
+
+    // ----- Clock execution
+
+    setInterval(() => {
+        updateTime();
+    }, data.renderTime);
+
+    updateTime();
+
+    // ----- Events area
+
+    data.seconds.el.addEventListener('transitionend', () => {
+        data.hours.el.classList.remove('moving');
+        data.minutes.el.classList.remove('moving');
+        data.seconds.el.classList.remove('moving');
+
+        // if (data.hours.val == 360) {
+        //   data.hours.el.style.transform = 'translate(-50%, -75%) rotate(0deg)';
+        // }
+
+        if (data.minutes.val == 360) {
+            data.minutes.el.style.transform = 'translate(-50%, -75%) rotate(0deg)';
+        }
+
+        if (data.seconds.val == 360) {
+            data.seconds.el.style.transform = 'translate(-50%, -75%) rotate(0deg)';
+        }
+    });
+
+</script>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw var(--color-primary);
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw var(--color2);
+        zoom: 0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: var(--color-primary);
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .clock_logo {
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .clock_logo {
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-image: var(--clock-logo);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh var(--color-primary);
+            box-shadow: 0 1.4vh 2.8vh var(--color2);
+        }
+    }
+</style>
+
+    
+        
+
+        <div class="nexmoe-pd-item">
+    <div class="qweather">
+        <div id="he-plugin-standard">
+            <iframe allowtransparency="true" frameborder="0" width="304" height="96" scrolling="no"
+                src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=0&v=0&d=2&bd=0&k=000000&f=ff8040&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=300&h=96&align=center"></iframe>
+        </div>
+        <div class="qweather-logo">
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .qweather {
+        position: relative;
+        padding-right: 5px;
+    }
+
+    .qweather #he-plugin-standard {
+        border: 2px solid var(--color-primary);
+        box-shadow: 0 1px 0 0 var(--color-primary), 0 1px 2px 0 var(--color-primary);
+        border-radius: 8px;
+        width: 300px;
+        overflow: hidden;
+    }
+
+    .qweather-logo {
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-image: var(--qweather-logo);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+
+    
+</div>
+<style>
+    .nexmoe-pd {
+        position: fixed;
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    #nexmoe-pendant .mdui-drawer{
+        width: 305px;
+    }
+    @media screen and (max-width: 1600px) {
+        #nexmoe-pendant {
+            display: none
+        }
+    }
+</style>
+</div><div id="nexmoe-chatbot">
+    
+<div id="ai-chatbot-button" class="ai-chatbot-button">
+
+</div>
+
+<!-- AI Chatbot Window -->
+<div id="ai-chatbot-window" class="ai-chatbot-window">
+  <div class="ai-chatbot-header">
+    <div class="ai-chatbot-title">糖糖的AI分身(BETA)</div>
+    <button id="ai-chatbot-close" class="ai-chatbot-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="ai-chatbot-content" id="ai-chatbot-content">
+    <!-- Loading Animation -->
+    <div id="ai-chatbot-loading" class="ai-chatbot-loading">
+      <div class="ai-chatbot-loading-spinner"></div>
+      <div class="ai-chatbot-loading-text">如果加载时间过长，可尝试打开系统代理</div>
+    </div>
+    <!-- iframe will be dynamically loaded here when chatbot is opened -->
+  </div>
+</div>
+
+<script>
+  // Get elements
+  const chatbotButton = document.getElementById('ai-chatbot-button');
+  const chatbotWindow = document.getElementById('ai-chatbot-window');
+  const chatbotClose = document.getElementById('ai-chatbot-close');
+  const chatbotContent = document.getElementById('ai-chatbot-content');
+  const chatbotLoading = document.getElementById('ai-chatbot-loading');
+  let iframeLoaded = false;
+  let isProcessing = false;
+
+  // Toggle chatbot window
+  function toggleChatbot() {
+    if (isProcessing) return;
+    isProcessing = true;
+
+    const isOpening = !chatbotWindow.classList.contains('ai-chatbot-window-open');
+    chatbotWindow.classList.toggle('ai-chatbot-window-open');
+    
+    // Handle background scrolling
+    if (isOpening) {
+      // Disable background scrolling when opening chatbot
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      // Enable background scrolling when closing chatbot
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    
+    // Load iframe only when opening the chatbot for the first time
+    if (isOpening && !iframeLoaded) {
+      // Wait for the window to be fully visible before loading iframe
+      setTimeout(() => {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.tangyuxian.com/weifu.html';
+        iframe.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+        iframe.frameBorder = '0';
+        iframe.allow = 'microphone';
+        
+        // Set timeout to hide loading animation after 5 seconds
+        const loadingTimeout = setTimeout(() => {
+          if (chatbotLoading) {
+            chatbotLoading.style.display = 'none';
+          }
+        }, 5000);
+        
+        // Hide loading animation when iframe is loaded (if before 5 seconds)
+        iframe.onload = () => {
+          clearTimeout(loadingTimeout);
+          if (chatbotLoading) {
+            chatbotLoading.style.display = 'none';
+          }
+        };
+        
+        chatbotContent.appendChild(iframe);
+        iframeLoaded = true;
+      }, 300); // Wait for CSS transition to complete
+    }
+
+    // Reset processing flag after a short delay
+    setTimeout(() => {
+      isProcessing = false;
+    }, 300);
+  }
+
+  // Add event listeners for both click and touch events
+  if (chatbotButton) {
+    chatbotButton.addEventListener('click', toggleChatbot);
+    chatbotButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      toggleChatbot();
+    }, { passive: false });
+  }
+
+  // Close chatbot window
+  function closeChatbot() {
+    if (chatbotWindow) {
+      chatbotWindow.classList.remove('ai-chatbot-window-open');
+      // Enable background scrolling when closing chatbot
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+  }
+
+  if (chatbotClose) {
+    chatbotClose.addEventListener('click', closeChatbot);
+    chatbotClose.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      closeChatbot();
+    }, { passive: true });
+  }
+
+  // Close chatbot window when clicking outside
+  window.addEventListener('click', (e) => {
+    if (e.target === chatbotWindow) {
+      chatbotWindow.classList.remove('ai-chatbot-window-open');
+      // Enable background scrolling when closing chatbot
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+  });
+
+  // Prevent scroll propagation from chatbot window to background
+  if (chatbotWindow) {
+    // Touch events for mobile
+    chatbotWindow.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+    
+    chatbotWindow.addEventListener('touchmove', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+    
+    chatbotWindow.addEventListener('touchend', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+    
+    // Mouse events for desktop
+    chatbotWindow.addEventListener('wheel', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  /* Chatbot Button */
+  @keyframes ai-pulse {
+    0% {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 var(--color-primary);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 15px var(--color-primary-bg);
+      transform: scale(1.05);
+    }
+    100% {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 var(--color-primary-bg);
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ai-glow {
+    0% {
+      filter: drop-shadow(0 0 3px var(--color-primary));
+    }
+    50% {
+      filter: drop-shadow(0 0 8px var(--color-primary));
+    }
+    100% {
+      filter: drop-shadow(0 0 3px var(--color-primary));
+    }
+  }
+
+  .ai-chatbot-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--color-primary);
+    background-image: var(--chat);
+    background-size: 100% 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 9998;
+    color: white;
+    font-size: 1.5rem;
+    animation: ai-pulse 2.5s infinite, ai-glow 3s infinite;
+  }
+
+  .ai-chatbot-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Chatbot Window */
+  .ai-chatbot-window {
+    position: fixed;
+    bottom: 10rem;
+    right: 2rem;
+    width: 24rem;
+    height: 45rem;
+    background-color: var(--color-primary);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  .ai-chatbot-window-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Chatbot Header */
+  .ai-chatbot-header {
+    padding: 0.5rem;
+    background-color: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ai-chatbot-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .ai-chatbot-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .ai-chatbot-close:hover {
+   
+  }
+
+  /* Chatbot Content */
+  .ai-chatbot-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--color-card);
+  }
+
+  /* Loading Animation */
+  .ai-chatbot-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-card);
+    z-index: 10;
+  }
+
+  .ai-chatbot-loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--color-text-1);
+    animation: ai-spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes ai-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .ai-chatbot-loading-text {
+    color: var(--color-text-1);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.5;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .ai-chatbot-button {
+      width: 5rem;
+      height: 5rem;
+      bottom: 10rem;
+      right: 1rem;
+      /* 保持动画效果在移动设备上 */
+      animation: ai-pulse 2.5s infinite, ai-glow 3s infinite;
+    }
+
+    .ai-chatbot-window {
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: 0;
+    }
+  }
+</style></div><div id="nexmoe-footer"><!--!--></div><div id="nexmoe-search-space"><div class="search-container"><div class="search-header"><div class="search-input-container"><input class="search-input" type="text" placeholder="Search" onInput="sinput();"></div><a class="search-close" onclick="sclose();">×</a></div><div class="search-body"></div></div></div><div></div></body></html>
