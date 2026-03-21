@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="MartinHan"/><meta name="copyright" content="MartinHan"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="Android逆向,360加固,脱壳,Xposed"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="Android逆向之路---脱壳360加固 | MartinHan的小站"/><meta name="apple-mobile-web-app-title" content="Android逆向之路---脱壳360加固 | MartinHan的小站"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="https://martinhan.com/2018/12/13/Android逆向之路---脱壳360加固、与xposed hook注意事项/"/><meta name="description" content="前言众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家， 下载地址：点我下载">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="MartinHan"/><meta name="copyright" content="MartinHan"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="Android逆向,360加固,Xposed,脱壳"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="Android逆向之路---脱壳360加固 | MartinHan的小站"/><meta name="apple-mobile-web-app-title" content="Android逆向之路---脱壳360加固 | MartinHan的小站"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="https://martinhan.com/2018/12/13/Android逆向之路---脱壳360加固、与xposed hook注意事项/"/><meta name="description" content="前言众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家， 下载地址：点我下载">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android逆向之路---脱壳360加固 | MartinHan的小站">
 <meta property="og:url" content="https://martinhan.com/2018/12/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/index.html">
@@ -69,7 +69,7 @@
   code_copy_text: false,
   share_text: '🐱Share From Meow',
   onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
-  mouse_click: false,
+  mouse_click: true,
   notify:{
     enable: false,
     info: '复制成功～转载请标注本文地址',
@@ -84,6 +84,7 @@
     }
   },
   encrypt: false,
+  category: false,
 };
 </script><script>if (!localStorage.getItem('color-mode')) {
   localStorage.setItem('color-mode', 'light' || 'light');
