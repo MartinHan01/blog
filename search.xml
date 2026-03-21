@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>我是心有多大才能突然想起你</title>
+    <url>/2019/11/05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0/</url>
+    <content><![CDATA[
+我是心有多大才能突然想起你，我的公众号。今天没有技术干货分享给大家呀，
+时隔半年多我回来了，然后登上后台一看还有好多人在关注(至少是我发这篇文章之前)，当然就是和之前、我上次登录的时候，人不降反多。
+半年来基本已经停止了逆向工作，加班，各种杂事充斥着自己的生活。也想休息休息，但是要恰饭的啊。今天下班路上堵车，也没有心思继续背单词，想着想着自己还有个公众号，要不就在这里发发牢骚也行。
+2019年已经过去5&#x2F;6啦，手机前的你今年完成了什么，还查什么没有完成呢。
+想想年初的冲劲现在还在嘛。
+还有明年的计划呢。
+简简单单说一点吧，还是不能让点开文章的你看了一堆没营养的。
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活感悟</tag>
+        <tag>随笔</tag>
+        <tag>公众号</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>某口腔app发现了不友善词汇(f*ckMobile)</title>
     <url>/2019/02/13/2019-02-13-%E6%9F%90%E5%8F%A3%E8%85%94app%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%8D%E5%8F%8B%E5%96%84%E8%AF%8D%E6%B1%87f-ckMobile/</url>
     <content><![CDATA[前言最近在逆向一款口腔app的工作，然后发现了程序员对于一款机型叫了f*ckMobile。不禁想起了之前虾米音乐关于beggarvip的事情。具体就不提什么口腔app了，具体的大家可以自己猜由此引发了一些思考
@@ -30,48 +51,6 @@
         <tag>代码规范</tag>
         <tag>逆向分析</tag>
         <tag>杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android常用adb命令</title>
-    <url>/2020/04/13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[下次启动app会等待attach进程adb shell am set-debug-app -w com.packagename.hello
-
-
-
-关于我个人网站：MartinHan的小站
-博客：hanhan12312的专栏
-知乎：MartinHan01
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>ADB</tag>
-        <tag>调试</tag>
-        <tag>命令</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我是心有多大才能突然想起你</title>
-    <url>/2019/11/05/2019-11-05---%E6%88%91%E6%98%AF%E6%9C%89%E5%A4%9A%E5%BF%83%E5%A4%A7%E6%89%8D%E8%83%BD%E6%83%B3%E8%B5%B7%E4%BD%A0/</url>
-    <content><![CDATA[
-我是心有多大才能突然想起你，我的公众号。今天没有技术干货分享给大家呀，
-时隔半年多我回来了，然后登上后台一看还有好多人在关注(至少是我发这篇文章之前)，当然就是和之前、我上次登录的时候，人不降反多。
-半年来基本已经停止了逆向工作，加班，各种杂事充斥着自己的生活。也想休息休息，但是要恰饭的啊。今天下班路上堵车，也没有心思继续背单词，想着想着自己还有个公众号，要不就在这里发发牢骚也行。
-2019年已经过去5&#x2F;6啦，手机前的你今年完成了什么，还查什么没有完成呢。
-想想年初的冲劲现在还在嘛。
-还有明年的计划呢。
-简简单单说一点吧，还是不能让点开文章的你看了一堆没营养的。
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活感悟</tag>
-        <tag>随笔</tag>
-        <tag>公众号</tag>
       </tags>
   </entry>
   <entry>
@@ -115,51 +94,78 @@ public class Util &#123;    public static int getMetaDataInt(Context context,Str
       </tags>
   </entry>
   <entry>
-    <title>Android程序长生不老</title>
-    <url>/2018/11/08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81/</url>
-    <content><![CDATA[前言的前言众所周知，Android是免费开源的，所以我们每个人都可以获取到Android源码，最近手机耗电厉害，天天提醒，10分钟耗电20%。不是，我这干啥了，就耗电这么快。后来就网上搜搜看看，到底是怎么回事。顺便逆向了一个万年历。
-每个产品都想让自己的程序在后台能够长期的运行，不管是监测用户的行为，还是能够让自己正常的push，所以这个问题就引申出来了。问：如何让自己的程序长期后台运行，杀不死。
-前言看完我自己都惊了，感觉手机每天运行的都是什么乱七八糟，因为自己手机上装了这款app，而且这款app要求的权限异常的多，所以就直接引起了我的注意，访问手机就账户列表，WIFI状态，照相机，读取联系人，锁屏，启动事件。一个万年历就要这么多权限，不禁引起了好奇，所以决定一探究竟
-
-
-一个万年历app是如何保活的说起万年历如何保活的，用白话来说，就是这么几个方法来实现
-
-监听屏幕亮灭，如果屏幕灭，那么创建一个1像素的悬浮层。屏幕亮，把这个1像素的页面关闭，防止意外获取到焦点惹恼用户
-利用账户系统，系统定期唤醒账号更新服务，欺骗系统我们的app有账号服务，然后定期同步账户，再做一些其他的事情
-android5.0以后可以利用JobSchedulerService，使我们的程序定时被运行，以及一些其他条件
-
-1像素悬浮层技术实现package cn.etouch.ecalendar.keeplive;import android.app.Activity;import android.os.Bundle;import android.view.Window;import android.view.WindowManager.LayoutParams;import cn.etouch.ecalendar.manager.ad;public class KeepLiveActivity extends Activity &#123;    public static KeepLiveActivity a = null;    private boolean b = false;    protected void onCreate(Bundle bundle) &#123;        super.onCreate(bundle);                Window window = getWindow();        window.setGravity(51);        //创建一个1像素的悬浮层        LayoutParams attributes = window.getAttributes();        attributes.x = 0;        attributes.y = 0;        attributes.width = 1;        attributes.height = 1;        window.setAttributes(attributes);        a = this;        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onCreate&quot;);    &#125;    protected void onResume() &#123;        super.onResume();        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onResume&quot;);        if (this.b) &#123;            finish();        &#125; else &#123;            this.b = true;        &#125;    &#125;    protected void onDestroy() &#123;        super.onDestroy();        a = null;        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onDestroy&quot;);    &#125;&#125;
-这个类的名称起的就很好，KeepLiveActivity，保活的页面，主要就是用于保活。创建一个1像素的悬浮层，对于手机来讲是可见的，对于人眼来讲，几乎是不可见的，所以我们也无法发现
-欺骗系统我们的app有账户系统，然后通过定期同步账户保活先看看万年历是怎么做的
- 
-
-其中EcalendarAccountProvider,SyncAccountService,SyncAccountUtils就是利用系统账户更新功能定期同步账户，我们可以看到万年历的代码
-public class EcalendarAccountProvider extends ContentProvider &#123;    public static final Uri a = Uri.parse(&quot;content://cn.etouch.ecalendar.account.provider/data&quot;);    public boolean onCreate() &#123;        return true;    &#125;    public Cursor query(Uri uri, String[] strArr, String str, String[] strArr2, String str2) &#123;        return null;    &#125;    public String getType(Uri uri) &#123;        return new String();    &#125;    public Uri insert(Uri uri, ContentValues contentValues) &#123;        return null;    &#125;    public int delete(Uri uri, String str, String[] strArr) &#123;        return 0;    &#125;    public int update(Uri uri, ContentValues contentValues, String str, String[] strArr) &#123;        return 0;    &#125;&#125;
+    <title>Android常用adb命令</title>
+    <url>/2020/04/13/20200413-Android%E5%B8%B8%E7%94%A8adb%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[下次启动app会等待attach进程adb shell am set-debug-app -w com.packagename.hello
 
 
 
-
-首先提供一个账户相关的ContentProvider，可是这个内部实现却什么也不干，欺骗系统app使用了系统账户功能，但是实际上其实只是利用账户同步功能长生不老
-创建定时循环任务保活前提，android5.0 api21以上利用系统的JobService来保活，
-万年历代码如下
-@TargetApi(21)   public static void c() &#123;       try &#123;           if (aj.v &gt;= 21) &#123;               Builder builder = new Builder(1, new ComponentName(ApplicationManager.d, JobSchedulerService.class));               //创建一个60s周期的任务               builder.setPeriodic(60000);               builder.setPersisted(true);               JobScheduler jobScheduler = (JobScheduler) ApplicationManager.d.getSystemService(&quot;jobscheduler&quot;);               if (jobScheduler != null) &#123;                   jobScheduler.schedule(builder.build());               &#125;           &#125;       &#125; catch (Exception e) &#123;           e.printStackTrace();       &#125;   &#125;
-
-创建一个60s周期的任务，不断的让系统定时调用我们的程序来保活
-还有什么其他的黑(hen)科(liu)技(mang)的呢以上说的是万年历的，据博主所知还有很多其他的方法，
-比如在锁屏后无限循环播放一段无声的音乐，作为用户来讲是听不到的，可是作为手机来讲是认为你正在放音乐，因此不能结束掉这个进程
-或者android4.4以前可以用jni，fork子进程的方法，可以保证卸载app后程序仍然可以在手机里运行
 关于我个人网站：MartinHan的小站
 博客：hanhan12312的专栏
 知乎：MartinHan01
 ]]></content>
       <categories>
-        <category>计算机技术</category>
+        <category>Android逆向</category>
       </categories>
       <tags>
-        <tag>逆向分析</tag>
-        <tag>Android开发</tag>
-        <tag>保活</tag>
-        <tag>进程守护</tag>
+        <tag>Android逆向</tag>
+        <tag>ADB</tag>
+        <tag>调试</tag>
+        <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android逆向之路---ApkTool项目概览，编译ApkTool项目源码</title>
+    <url>/2018/04/22/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---ApkTool%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88/</url>
+    <content><![CDATA[前言平时逆向apk，大部分公司还是都是使用混淆技术做为基础的。这周末，脱了腾讯最新版本的乐固的壳，正在研究。无聊之余，想和大家聊一聊关于ApkTool这个项目，觉得工程师们写的还是很好的。本章先大体的介绍一下ApkTool，然后以后的文章在依次的说下项目的各个模块。
+问题使用ApkTool的时候，总是有的公司插入一些干扰代码来防止ApkTool逆向，这个时候就需要我们读过ApkTool的源码，然后手动定位问题所在解决问题了
+
+ApkTool工具概览项目地址
+Apktool是一个项目的集合，包含子项目和一些依赖项。分为了以下几个子项：
+
+brut.apktool.lib - 主项目，所有的依赖的代码(Main, all the Library code)
+brut.apktool.cli - 程序的入口吧，这个库里只有一个Main.java
+brut.j.dir - 工具项目
+brut.j.util - 工具项目
+brut.j.common - 工具项目
+
+编译的环境JDK 7或8 (OpenJDK不可以)git
+编译ApkTool工具步骤ApkTool项目使用Gradle工具构建
+我用的是windows环境，首先我们从git上clone
+git clone git://github.com/iBotPeaches/Apktool.gitcd Apktool./gradlew.bat#linux的话就是gradlew文件了
+
+编译完成后，文件位置在这里”.&#x2F;brut.apktool&#x2F;apktool-cli&#x2F;build&#x2F;libs&#x2F;apktool-xxxxx.jar”
+Window环境要求windows有一个最大长度文件路径限制。在ApkTool的存盘路径，由于Windows上最多255个字符的限制，我们需要强制执行一些要求。
+这里总共留下了37个字符来克隆Windows的项目。也就是说，目录的深度不要太深。举个栗子，下面的路径就可以，我的就是存放到了
+D:/gitclone/Apktool
+
+这里总共占了19个字符。所以，不要将这个目录的长度太深，超过37.
+编译结果执行.&#x2F;gradlew命令之后，会输出如下
+Building SNAPSHOT (master): 3879b9:brut.apktool:compileJava NO-SOURCE:brut.apktool:processResources NO-SOURCE:brut.apktool:classes UP-TO-DATE:brut.apktool:jar:brut.apktool:assemble:brut.apktool:license:brut.apktool:compileTestJava NO-SOURCE:brut.apktool:processTestResources NO-SOURCE:brut.apktool:testClasses UP-TO-DATE:brut.apktool:test NO-SOURCE:brut.apktool:check:brut.apktool:build:brut.j.common:compileJava UP-TO-DATE:brut.j.common:processResources NO-SOURCE:brut.j.common:classes UP-TO-DATE:brut.j.common:jar UP-TO-DATE:brut.j.util:compileJava UP-TO-DATE:brut.j.util:processResources NO-SOURCE:brut.j.util:classes UP-TO-DATE:brut.j.util:jar UP-TO-DATE:brut.j.dir:compileJava UP-TO-DATE:brut.j.dir:processResources NO-SOURCE:brut.j.dir:classes UP-TO-DATE:brut.j.dir:jar UP-TO-DATE注: 某些输入文件使用了未经检查或不安全的操作。注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。:brut.apktool:apktool-lib:compileJava:brut.apktool:apktool-lib:processResources:brut.apktool:apktool-lib:classes:brut.apktool:apktool-lib:jar:brut.apktool:apktool-cli:compileJava:brut.apktool:apktool-cli:processResources NO-SOURCE:brut.apktool:apktool-cli:classes:brut.apktool:apktool-cli:jar:brut.apktool:apktool-cli:assemble:brut.apktool:apktool-cli:license:brut.apktool:apktool-cli:compileTestJava NO-SOURCE:brut.apktool:apktool-cli:processTestResources NO-SOURCE:brut.apktool:apktool-cli:testClasses UP-TO-DATE:brut.apktool:apktool-cli:test NO-SOURCE:brut.apktool:apktool-cli:check:brut.apktool:apktool-cli:build:brut.apktool:apktool-lib:assemble:brut.apktool:apktool-lib:license:brut.apktool:apktool-lib:compileTestJava:brut.apktool:apktool-lib:processTestResources:brut.apktool:apktool-lib:testClasses:brut.apktool:apktool-lib:test:brut.apktool:apktool-lib:check:brut.apktool:apktool-lib:buildBUILD SUCCESSFUL in 1m 25s15 actionable tasks: 9 executed, 6 up-to-date19:25:03: Task execution finished &#x27;build&#x27;.
+
+最后就编译成功了
+使用方法相信这个大家都不陌生，毕竟平时经常用的，那我就说两个常用指令
+apk拆包apktool d ******.apk
+apk二次打包apktool b your_path
+分析入口首先我们用idea将项目打开，然后看Main.java类，路径就在brut.apktool/apktool-cli/src/main...../Main.java
+源码如下，我加了注释：
+public static void main(String[] args) throws IOException, InterruptedException, BrutException &#123;        // 设置verbosity的默认值，后面会根据我们传入的参数更改        //        Verbosity verbosity = Verbosity.NORMAL;        //命令行解析器，主要用于解析我们输入的命令        CommandLineParser parser = new DefaultParser();        CommandLine commandLine;        //这个方法内部主要就是初始化我们关心的一些选项        _Options();        try &#123;            //分析出有效的参数等            commandLine = parser.parse(allOptions, args, false);        &#125; catch (ParseException ex) &#123;            //错误处理，打印错误信息，然后打印帮助信息，退出程序            System.err.println(ex.getMessage());            usage();            return;        &#125;        //首先检查verbose选项        if (commandLine.hasOption(&quot;-v&quot;) || commandLine.hasOption(&quot;--verbose&quot;)) &#123;            verbosity = Verbosity.VERBOSE;        &#125; else if (commandLine.hasOption(&quot;-q&quot;) || commandLine.hasOption(&quot;--quiet&quot;)) &#123;            verbosity = Verbosity.QUIET;        &#125;        //设置好verbose        setupLogging(verbosity);        //检测是否是使用advance，        if (commandLine.hasOption(&quot;advance&quot;) || commandLine.hasOption(&quot;advanced&quot;)) &#123;            setAdvanceMode(true);        &#125;        boolean cmdFound = false;        for (String opt : commandLine.getArgs()) &#123;            //如果有解包指令，那么执行cmdDecode，以下类似            if (opt.equalsIgnoreCase(&quot;d&quot;) || opt.equalsIgnoreCase(&quot;decode&quot;)) &#123;                cmdDecode(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;b&quot;) || opt.equalsIgnoreCase(&quot;build&quot;)) &#123;                cmdBuild(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;if&quot;) || opt.equalsIgnoreCase(&quot;install-framework&quot;)) &#123;                cmdInstallFramework(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;empty-framework-dir&quot;)) &#123;                cmdEmptyFrameworkDirectory(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;publicize-resources&quot;)) &#123;                cmdPublicizeResources(commandLine);                cmdFound = true;            &#125;        &#125;        //如果没有命令未找到，那么先看看有没有version选项，有的话就打印版本信息        //没有的话，弹出帮助文档，然后退出了        if (!cmdFound) &#123;            if (commandLine.hasOption(&quot;version&quot;)) &#123;                _version();                System.exit(0);            &#125; else &#123;                usage();            &#125;        &#125;    &#125;
+
+美好的开始本篇作为一个开篇，就是开个头，如果你对如何分析打包解包有很大的兴趣，那么欢迎自己去认真分析cmdDecode方法，还有cmdBuild方法，还有ApkTool里面的ApkDecoder，Androlib等关键的类，关键的方法。
+算是希望和读者一起探讨一些思路，还有就是如果想研究resources.arsc，或者dex文件等，代码部分和文件的格式密切相关
+后序希望自己能够一点一点补全，也希望大家能督促我，
+关于我个人网站：MartinHan的小站
+博客：hanhan12312的专栏
+知乎：MartinHan01)
+]]></content>
+      <categories>
+        <category>Android逆向</category>
+      </categories>
+      <tags>
+        <tag>Android逆向</tag>
+        <tag>Gradle</tag>
+        <tag>ApkTool</tag>
+        <tag>源码分析</tag>
       </tags>
   </entry>
   <entry>
@@ -217,57 +223,49 @@ private void exit() &#123;       if (group != null) &#123;           group.threa
       </tags>
   </entry>
   <entry>
-    <title>Android逆向之路---ApkTool项目概览，编译ApkTool项目源码</title>
-    <url>/2018/04/22/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---ApkTool%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88/</url>
-    <content><![CDATA[前言平时逆向apk，大部分公司还是都是使用混淆技术做为基础的。这周末，脱了腾讯最新版本的乐固的壳，正在研究。无聊之余，想和大家聊一聊关于ApkTool这个项目，觉得工程师们写的还是很好的。本章先大体的介绍一下ApkTool，然后以后的文章在依次的说下项目的各个模块。
-问题使用ApkTool的时候，总是有的公司插入一些干扰代码来防止ApkTool逆向，这个时候就需要我们读过ApkTool的源码，然后手动定位问题所在解决问题了
+    <title>Android逆向之路---IDEA动态调试smali语言</title>
+    <url>/2017/03/18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[前言apk在混淆了之后我们通过静态分析有时候是远远不够的，就需要动态调试smali语言了，在以前我们用的都是eclipse配合apktool动态调试apk，如今android studio如此普及，我们可以用IDEA调试。
+准备的工具
+idea 14 下载地址:https://pan.baidu.com/s/1eR2npfG 密码: va9p
+smalidea-0.03.zip 下载地址
+apktools
+我的mytestapp 下载地址
 
-ApkTool工具概览项目地址
-Apktool是一个项目的集合，包含子项目和一些依赖项。分为了以下几个子项：
+注意：idea推荐用14，不推荐用最新的android studio，因为本人测试，最新的android studio装上smalidea0.03后打不上断点
 
-brut.apktool.lib - 主项目，所有的依赖的代码(Main, all the Library code)
-brut.apktool.cli - 程序的入口吧，这个库里只有一个Main.java
-brut.j.dir - 工具项目
-brut.j.util - 工具项目
-brut.j.common - 工具项目
+准备打出可调试的apk使用apktools拆包，执行命令
+apktool d mytestapp.apk
 
-编译的环境JDK 7或8 (OpenJDK不可以)git
-编译ApkTool工具步骤ApkTool项目使用Gradle工具构建
-我用的是windows环境，首先我们从git上clone
-git clone git://github.com/iBotPeaches/Apktool.gitcd Apktool./gradlew.bat#linux的话就是gradlew文件了
+然后我们进入mytestapp文件夹，编辑AndroidManifest.xml，在Application标签里面加上android:debuggable=&quot;true&quot;，这样我们再回编译的时候就可以调试了，由于我的apk是debug版本所以会默认带
 
-编译完成后，文件位置在这里”.&#x2F;brut.apktool&#x2F;apktool-cli&#x2F;build&#x2F;libs&#x2F;apktool-xxxxx.jar”
-Window环境要求windows有一个最大长度文件路径限制。在ApkTool的存盘路径，由于Windows上最多255个字符的限制，我们需要强制执行一些要求。
-这里总共留下了37个字符来克隆Windows的项目。也就是说，目录的深度不要太深。举个栗子，下面的路径就可以，我的就是存放到了
-D:/gitclone/Apktool
+修改完之后我们执行指令回编译，如图
+apktool b mytestapp
+执行完成我们进入mytestapp\dist文件夹，对我们编译好的文件进行签名，把我的签名文件MartinHan.jks (下载地址) 拷贝到当前文件夹，密码输入：111111。然后安装签名后app到手机
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHan.jks&quot; -signedjar _signed.apk &quot;mytestapp.apk&quot; &quot;111111&quot;adb install _signed.apk
 
-这里总共占了19个字符。所以，不要将这个目录的长度太深，超过37.
-编译结果执行.&#x2F;gradlew命令之后，会输出如下
-Building SNAPSHOT (master): 3879b9:brut.apktool:compileJava NO-SOURCE:brut.apktool:processResources NO-SOURCE:brut.apktool:classes UP-TO-DATE:brut.apktool:jar:brut.apktool:assemble:brut.apktool:license:brut.apktool:compileTestJava NO-SOURCE:brut.apktool:processTestResources NO-SOURCE:brut.apktool:testClasses UP-TO-DATE:brut.apktool:test NO-SOURCE:brut.apktool:check:brut.apktool:build:brut.j.common:compileJava UP-TO-DATE:brut.j.common:processResources NO-SOURCE:brut.j.common:classes UP-TO-DATE:brut.j.common:jar UP-TO-DATE:brut.j.util:compileJava UP-TO-DATE:brut.j.util:processResources NO-SOURCE:brut.j.util:classes UP-TO-DATE:brut.j.util:jar UP-TO-DATE:brut.j.dir:compileJava UP-TO-DATE:brut.j.dir:processResources NO-SOURCE:brut.j.dir:classes UP-TO-DATE:brut.j.dir:jar UP-TO-DATE注: 某些输入文件使用了未经检查或不安全的操作。注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。:brut.apktool:apktool-lib:compileJava:brut.apktool:apktool-lib:processResources:brut.apktool:apktool-lib:classes:brut.apktool:apktool-lib:jar:brut.apktool:apktool-cli:compileJava:brut.apktool:apktool-cli:processResources NO-SOURCE:brut.apktool:apktool-cli:classes:brut.apktool:apktool-cli:jar:brut.apktool:apktool-cli:assemble:brut.apktool:apktool-cli:license:brut.apktool:apktool-cli:compileTestJava NO-SOURCE:brut.apktool:apktool-cli:processTestResources NO-SOURCE:brut.apktool:apktool-cli:testClasses UP-TO-DATE:brut.apktool:apktool-cli:test NO-SOURCE:brut.apktool:apktool-cli:check:brut.apktool:apktool-cli:build:brut.apktool:apktool-lib:assemble:brut.apktool:apktool-lib:license:brut.apktool:apktool-lib:compileTestJava:brut.apktool:apktool-lib:processTestResources:brut.apktool:apktool-lib:testClasses:brut.apktool:apktool-lib:test:brut.apktool:apktool-lib:check:brut.apktool:apktool-lib:buildBUILD SUCCESSFUL in 1m 25s15 actionable tasks: 9 executed, 6 up-to-date19:25:03: Task execution finished &#x27;build&#x27;.
+正确配置IDEA，安装smalidea插件，准备调试我们安装好IDEA，然后准备安装smalidea插件 File -&gt; Settings -&gt; Plugins然后点击 Install plugin from disk 如图然后安装完成了之后我们重启IDEA。编译器就配置好了
+开始配置动态调试我们打开IDEA，File -&gt; Open，然后选择我们mytestapp文件夹，就是我们执行apktool d mytestapp后生成的文件夹。点击OK，用IDEA将这个文件夹当成一个项目打开。
+点击Run -&gt; Edit Configurations 打开如图所示对话框，点击绿色加号，选择Remote
 
-最后就编译成功了
-使用方法相信这个大家都不陌生，毕竟平时经常用的，那我就说两个常用指令
-apk拆包apktool d ******.apk
-apk二次打包apktool b your_path
-分析入口首先我们用idea将项目打开，然后看Main.java类，路径就在brut.apktool/apktool-cli/src/main...../Main.java
-源码如下，我加了注释：
-public static void main(String[] args) throws IOException, InterruptedException, BrutException &#123;        // 设置verbosity的默认值，后面会根据我们传入的参数更改        //        Verbosity verbosity = Verbosity.NORMAL;        //命令行解析器，主要用于解析我们输入的命令        CommandLineParser parser = new DefaultParser();        CommandLine commandLine;        //这个方法内部主要就是初始化我们关心的一些选项        _Options();        try &#123;            //分析出有效的参数等            commandLine = parser.parse(allOptions, args, false);        &#125; catch (ParseException ex) &#123;            //错误处理，打印错误信息，然后打印帮助信息，退出程序            System.err.println(ex.getMessage());            usage();            return;        &#125;        //首先检查verbose选项        if (commandLine.hasOption(&quot;-v&quot;) || commandLine.hasOption(&quot;--verbose&quot;)) &#123;            verbosity = Verbosity.VERBOSE;        &#125; else if (commandLine.hasOption(&quot;-q&quot;) || commandLine.hasOption(&quot;--quiet&quot;)) &#123;            verbosity = Verbosity.QUIET;        &#125;        //设置好verbose        setupLogging(verbosity);        //检测是否是使用advance，        if (commandLine.hasOption(&quot;advance&quot;) || commandLine.hasOption(&quot;advanced&quot;)) &#123;            setAdvanceMode(true);        &#125;        boolean cmdFound = false;        for (String opt : commandLine.getArgs()) &#123;            //如果有解包指令，那么执行cmdDecode，以下类似            if (opt.equalsIgnoreCase(&quot;d&quot;) || opt.equalsIgnoreCase(&quot;decode&quot;)) &#123;                cmdDecode(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;b&quot;) || opt.equalsIgnoreCase(&quot;build&quot;)) &#123;                cmdBuild(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;if&quot;) || opt.equalsIgnoreCase(&quot;install-framework&quot;)) &#123;                cmdInstallFramework(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;empty-framework-dir&quot;)) &#123;                cmdEmptyFrameworkDirectory(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;publicize-resources&quot;)) &#123;                cmdPublicizeResources(commandLine);                cmdFound = true;            &#125;        &#125;        //如果没有命令未找到，那么先看看有没有version选项，有的话就打印版本信息        //没有的话，弹出帮助文档，然后退出了        if (!cmdFound) &#123;            if (commandLine.hasOption(&quot;version&quot;)) &#123;                _version();                System.exit(0);            &#125; else &#123;                usage();            &#125;        &#125;    &#125;
-
-美好的开始本篇作为一个开篇，就是开个头，如果你对如何分析打包解包有很大的兴趣，那么欢迎自己去认真分析cmdDecode方法，还有cmdBuild方法，还有ApkTool里面的ApkDecoder，Androlib等关键的类，关键的方法。
-算是希望和读者一起探讨一些思路，还有就是如果想研究resources.arsc，或者dex文件等，代码部分和文件的格式密切相关
-后序希望自己能够一点一点补全，也希望大家能督促我，
-关于我个人网站：MartinHan的小站
-博客：hanhan12312的专栏
-知乎：MartinHan01)
+接下来把端口改成8700，如图
+点击ok确定，远程调试我们就配置好了，动手开始调试。
+开始调试我们首先在手机端打开mytestapp，如图
+打开ddms我们就看到回编译的程序了，并且是可调式状态，我们鼠标选中这个进程
+然后我们点击IDEA的调试，按钮，如图然后我们的IDEA出现了连接上了，表示现在已经可以动态调试了
+打断点，单步调试根据静态分析,我们分析到了MainActivity$1的onClick方法就是我们点击Button以后触发的事件，我们打好断点，我在MainActivity$1的第54行打好断点，如图
+此时我们点击Button,发现断点断到了这里，如图至此，用IDEA动态调试android apk成功
+写在结尾这个apk是我写的一个apk，在真正的动态调试中，很有可能，开发人员在程序中加入了检测调试器的代码，还需要自己鉴别代码，并且注释掉，或者更改掉。
+还有的apk进行了加壳，需要首先脱壳。
 ]]></content>
       <categories>
         <category>Android逆向</category>
       </categories>
       <tags>
         <tag>Android逆向</tag>
-        <tag>Gradle</tag>
-        <tag>ApkTool</tag>
-        <tag>源码分析</tag>
+        <tag>IDEA</tag>
+        <tag>Smali</tag>
+        <tag>动态调试</tag>
       </tags>
   </entry>
   <entry>
@@ -335,113 +333,6 @@ apktool d faceucd faceu/disk#签名 生成文件明为_signed.apk jarsigner -ver
         <tag>登录分析</tag>
         <tag>隐私安全</tag>
         <tag>Faceu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android逆向之路---IDEA动态调试smali语言</title>
-    <url>/2017/03/18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---IDEA%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95smali%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[前言apk在混淆了之后我们通过静态分析有时候是远远不够的，就需要动态调试smali语言了，在以前我们用的都是eclipse配合apktool动态调试apk，如今android studio如此普及，我们可以用IDEA调试。
-准备的工具
-idea 14 下载地址:https://pan.baidu.com/s/1eR2npfG 密码: va9p
-smalidea-0.03.zip 下载地址
-apktools
-我的mytestapp 下载地址
-
-注意：idea推荐用14，不推荐用最新的android studio，因为本人测试，最新的android studio装上smalidea0.03后打不上断点
-
-准备打出可调试的apk使用apktools拆包，执行命令
-apktool d mytestapp.apk
-
-然后我们进入mytestapp文件夹，编辑AndroidManifest.xml，在Application标签里面加上android:debuggable=&quot;true&quot;，这样我们再回编译的时候就可以调试了，由于我的apk是debug版本所以会默认带
-
-修改完之后我们执行指令回编译，如图
-apktool b mytestapp
-执行完成我们进入mytestapp\dist文件夹，对我们编译好的文件进行签名，把我的签名文件MartinHan.jks (下载地址) 拷贝到当前文件夹，密码输入：111111。然后安装签名后app到手机
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHan.jks&quot; -signedjar _signed.apk &quot;mytestapp.apk&quot; &quot;111111&quot;adb install _signed.apk
-
-正确配置IDEA，安装smalidea插件，准备调试我们安装好IDEA，然后准备安装smalidea插件 File -&gt; Settings -&gt; Plugins然后点击 Install plugin from disk 如图然后安装完成了之后我们重启IDEA。编译器就配置好了
-开始配置动态调试我们打开IDEA，File -&gt; Open，然后选择我们mytestapp文件夹，就是我们执行apktool d mytestapp后生成的文件夹。点击OK，用IDEA将这个文件夹当成一个项目打开。
-点击Run -&gt; Edit Configurations 打开如图所示对话框，点击绿色加号，选择Remote
-
-接下来把端口改成8700，如图
-点击ok确定，远程调试我们就配置好了，动手开始调试。
-开始调试我们首先在手机端打开mytestapp，如图
-打开ddms我们就看到回编译的程序了，并且是可调式状态，我们鼠标选中这个进程
-然后我们点击IDEA的调试，按钮，如图然后我们的IDEA出现了连接上了，表示现在已经可以动态调试了
-打断点，单步调试根据静态分析,我们分析到了MainActivity$1的onClick方法就是我们点击Button以后触发的事件，我们打好断点，我在MainActivity$1的第54行打好断点，如图
-此时我们点击Button,发现断点断到了这里，如图至此，用IDEA动态调试android apk成功
-写在结尾这个apk是我写的一个apk，在真正的动态调试中，很有可能，开发人员在程序中加入了检测调试器的代码，还需要自己鉴别代码，并且注释掉，或者更改掉。
-还有的apk进行了加壳，需要首先脱壳。
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>IDEA</tag>
-        <tag>Smali</tag>
-        <tag>动态调试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android逆向之路---改apk包名、达到多开效果</title>
-    <url>/2017/09/23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[前言最近在某乎上有人在问我如何将打好的包更改包名。了解我的同学大概都知道，我喜欢自己动手做实验，再将自己的方式分享给大家，这次我选择了一个阅读类型app，随机选的。先看效果
-  
-
-如何做到的呢，那就把我的思路分享给大家。
-ps：侵删！仅供个人学习使用，不适宜商用。
-
-准备工作咪咕阅读v7.1.1appapktool一个编辑器，（我用vscode装了smali高亮插件）
-思路
-利用apktool拆包咪咕阅读
-首先更改AndroidManifest.xml里面的包名
-全局更改com.xxx.xxxx类似的包名
-全局更改smali类型代码的包名字符串Lcom&#x2F;xxx&#x2F;xxxx
-全局更改所有com&#x2F;xxx&#x2F;xxxx文件夹的名称，因为java文件里面要求包名和文件夹路径要对应
-更改删除app原本的包名或签名校验相关smali代码
-apktool b打包apk
-jarsigner 签名 ，安装apk
-
-开始逆向拆包apktool d com.ophone.reader.ui_7.1.1_129.apk
-更改包名在AndroidMaifest.xml里面我们发现他的包名是 com.ophone.reader.ui我就把我的包名改成com.ophone.reader.ui01吧
-将所有com.ophone.reader.ui替换成com.ophone.reader.ui01
-更改smali的包名将所有Lcom&#x2F;ophone&#x2F;reader&#x2F;ui替换成Lcom&#x2F;ophone&#x2F;reader&#x2F;ui01
-更改文件夹名称更改所有com&#x2F;ophone&#x2F;reader&#x2F;ui 的ui文件夹名为ui01ps:其实以上三步可以写成程序吧，大体思路都是关于文件的读写，还有重命名等
-开始打包更改完了app的包名准备打包，
-apktool b com.ophone.reader.ui_7.1.1_129
-打好的包我的路径在com.ophone.reader.ui_7.1.1_129&#x2F;dist里面，看到了我们逆向动了手脚的apk了
-   
-
-然后签名执行以下命令
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHanKey.jks&quot; -signedjar _signed.apk &quot;.\com.ophone.reader.ui01_7.1.1_129.apk&quot; &quot;MartinHan&quot;
-
-以上命令我就不解释了，可以具体自己查询。
-运行开始运行了，发现有如下问题，如图
-  
-
-
-很明显啊，开发者加了签名校验，或者包名校验。
-思路后来我搜索了如下字符串“你安装版本xxxx”搜到了如下字符串
-&lt;string name=&quot;check_sign_notice&quot;&gt;您安装的版本不是官方版，建议您访问wap.cmread.com官网下载安装(注意:安装新版本需卸载当前版本)&lt;/string&gt;
-
-跟着这个name&#x3D;check_sign_notice在public.xml里面看到了这个
-&lt;public type=&quot;string&quot; name=&quot;check_sign_notice&quot; id=&quot;0x7f0701bf&quot; /&gt;
-
-由此可见，其实他的id就是7f0701bf。继续全局搜索这个id我在WelcomePageActivity里面发现了如下代码，这段代码比较关键，需要我们细细研读。
-#这里调用了setContentView方法invoke-virtual &#123;p0, v0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;setContentView(Landroid/view/View;)V#这里调用了com.cmread.bplusc.layout.as类的a方法，将结果传入v0，也就是根据这个#v0来判断下面的条件.line 171invoke-static &#123;p0&#125;, Lcom/cmread/bplusc/layout/as;-&gt;a(Landroid/content/Context;)Zmove-result v0#根据刚才的结果进行跳转if-nez v0, :cond_3#设置了WelcomePageActivity的E变量.line 172iput-boolean v4, p0, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;E:Z#下面的就不具体解释了，其实就是创建了那个对话框.line 173iget-object v0, p0, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;g:Landroid/content/Context;.line 175invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v2#这就是那一段提示非官方版的文字const v3, 0x7f0701bfinvoke-virtual &#123;v2, v3&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v2.line 176invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v3const v4, 0x7f070278invoke-virtual &#123;v3, v4&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v3.line 177invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v4const v5, 0x7f070156invoke-virtual &#123;v4, v5&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v4new-instance v5, Lcom/cmread/bplusc/bookshelf/hu;invoke-direct &#123;v5, p0&#125;, Lcom/cmread/bplusc/bookshelf/hu;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)Vnew-instance v6, Lcom/cmread/bplusc/bookshelf/hw;invoke-direct &#123;v6, p0&#125;, Lcom/cmread/bplusc/bookshelf/hw;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)Vnew-instance v7, Lcom/cmread/bplusc/bookshelf/hx;invoke-direct &#123;v7, p0&#125;, Lcom/cmread/bplusc/bookshelf/hx;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)V.line 173invoke-static/range &#123;v0 .. v8&#125;, Lcom/cmread/uilib/dialog/h;-&gt;a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/cmread/uilib/dialog/CommonReaderDialog$a;Lcom/cmread/uilib/dialog/CommonReaderDialog$a;Lcom/cmread/uilib/dialog/CommonReaderDialog$b;Z)Lcom/cmread/uilib/dialog/CommonReaderDialog;goto/16 :goto_0..............................# goto_0具体位置代码如下，其实就是调用了父类的方法onKeyDown，然后就return了。.line 1071:cond_0:goto_0invoke-super &#123;p0, p1, p2&#125;, Lcom/cmread/uilib/activity/CMActivity;-&gt;onKeyDown(ILandroid/view/KeyEvent;)Zmove-result v0:goto_1return v0
-
-到此为止，我们了解了以上的方法，就知道了，关键点就在于if-nez v0, :cond_3，现在吧if-nez改成if-eqz，然后再次打包运行如图：  
-写在结尾一切都彻底搞定啦，打到了本文章开始的效果，咪咕阅读双开，更改了他的包名，而且还过了校验。
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>多开</tag>
-        <tag>包名修改</tag>
-        <tag>签名验证</tag>
       </tags>
   </entry>
   <entry>
@@ -517,6 +408,231 @@ a.b.a1(p1,p3);
       </tags>
   </entry>
   <entry>
+    <title>Android程序长生不老</title>
+    <url>/2018/11/08/Android%E7%A8%8B%E5%BA%8F%E9%95%BF%E7%94%9F%E4%B8%8D%E8%80%81/</url>
+    <content><![CDATA[前言的前言众所周知，Android是免费开源的，所以我们每个人都可以获取到Android源码，最近手机耗电厉害，天天提醒，10分钟耗电20%。不是，我这干啥了，就耗电这么快。后来就网上搜搜看看，到底是怎么回事。顺便逆向了一个万年历。
+每个产品都想让自己的程序在后台能够长期的运行，不管是监测用户的行为，还是能够让自己正常的push，所以这个问题就引申出来了。问：如何让自己的程序长期后台运行，杀不死。
+前言看完我自己都惊了，感觉手机每天运行的都是什么乱七八糟，因为自己手机上装了这款app，而且这款app要求的权限异常的多，所以就直接引起了我的注意，访问手机就账户列表，WIFI状态，照相机，读取联系人，锁屏，启动事件。一个万年历就要这么多权限，不禁引起了好奇，所以决定一探究竟
+
+
+一个万年历app是如何保活的说起万年历如何保活的，用白话来说，就是这么几个方法来实现
+
+监听屏幕亮灭，如果屏幕灭，那么创建一个1像素的悬浮层。屏幕亮，把这个1像素的页面关闭，防止意外获取到焦点惹恼用户
+利用账户系统，系统定期唤醒账号更新服务，欺骗系统我们的app有账号服务，然后定期同步账户，再做一些其他的事情
+android5.0以后可以利用JobSchedulerService，使我们的程序定时被运行，以及一些其他条件
+
+1像素悬浮层技术实现package cn.etouch.ecalendar.keeplive;import android.app.Activity;import android.os.Bundle;import android.view.Window;import android.view.WindowManager.LayoutParams;import cn.etouch.ecalendar.manager.ad;public class KeepLiveActivity extends Activity &#123;    public static KeepLiveActivity a = null;    private boolean b = false;    protected void onCreate(Bundle bundle) &#123;        super.onCreate(bundle);                Window window = getWindow();        window.setGravity(51);        //创建一个1像素的悬浮层        LayoutParams attributes = window.getAttributes();        attributes.x = 0;        attributes.y = 0;        attributes.width = 1;        attributes.height = 1;        window.setAttributes(attributes);        a = this;        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onCreate&quot;);    &#125;    protected void onResume() &#123;        super.onResume();        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onResume&quot;);        if (this.b) &#123;            finish();        &#125; else &#123;            this.b = true;        &#125;    &#125;    protected void onDestroy() &#123;        super.onDestroy();        a = null;        ad.b(&quot;ActivityManager---&gt;KeepLiveActivity onDestroy&quot;);    &#125;&#125;
+这个类的名称起的就很好，KeepLiveActivity，保活的页面，主要就是用于保活。创建一个1像素的悬浮层，对于手机来讲是可见的，对于人眼来讲，几乎是不可见的，所以我们也无法发现
+欺骗系统我们的app有账户系统，然后通过定期同步账户保活先看看万年历是怎么做的
+ 
+
+其中EcalendarAccountProvider,SyncAccountService,SyncAccountUtils就是利用系统账户更新功能定期同步账户，我们可以看到万年历的代码
+public class EcalendarAccountProvider extends ContentProvider &#123;    public static final Uri a = Uri.parse(&quot;content://cn.etouch.ecalendar.account.provider/data&quot;);    public boolean onCreate() &#123;        return true;    &#125;    public Cursor query(Uri uri, String[] strArr, String str, String[] strArr2, String str2) &#123;        return null;    &#125;    public String getType(Uri uri) &#123;        return new String();    &#125;    public Uri insert(Uri uri, ContentValues contentValues) &#123;        return null;    &#125;    public int delete(Uri uri, String str, String[] strArr) &#123;        return 0;    &#125;    public int update(Uri uri, ContentValues contentValues, String str, String[] strArr) &#123;        return 0;    &#125;&#125;
+
+
+
+
+首先提供一个账户相关的ContentProvider，可是这个内部实现却什么也不干，欺骗系统app使用了系统账户功能，但是实际上其实只是利用账户同步功能长生不老
+创建定时循环任务保活前提，android5.0 api21以上利用系统的JobService来保活，
+万年历代码如下
+@TargetApi(21)   public static void c() &#123;       try &#123;           if (aj.v &gt;= 21) &#123;               Builder builder = new Builder(1, new ComponentName(ApplicationManager.d, JobSchedulerService.class));               //创建一个60s周期的任务               builder.setPeriodic(60000);               builder.setPersisted(true);               JobScheduler jobScheduler = (JobScheduler) ApplicationManager.d.getSystemService(&quot;jobscheduler&quot;);               if (jobScheduler != null) &#123;                   jobScheduler.schedule(builder.build());               &#125;           &#125;       &#125; catch (Exception e) &#123;           e.printStackTrace();       &#125;   &#125;
+
+创建一个60s周期的任务，不断的让系统定时调用我们的程序来保活
+还有什么其他的黑(hen)科(liu)技(mang)的呢以上说的是万年历的，据博主所知还有很多其他的方法，
+比如在锁屏后无限循环播放一段无声的音乐，作为用户来讲是听不到的，可是作为手机来讲是认为你正在放音乐，因此不能结束掉这个进程
+或者android4.4以前可以用jni，fork子进程的方法，可以保证卸载app后程序仍然可以在手机里运行
+关于我个人网站：MartinHan的小站
+博客：hanhan12312的专栏
+知乎：MartinHan01
+]]></content>
+      <categories>
+        <category>计算机技术</category>
+      </categories>
+      <tags>
+        <tag>逆向分析</tag>
+        <tag>Android开发</tag>
+        <tag>保活</tag>
+        <tag>进程守护</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android逆向之路---改apk包名、达到多开效果</title>
+    <url>/2017/09/23/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E6%94%B9apk%E5%8C%85%E5%90%8D%E3%80%81%E8%BE%BE%E5%88%B0%E5%A4%9A%E5%BC%80%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[前言最近在某乎上有人在问我如何将打好的包更改包名。了解我的同学大概都知道，我喜欢自己动手做实验，再将自己的方式分享给大家，这次我选择了一个阅读类型app，随机选的。先看效果
+  
+
+如何做到的呢，那就把我的思路分享给大家。
+ps：侵删！仅供个人学习使用，不适宜商用。
+
+准备工作咪咕阅读v7.1.1appapktool一个编辑器，（我用vscode装了smali高亮插件）
+思路
+利用apktool拆包咪咕阅读
+首先更改AndroidManifest.xml里面的包名
+全局更改com.xxx.xxxx类似的包名
+全局更改smali类型代码的包名字符串Lcom&#x2F;xxx&#x2F;xxxx
+全局更改所有com&#x2F;xxx&#x2F;xxxx文件夹的名称，因为java文件里面要求包名和文件夹路径要对应
+更改删除app原本的包名或签名校验相关smali代码
+apktool b打包apk
+jarsigner 签名 ，安装apk
+
+开始逆向拆包apktool d com.ophone.reader.ui_7.1.1_129.apk
+更改包名在AndroidMaifest.xml里面我们发现他的包名是 com.ophone.reader.ui我就把我的包名改成com.ophone.reader.ui01吧
+将所有com.ophone.reader.ui替换成com.ophone.reader.ui01
+更改smali的包名将所有Lcom&#x2F;ophone&#x2F;reader&#x2F;ui替换成Lcom&#x2F;ophone&#x2F;reader&#x2F;ui01
+更改文件夹名称更改所有com&#x2F;ophone&#x2F;reader&#x2F;ui 的ui文件夹名为ui01ps:其实以上三步可以写成程序吧，大体思路都是关于文件的读写，还有重命名等
+开始打包更改完了app的包名准备打包，
+apktool b com.ophone.reader.ui_7.1.1_129
+打好的包我的路径在com.ophone.reader.ui_7.1.1_129&#x2F;dist里面，看到了我们逆向动了手脚的apk了
+   
+
+然后签名执行以下命令
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore &quot;MartinHanKey.jks&quot; -signedjar _signed.apk &quot;.\com.ophone.reader.ui01_7.1.1_129.apk&quot; &quot;MartinHan&quot;
+
+以上命令我就不解释了，可以具体自己查询。
+运行开始运行了，发现有如下问题，如图
+  
+
+
+很明显啊，开发者加了签名校验，或者包名校验。
+思路后来我搜索了如下字符串“你安装版本xxxx”搜到了如下字符串
+&lt;string name=&quot;check_sign_notice&quot;&gt;您安装的版本不是官方版，建议您访问wap.cmread.com官网下载安装(注意:安装新版本需卸载当前版本)&lt;/string&gt;
+
+跟着这个name&#x3D;check_sign_notice在public.xml里面看到了这个
+&lt;public type=&quot;string&quot; name=&quot;check_sign_notice&quot; id=&quot;0x7f0701bf&quot; /&gt;
+
+由此可见，其实他的id就是7f0701bf。继续全局搜索这个id我在WelcomePageActivity里面发现了如下代码，这段代码比较关键，需要我们细细研读。
+#这里调用了setContentView方法invoke-virtual &#123;p0, v0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;setContentView(Landroid/view/View;)V#这里调用了com.cmread.bplusc.layout.as类的a方法，将结果传入v0，也就是根据这个#v0来判断下面的条件.line 171invoke-static &#123;p0&#125;, Lcom/cmread/bplusc/layout/as;-&gt;a(Landroid/content/Context;)Zmove-result v0#根据刚才的结果进行跳转if-nez v0, :cond_3#设置了WelcomePageActivity的E变量.line 172iput-boolean v4, p0, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;E:Z#下面的就不具体解释了，其实就是创建了那个对话框.line 173iget-object v0, p0, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;g:Landroid/content/Context;.line 175invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v2#这就是那一段提示非官方版的文字const v3, 0x7f0701bfinvoke-virtual &#123;v2, v3&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v2.line 176invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v3const v4, 0x7f070278invoke-virtual &#123;v3, v4&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v3.line 177invoke-virtual &#123;p0&#125;, Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;-&gt;getResources()Landroid/content/res/Resources;move-result-object v4const v5, 0x7f070156invoke-virtual &#123;v4, v5&#125;, Landroid/content/res/Resources;-&gt;getString(I)Ljava/lang/String;move-result-object v4new-instance v5, Lcom/cmread/bplusc/bookshelf/hu;invoke-direct &#123;v5, p0&#125;, Lcom/cmread/bplusc/bookshelf/hu;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)Vnew-instance v6, Lcom/cmread/bplusc/bookshelf/hw;invoke-direct &#123;v6, p0&#125;, Lcom/cmread/bplusc/bookshelf/hw;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)Vnew-instance v7, Lcom/cmread/bplusc/bookshelf/hx;invoke-direct &#123;v7, p0&#125;, Lcom/cmread/bplusc/bookshelf/hx;-&gt;&lt;init&gt;(Lcom/cmread/bplusc/bookshelf/WelcomePageActivity;)V.line 173invoke-static/range &#123;v0 .. v8&#125;, Lcom/cmread/uilib/dialog/h;-&gt;a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/cmread/uilib/dialog/CommonReaderDialog$a;Lcom/cmread/uilib/dialog/CommonReaderDialog$a;Lcom/cmread/uilib/dialog/CommonReaderDialog$b;Z)Lcom/cmread/uilib/dialog/CommonReaderDialog;goto/16 :goto_0..............................# goto_0具体位置代码如下，其实就是调用了父类的方法onKeyDown，然后就return了。.line 1071:cond_0:goto_0invoke-super &#123;p0, p1, p2&#125;, Lcom/cmread/uilib/activity/CMActivity;-&gt;onKeyDown(ILandroid/view/KeyEvent;)Zmove-result v0:goto_1return v0
+
+到此为止，我们了解了以上的方法，就知道了，关键点就在于if-nez v0, :cond_3，现在吧if-nez改成if-eqz，然后再次打包运行如图：  
+写在结尾一切都彻底搞定啦，打到了本文章开始的效果，咪咕阅读双开，更改了他的包名，而且还过了校验。
+]]></content>
+      <categories>
+        <category>Android逆向</category>
+      </categories>
+      <tags>
+        <tag>Android逆向</tag>
+        <tag>多开</tag>
+        <tag>包名修改</tag>
+        <tag>签名验证</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android逆向之路---脱壳360加固</title>
+    <url>/2018/12/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
+    <content><![CDATA[前言众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家，
+下载地址：点我下载
+
+
+前提环境
+xposed
+root过的android手机
+dumpdex.apk文件(下载地址在上方)
+
+自动脱壳安装完成dumpdex.apk之后，在xposed里面软重启，激活。就好了。
+
+现在就可以脱壳了，我们可以找一个已经被加固的app，在此就不列举app的名字了。
+我们点击app打开，这个时候WrBug会自动的帮我们脱壳完成。此时此刻我们只需要去对应目录找dex文件就好了。
+路径如图：
+
+接下来就可以用adb pull命令将对应的dex文件取出，脱壳完毕。
+xposed hook 360加壳后app注意事项由于360加壳之后，更改了classloader，因此我们用原本的classloader是会报类无法被找到的异常的。
+不过我们去分析源码便知道，我们要先hook到360的classloader，再从360的classloader里面获取到app运行时的类。
+360加固源码分析
+类com.stub.StubApp
+public class StubApp  extends Application&#123;  private static boolean loadDexToC = false;  private static boolean loadFromLib;  private static boolean needX86Bridge;  public static String strEntryApplication;  private static Application ?�A = null;  private static Application ??;  private static String ??;  private static Context ??;  static  &#123;    strEntryApplication = &quot;com.qihoo360.crypt.entryRunApplication&quot;;    ?? = null;    ?? = &quot;libjiagu&quot;;    loadFromLib = false;    needX86Bridge = false;    throw new VerifyError(&quot;bad dex opcode&quot;);  &#125;  //--------略--------   private static Application ᵢˋ(Context context) &#123;        try &#123;            if (ᵢˎ == null) &#123;                ClassLoader classLoader = context.getClassLoader();                if (classLoader != null) &#123;                    Class loadClass = classLoader.loadClass(strEntryApplication);                    if (loadClass != null) &#123;                        ᵢˎ = (Application) loadClass.newInstance();                    &#125;                &#125;            &#125;        &#125; catch (Exception e) &#123;        &#125;        return ᵢˎ;    &#125;  //--------略--------&#125;
+
+上面代码中有一个方法，这个方法的名称是乱码，你没看错，这个方法名称本身就是一串奇怪的字符，我们需要Hook到这个方法，然后拿出classloader才可以
+Hook代码如下
+XposedHelpers.findAndHookMethod(&quot;com.stub.StubApp&quot;, lpparam.classLoader, &quot;ᵢˋ&quot;, Context.class, new XC_MethodHook() &#123;                @Override                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    //获取到360的Context对象，通过这个对象来获取classloader                    Context context = (Context) param.args[0];                    //获取360的classloader，之后hook加固后的代码就使用这个classloader                    ClassLoader classLoader = context.getClassLoader();                    //替换classloader,hook加固后的真正代码                    XposedHelpers.findAndHookMethod(&quot;com.alibaba.fastjson.JSON&quot;, classLoader, &quot;toJSONString&quot;, Object.class, new XC_MethodHook() &#123;                        @Override                        protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                            super.afterHookedMethod(param);                            XposedBridge.log(TAG + &quot;JSONObject&quot;);                            XposedBridge.log(TAG + param.args[0].toString());                            XposedBridge.log(TAG + param.getResult());                        &#125;                    &#125;);                &#125;            &#125;);
+
+这样就可以了
+注意!!!
+由于360加固版本也会更新换代，升级，变形，也希望读者读到了这里可以自己思考。今天是2018&#x2F;12&#x2F;13，如果你看到这篇文章的时间，360加固已经更新了N个版本，欢迎call我，一起来找到最新的破解办法。
+网上目前流传很多其他办法，例如：
+XposedHelpers.findAndHookMethod(&quot;com.qihoo.util.StubApp579459766&quot;, loadPackageParam.classLoader,                  &quot;getNewAppInstance&quot;, Context.class, new XC_MethodHook() &#123;                      @Override                      protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                          super.afterHookedMethod(param);                          //获取到360的Context对象，通过这个对象来获取classloader                          Context context = (Context) param.args[0];                          //获取360的classloader，之后hook加固后的就使用这个classloader                          ClassLoader classLoader =context.getClassLoader();                          //下面就是强classloader修改成360的classloader就可以成功的hook了                          XposedHelpers.findAndHookMethod(&quot;xxx.xxx.xxx.xxx&quot;, classLoader, &quot;xxx&quot;, String.class, String.class, new XC_MethodHook() &#123;                              @Override                              protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                                  super.beforeHookedMethod(param);                                  Log.i(TAG, &quot;密钥： &quot; + (String) param.args[0]);                                  Log.i(TAG, &quot;内容： &quot; + (String) param.args[1]);                                 param.setResult((String) param.args[1]);                              &#125;                          &#125;);
+上方的方法其实已经是360加固16年的破解版本了，现在是8102年了，还请读者自行辨析。
+目前16年的版本已经无效了，请使用最新的方法
+写在最后技术瞬息万变，30年河东30年河西，希望大家都可以抓住那些不变的东西，努力进取。
+争取在每次浪潮来临之际，能够赶上每一波更新，加油！
+注：感谢作者WrBug。
+项目github地址如下：
+点我点我
+关于我个人博客：MartinHan的小站
+博客网站：hanhan12312的专栏
+知乎：MartinHan01
+]]></content>
+      <categories>
+        <category>Android逆向</category>
+      </categories>
+      <tags>
+        <tag>Android逆向</tag>
+        <tag>360加固</tag>
+        <tag>脱壳</tag>
+        <tag>Xposed</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android逆向之路---让你的微信地区来自火星</title>
+    <url>/2018/11/28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F/</url>
+    <content><![CDATA[前言今天看到网友的微信地区是一个魔法学院，微信的地区怎么可能是魔法学院呢，肯定是这位网友自己搞了一些黑科技，然后改的。他能改，我们也能改，二话不说就开干。先来看看我的成果
+
+
+需要运行环境
+xposed环境
+root过的android手机
+微信最新版，我用的是6.7.3
+
+开始逆向，找到大致位置首先要知道微信的选择地区的页面在什么位置，然后我们再看对应代码。
+先保持在微信的选择地区页面。然后dump activity
+首先利用命令
+adb shell dumpsys activity
+从日志里面我们可以看到如下所示重点在此
+Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;        Hist #3: ActivityRecord&#123;2152aef u0 com.tencent.mm/.ui.tools.MultiStageCitySelectUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.ui.tools.MultiStageCitySelectUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #2: ActivityRecord&#123;e722872 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #1: ActivityRecord&#123;4e7fec5 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #0: ActivityRecord&#123;5cb9f3a u0 com.tencent.mm/.ui.LauncherUI t266&#125;          Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
+
+看到了吧，重点就是在com.tencent.mm.ui.tools.MultiStageCitySelectUI这个页面里面了。
+我们需要分析微信的逻辑，随后hook他的方法。
+分析微信代码其实有一点我也很有疑问，微信的运行时内部的变量名字和方法名字，和我们静态分析的是不太对应的，对此暂时没有深入研究，如果有朋友知道的话可以提示我，欢迎一起探讨。
+由于我上面所说的这个问题，所以采用利用Xposed  hook 这个MultiStageCitySelectUI的onCreate方法，然后我们动态的在内存里分析。
+hook onCreate代码如下
+XposedHelpers.findAndHookMethod(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader, &quot;onCreate&quot;, new Object[]&#123;Bundle.class, new XC_MethodHook() &#123;                protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.beforeHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI onCreate beforeHookedMethod&quot;);                &#125;                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI  afterHookedMethod&quot;);                    Class mscsu = XposedHelpers.findClass(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader);                    Method[] methods = param.thisObject.getClass().getMethods();                    List&lt;Method&gt; myMethods = new ArrayList();                    for (Method item : methods) &#123;                        if (item.getDeclaringClass().equals(mscsu)) &#123;                            myMethods.add(item);                        &#125;                    &#125;                &#125;
+
+如代码所示，我们还将属于MultiStageCitySelectUI类本身的方法筛选了出来，防盗了myMethods里面，方便于我们分析。
+打断打上，运行时分析。
+然后看运行时的成员变量，根据软件开发的经验，肯定有一个数据源，存着所有的地区列表。
+突然发现有一个wdN的变量，他的类型是RegionCodeDecoder$Region。
+这个的意思就是这个变量的类型是RegionCodeDecoder的子类Region类型。然后打开结果如下
+
+
+这个图片正好对应我们手机里的第三项，
+这也就说明其实这个列表有很大可能性就是我们需要篡改的列表了。
+然后紧跟着，思路就是hook 初始化这个变量的方法，然后在调用完成之后，再放入我们自己自定义的地区。
+代码如下：
+XposedHelpers.findAndHookMethod(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader, &quot;cJa&quot;, new Object[]&#123;new XC_MethodHook() &#123;                protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.beforeHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa beforeHookedMethod&quot;);                &#125;                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa  afterHookedMethod&quot;);                    Object wdnObj = XposedHelpers.findField(XposedHelpers.findClass(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader), &quot;wdN&quot;).get(param.thisObject);                    Class regionClazz = XposedHelpers.findClass(&quot;com.tencent.mm.storage.RegionCodeDecoder$Region&quot;, classLoader);                    Field codeField = XposedHelpers.findField(regionClazz, &quot;code&quot;);                    Field nameField = XposedHelpers.findField(regionClazz, &quot;name&quot;);                    Object arrayHarryporrt = Array.get(wdnObj, 0);                    codeField.set(arrayHarryporrt, &quot;哈利波特魔法学校&quot;);                    nameField.set(arrayHarryporrt, &quot;哈利波特魔法学校&quot;);                    Array.set(wdnObj, 0, arrayHarryporrt);                &#125;            &#125;&#125;);
+
+我们修改了Region对象的code和name。这样wdN这个对象的第一项就变成了我们篡改之后的值了。
+下面展示效果
+大功告成然后选择我们篡改的第一项，哈利波特魔法学校，然后你的地区就会改变啦。
+有没有感觉很神奇呢。
+ps:改完之后ios设备无法看到你的地区，可能由于ios客户端判断的问题。
+源码地址要不要star一下呢
+github地址，点我点我
+写在最后偶尔聊聊逆向，偶尔聊聊生活，做一个很懒的博主就是本人了。
+欢迎吐槽。
+关于我个人网站：MartinHan的小站
+博客：hanhan12312的专栏
+知乎：MartinHan01
+]]></content>
+      <categories>
+        <category>Android逆向</category>
+      </categories>
+      <tags>
+        <tag>Android逆向</tag>
+        <tag>Xposed</tag>
+        <tag>Hook</tag>
+        <tag>微信</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android逆向之路---脱壳360加固原理解析</title>
     <url>/2018/12/18/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[前言众所周知，上次说到了如何脱壳360加固，大致意思就是安装一个xposed插件，然后自动就会脱壳了，那么这个插件是如何工作的呢，本次重点说说这个。
@@ -585,125 +701,9 @@ private static void dump(String packageName, Class&lt;?&gt; aClass) &#123;      
       <tags>
         <tag>Android逆向</tag>
         <tag>360加固</tag>
+        <tag>Xposed</tag>
         <tag>脱壳原理</tag>
         <tag>NDK</tag>
-        <tag>Xposed</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android逆向之路---脱壳360加固</title>
-    <url>/2018/12/13/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%84%B1%E5%A3%B3360%E5%8A%A0%E5%9B%BA%E3%80%81%E4%B8%8Exposed%20hook%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
-    <content><![CDATA[前言众所周知，现在软件在防止逆向采取了混淆，加壳等措施。比如360加固，腾讯加固，梆梆加固等等。这两天在逆向一款app的时候找到了一个不错的xposed插件推荐给大家，
-下载地址：点我下载
-
-
-前提环境
-xposed
-root过的android手机
-dumpdex.apk文件(下载地址在上方)
-
-自动脱壳安装完成dumpdex.apk之后，在xposed里面软重启，激活。就好了。
-
-现在就可以脱壳了，我们可以找一个已经被加固的app，在此就不列举app的名字了。
-我们点击app打开，这个时候WrBug会自动的帮我们脱壳完成。此时此刻我们只需要去对应目录找dex文件就好了。
-路径如图：
-
-接下来就可以用adb pull命令将对应的dex文件取出，脱壳完毕。
-xposed hook 360加壳后app注意事项由于360加壳之后，更改了classloader，因此我们用原本的classloader是会报类无法被找到的异常的。
-不过我们去分析源码便知道，我们要先hook到360的classloader，再从360的classloader里面获取到app运行时的类。
-360加固源码分析
-类com.stub.StubApp
-public class StubApp  extends Application&#123;  private static boolean loadDexToC = false;  private static boolean loadFromLib;  private static boolean needX86Bridge;  public static String strEntryApplication;  private static Application ?�A = null;  private static Application ??;  private static String ??;  private static Context ??;  static  &#123;    strEntryApplication = &quot;com.qihoo360.crypt.entryRunApplication&quot;;    ?? = null;    ?? = &quot;libjiagu&quot;;    loadFromLib = false;    needX86Bridge = false;    throw new VerifyError(&quot;bad dex opcode&quot;);  &#125;  //--------略--------   private static Application ᵢˋ(Context context) &#123;        try &#123;            if (ᵢˎ == null) &#123;                ClassLoader classLoader = context.getClassLoader();                if (classLoader != null) &#123;                    Class loadClass = classLoader.loadClass(strEntryApplication);                    if (loadClass != null) &#123;                        ᵢˎ = (Application) loadClass.newInstance();                    &#125;                &#125;            &#125;        &#125; catch (Exception e) &#123;        &#125;        return ᵢˎ;    &#125;  //--------略--------&#125;
-
-上面代码中有一个方法，这个方法的名称是乱码，你没看错，这个方法名称本身就是一串奇怪的字符，我们需要Hook到这个方法，然后拿出classloader才可以
-Hook代码如下
-XposedHelpers.findAndHookMethod(&quot;com.stub.StubApp&quot;, lpparam.classLoader, &quot;ᵢˋ&quot;, Context.class, new XC_MethodHook() &#123;                @Override                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    //获取到360的Context对象，通过这个对象来获取classloader                    Context context = (Context) param.args[0];                    //获取360的classloader，之后hook加固后的代码就使用这个classloader                    ClassLoader classLoader = context.getClassLoader();                    //替换classloader,hook加固后的真正代码                    XposedHelpers.findAndHookMethod(&quot;com.alibaba.fastjson.JSON&quot;, classLoader, &quot;toJSONString&quot;, Object.class, new XC_MethodHook() &#123;                        @Override                        protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                            super.afterHookedMethod(param);                            XposedBridge.log(TAG + &quot;JSONObject&quot;);                            XposedBridge.log(TAG + param.args[0].toString());                            XposedBridge.log(TAG + param.getResult());                        &#125;                    &#125;);                &#125;            &#125;);
-
-这样就可以了
-注意!!!
-由于360加固版本也会更新换代，升级，变形，也希望读者读到了这里可以自己思考。今天是2018&#x2F;12&#x2F;13，如果你看到这篇文章的时间，360加固已经更新了N个版本，欢迎call我，一起来找到最新的破解办法。
-网上目前流传很多其他办法，例如：
-XposedHelpers.findAndHookMethod(&quot;com.qihoo.util.StubApp579459766&quot;, loadPackageParam.classLoader,                  &quot;getNewAppInstance&quot;, Context.class, new XC_MethodHook() &#123;                      @Override                      protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                          super.afterHookedMethod(param);                          //获取到360的Context对象，通过这个对象来获取classloader                          Context context = (Context) param.args[0];                          //获取360的classloader，之后hook加固后的就使用这个classloader                          ClassLoader classLoader =context.getClassLoader();                          //下面就是强classloader修改成360的classloader就可以成功的hook了                          XposedHelpers.findAndHookMethod(&quot;xxx.xxx.xxx.xxx&quot;, classLoader, &quot;xxx&quot;, String.class, String.class, new XC_MethodHook() &#123;                              @Override                              protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                                  super.beforeHookedMethod(param);                                  Log.i(TAG, &quot;密钥： &quot; + (String) param.args[0]);                                  Log.i(TAG, &quot;内容： &quot; + (String) param.args[1]);                                 param.setResult((String) param.args[1]);                              &#125;                          &#125;);
-上方的方法其实已经是360加固16年的破解版本了，现在是8102年了，还请读者自行辨析。
-目前16年的版本已经无效了，请使用最新的方法
-写在最后技术瞬息万变，30年河东30年河西，希望大家都可以抓住那些不变的东西，努力进取。
-争取在每次浪潮来临之际，能够赶上每一波更新，加油！
-注：感谢作者WrBug。
-项目github地址如下：
-点我点我
-关于我个人博客：MartinHan的小站
-博客网站：hanhan12312的专栏
-知乎：MartinHan01
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>360加固</tag>
-        <tag>Xposed</tag>
-        <tag>脱壳</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android逆向之路---让你的微信地区来自火星</title>
-    <url>/2018/11/28/Android%E9%80%86%E5%90%91%E4%B9%8B%E8%B7%AF---%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%9C%B0%E5%8C%BA%E6%9D%A5%E8%87%AA%E7%81%AB%E6%98%9F/</url>
-    <content><![CDATA[前言今天看到网友的微信地区是一个魔法学院，微信的地区怎么可能是魔法学院呢，肯定是这位网友自己搞了一些黑科技，然后改的。他能改，我们也能改，二话不说就开干。先来看看我的成果
-
-
-需要运行环境
-xposed环境
-root过的android手机
-微信最新版，我用的是6.7.3
-
-开始逆向，找到大致位置首先要知道微信的选择地区的页面在什么位置，然后我们再看对应代码。
-先保持在微信的选择地区页面。然后dump activity
-首先利用命令
-adb shell dumpsys activity
-从日志里面我们可以看到如下所示重点在此
-Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;        Hist #3: ActivityRecord&#123;2152aef u0 com.tencent.mm/.ui.tools.MultiStageCitySelectUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.ui.tools.MultiStageCitySelectUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #2: ActivityRecord&#123;e722872 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalMoreUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #1: ActivityRecord&#123;4e7fec5 u0 com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI t266&#125;          Intent &#123; cmp=com.tencent.mm/.plugin.setting.ui.setting.SettingsPersonalInfoUI &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;        Hist #0: ActivityRecord&#123;5cb9f3a u0 com.tencent.mm/.ui.LauncherUI t266&#125;          Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.tencent.mm/.ui.LauncherUI bnds=[816,1041][996,1221] (has extras) &#125;          ProcessRecord&#123;a2337f6 1215:com.tencent.mm/u0a82&#125;
-
-看到了吧，重点就是在com.tencent.mm.ui.tools.MultiStageCitySelectUI这个页面里面了。
-我们需要分析微信的逻辑，随后hook他的方法。
-分析微信代码其实有一点我也很有疑问，微信的运行时内部的变量名字和方法名字，和我们静态分析的是不太对应的，对此暂时没有深入研究，如果有朋友知道的话可以提示我，欢迎一起探讨。
-由于我上面所说的这个问题，所以采用利用Xposed  hook 这个MultiStageCitySelectUI的onCreate方法，然后我们动态的在内存里分析。
-hook onCreate代码如下
-XposedHelpers.findAndHookMethod(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader, &quot;onCreate&quot;, new Object[]&#123;Bundle.class, new XC_MethodHook() &#123;                protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.beforeHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI onCreate beforeHookedMethod&quot;);                &#125;                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI  afterHookedMethod&quot;);                    Class mscsu = XposedHelpers.findClass(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader);                    Method[] methods = param.thisObject.getClass().getMethods();                    List&lt;Method&gt; myMethods = new ArrayList();                    for (Method item : methods) &#123;                        if (item.getDeclaringClass().equals(mscsu)) &#123;                            myMethods.add(item);                        &#125;                    &#125;                &#125;
-
-如代码所示，我们还将属于MultiStageCitySelectUI类本身的方法筛选了出来，防盗了myMethods里面，方便于我们分析。
-打断打上，运行时分析。
-然后看运行时的成员变量，根据软件开发的经验，肯定有一个数据源，存着所有的地区列表。
-突然发现有一个wdN的变量，他的类型是RegionCodeDecoder$Region。
-这个的意思就是这个变量的类型是RegionCodeDecoder的子类Region类型。然后打开结果如下
-
-
-这个图片正好对应我们手机里的第三项，
-这也就说明其实这个列表有很大可能性就是我们需要篡改的列表了。
-然后紧跟着，思路就是hook 初始化这个变量的方法，然后在调用完成之后，再放入我们自己自定义的地区。
-代码如下：
-XposedHelpers.findAndHookMethod(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader, &quot;cJa&quot;, new Object[]&#123;new XC_MethodHook() &#123;                protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.beforeHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa beforeHookedMethod&quot;);                &#125;                protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123;                    super.afterHookedMethod(param);                    XposedBridge.log(&quot;MartinHan_xposed: wx success MultiStageCitySelectUI cJa  afterHookedMethod&quot;);                    Object wdnObj = XposedHelpers.findField(XposedHelpers.findClass(&quot;com.tencent.mm.ui.tools.MultiStageCitySelectUI&quot;, classLoader), &quot;wdN&quot;).get(param.thisObject);                    Class regionClazz = XposedHelpers.findClass(&quot;com.tencent.mm.storage.RegionCodeDecoder$Region&quot;, classLoader);                    Field codeField = XposedHelpers.findField(regionClazz, &quot;code&quot;);                    Field nameField = XposedHelpers.findField(regionClazz, &quot;name&quot;);                    Object arrayHarryporrt = Array.get(wdnObj, 0);                    codeField.set(arrayHarryporrt, &quot;哈利波特魔法学校&quot;);                    nameField.set(arrayHarryporrt, &quot;哈利波特魔法学校&quot;);                    Array.set(wdnObj, 0, arrayHarryporrt);                &#125;            &#125;&#125;);
-
-我们修改了Region对象的code和name。这样wdN这个对象的第一项就变成了我们篡改之后的值了。
-下面展示效果
-大功告成然后选择我们篡改的第一项，哈利波特魔法学校，然后你的地区就会改变啦。
-有没有感觉很神奇呢。
-ps:改完之后ios设备无法看到你的地区，可能由于ios客户端判断的问题。
-源码地址要不要star一下呢
-github地址，点我点我
-写在最后偶尔聊聊逆向，偶尔聊聊生活，做一个很懒的博主就是本人了。
-欢迎吐槽。
-关于我个人网站：MartinHan的小站
-博客：hanhan12312的专栏
-知乎：MartinHan01
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>Xposed</tag>
-        <tag>Hook</tag>
-        <tag>微信</tag>
       </tags>
   </entry>
   <entry>
@@ -790,6 +790,99 @@ http://p1.kkmh.com/image/c57778/171104/pzsmr1sls.webp-c.w1080?sign=18e97d8dfad73
         <tag>抓包</tag>
         <tag>协议分析</tag>
         <tag>快看漫画</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ApkTool项目解析resources.arsc详解</title>
+    <url>/2018/05/01/ApkTool%E9%A1%B9%E7%9B%AE%E8%A7%A3%E6%9E%90resources.arsc%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[前言上回说道ApkTool项目的概览，关于ApkTool如何编译，如何运行，还有各个参数的介绍。今天想主要说明一下关于ApkTool如何分析resources.arsc文件的，以及resources.arsc文件的格式
+总体流程我们首先执行命令apktool d xxx.apk，然后看输出如下
+I: Using Apktool 2.3.1 on douyin.apkI: Loading resource table...I: Decoding AndroidManifest.xml with resources...I: Loading resource table from file: C:\Users\hch\AppData\Local\apktool\framework\1.apkI: Regular manifest package...I: Decoding file-resources...I: Decoding values */* XMLs...I: Baksmaling classes.dex...I: Baksmaling classes2.dex...I: Baksmaling classes3.dex...I: Copying assets and libs...I: Copying unknown files...I: Copying original files...
+
+其实这个时候apktool总体做了如下几个步骤
+
+加载resource table
+解码AndroidManifest.xml
+解码一些资源文件
+解码dex文件
+copy剩余文件
+
+今天想和大家讨论的只有第一步，关于ApkTool是如何解析resources.arsc的。
+如何初始ApkDecoder的成员变量mResTable的，剩下的我们会下次继续探讨。
+ps:想看大概结果的，直接跳到最后看图。
+
+resources.arsc的格式resources.arsc是一个二进制文件，想要解析他就必须先弄懂这个文件格式到底是什么样子的。先上一张来源于网络的图片。(图片来源与网络，侵，删)
+ 
+
+其实整体的就是这个意思了，首先全部的话就是一个resource table,然后依次读取String Pool,Package Header等。
+这些格式，具体的都在Android源码里面，具体的文件是ResourceTypes.h，比如:
+struct ResChunk_header&#123;    uint16_t type;    uint16_t headerSize;    uint32_t size;&#125;;enum &#123;    RES_NULL_TYPE               = 0x0000,    RES_STRING_POOL_TYPE        = 0x0001,    RES_TABLE_TYPE              = 0x0002,    RES_XML_TYPE                = 0x0003,    // Chunk types in RES_XML_TYPE    RES_XML_FIRST_CHUNK_TYPE    = 0x0100,    RES_XML_START_NAMESPACE_TYPE= 0x0100,    RES_XML_END_NAMESPACE_TYPE  = 0x0101,    RES_XML_START_ELEMENT_TYPE  = 0x0102,    RES_XML_END_ELEMENT_TYPE    = 0x0103,    RES_XML_CDATA_TYPE          = 0x0104,    RES_XML_LAST_CHUNK_TYPE     = 0x017f,    // This contains a uint32_t array mapping strings in the string    // pool back to resource identifiers.  It is optional.    RES_XML_RESOURCE_MAP_TYPE   = 0x0180,    // Chunk types in RES_TABLE_TYPE    RES_TABLE_PACKAGE_TYPE      = 0x0200,    RES_TABLE_TYPE_TYPE         = 0x0201,    RES_TABLE_TYPE_SPEC_TYPE    = 0x0202&#125;;struct ResStringPool_header&#123;    struct ResChunk_header header;    uint32_t stringCount;    uint32_t styleCount;    enum &#123;        SORTED_FLAG = 1&lt;&lt;0,        UTF8_FLAG = 1&lt;&lt;8    &#125;;    uint32_t flags;    uint32_t stringsStart;    uint32_t stylesStart;&#125;;
+
+因为篇幅原因，所以把注释部分删除掉了，具体的大家可以查阅源码，也有一个不错的源码阅读网站分享给大家,想看的话可以不用下载啦，直接在线看就好了。
+源码网站地址，
+解析流程我们首先看Main.java
+public static void main(String[] args) throws IOException, InterruptedException, BrutException &#123;        //......略......        boolean cmdFound = false;        for (String opt : commandLine.getArgs()) &#123;            if (opt.equalsIgnoreCase(&quot;d&quot;) || opt.equalsIgnoreCase(&quot;decode&quot;)) &#123;                //主要是这里，执行了cmdDecode方法来解码                cmdDecode(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;b&quot;) || opt.equalsIgnoreCase(&quot;build&quot;)) &#123;                cmdBuild(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;if&quot;) || opt.equalsIgnoreCase(&quot;install-framework&quot;)) &#123;                cmdInstallFramework(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;empty-framework-dir&quot;)) &#123;                cmdEmptyFrameworkDirectory(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;publicize-resources&quot;)) &#123;                cmdPublicizeResources(commandLine);                cmdFound = true;            &#125;        &#125;    //......略......&#125;
+主要是调用了cmdDecode方法来解码，我们跟进去看看
+private static void cmdDecode(CommandLine cli) throws AndrolibException &#123;        //先new了一个APkDecoder类，主要是利用这个类进行解码        ApkDecoder decoder = new ApkDecoder();        int paraCount = cli.getArgList().size();        String apkName = cli.getArgList().get(paraCount - 1);        File outDir;        //这里主要是根据我们设置的一些参数，然后来对应的设置decoder类的成员变量，、        //最主要的主要是设置好输出目录，一些模式，以及版本等        if(//......略......) &#123;            //......略......        &#125; else &#123;            // make out folder manually using name of apk            String outName = apkName;            outName = outName.endsWith(&quot;.apk&quot;) ? outName.substring(0,                    outName.length() - 4).trim() : outName + &quot;.out&quot;;            //设置输出目录            outName = new File(outName).getName();            outDir = new File(outName);            decoder.setOutDir(outDir);        &#125;        //......略......        decoder.setApkFile(new File(apkName));        try &#123;            //开始解码            decoder.decode();        &#125; catch (OutDirExistsException ex) &#123;           //......略......        &#125; finally &#123;            //......略......        &#125;    &#125;
+
+我们跟进decoder.decode()方法来看看
+public void decode() throws AndrolibException, IOException, DirectoryException &#123;        try &#123;            //获取输出目录            File outDir = getOutDir();            //这里其实是和我们输入的一个keep-broken-res参数有关            AndrolibResources.sKeepBroken = mKeepBrokenResources;            //判断是否需要覆盖            if (!mForceDelete &amp;&amp; outDir.exists()) &#123;                throw new OutDirExistsException();            &#125;            //判断apk文件是否合法            if (!mApkFile.isFile() || !mApkFile.canRead()) &#123;                throw new InFileNotFoundException();            &#125;            //清理干净需要输出的目录，准备写入            try &#123;                OS.rmdir(outDir);            &#125; catch (BrutException ex) &#123;                throw new AndrolibException(ex);            &#125;            outDir.mkdirs();            //打印log信息，这个时候就对应我们执行apktool d xxx.apk时候的第一句了            LOGGER.info(&quot;Using Apktool &quot; + Androlib.getVersion() + &quot; on &quot; + mApkFile.getName());            //判断apk内是否有resources.arsc文件，            if (hasResources()) &#123;                //判断解码Resources                switch (mDecodeResources) &#123;                    case DECODE_RESOURCES_NONE:                        mAndrolib.decodeResourcesRaw(mApkFile, outDir);                        if (mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;                            setTargetSdkVersion();                            setAnalysisMode(mAnalysisMode, true);                            // done after raw decoding of resources because copyToDir overwrites dest files                            if (hasManifest()) &#123;                                mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());                            &#125;                        &#125;                        break;                    case DECODE_RESOURCES_FULL:                        setTargetSdkVersion();                        setAnalysisMode(mAnalysisMode, true);                        if (hasManifest()) &#123;                            mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());                        &#125;                        mAndrolib.decodeResourcesFull(mApkFile, outDir, getResTable());                        break;                &#125;            &#125; else &#123;                // if there&#x27;s no resources.arsc, decode the manifest without looking                // up attribute references                if (hasManifest()) &#123;                    if (mDecodeResources == DECODE_RESOURCES_FULL                            || mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;                        mAndrolib.decodeManifestFull(mApkFile, outDir, getResTable());                    &#125;                    else &#123;                        mAndrolib.decodeManifestRaw(mApkFile, outDir);                    &#125;                &#125;            &#125;            //......略......          &#125;
+一般来说的话，我们会执行到DECODE_RESOURCES_FULL分支里面的，这里面的第一步是setTargetSdkVersion。
+我们主要再看看setTargetSdkVersion方法的内部实现
+public void setTargetSdkVersion() throws AndrolibException, IOException &#123;    if (mResTable == null) &#123;        mResTable = mAndrolib.getResTable(mApkFile);    &#125;    Map&lt;String, String&gt; sdkInfo = mResTable.getSdkInfo();    if (sdkInfo.get(&quot;targetSdkVersion&quot;) != null) &#123;        mApi = Integer.parseInt(sdkInfo.get(&quot;targetSdkVersion&quot;));    &#125;&#125;
+
+其实ApkDecoder内部是维护了一个mResTable的，我们的任何的信息都是根据mResTable来取的，那可能会问了，那ApkDecoder内部的ResTable到底是个什么东西呢，其实他就是我们上面的部分说的那张经典的图。
+当ApkDecoder发现mResTable变量是空的的时候，会对此进行初始化，接下来我们就主要看看Androlib的getResTable方法，这个方法就是主要从apkFile里面读出mResTable，分析他的格式，
+//Androidlib.java文件内容public ResTable getResTable(ExtFile apkFile)        throws AndrolibException &#123;    return mAndRes.getResTable(apkFile, true);&#125;//AndrolibResources.java的getResTable方法public ResTable getResTable(ExtFile apkFile, boolean loadMainPkg)            throws AndrolibException &#123;    ResTable resTable = new ResTable(this);    if (loadMainPkg) &#123;        loadMainPkg(resTable, apkFile);    &#125;    return resTable;&#125;
+上面的代码掉有了mAndRes的getResTable方法，然后内部再调用loadMainPkg方法，我们继续跟进内部实现
+public ResPackage loadMainPkg(ResTable resTable, ExtFile apkFile)            throws AndrolibException &#123;    //打印log信息，这个时候就对应到了我们上面说的第二句了    LOGGER.info(&quot;Loading resource table...&quot;);    ResPackage[] pkgs = getResPackagesFromApk(apkFile, resTable, sKeepBroken);    ResPackage pkg = null;    switch (pkgs.length) &#123;        case 1:            pkg = pkgs[0];            break;        case 2:            if (pkgs[0].getName().equals(&quot;android&quot;)) &#123;                LOGGER.warning(&quot;Skipping \&quot;android\&quot; package group&quot;);                pkg = pkgs[1];                break;            &#125; else if (pkgs[0].getName().equals(&quot;com.htc&quot;)) &#123;                LOGGER.warning(&quot;Skipping \&quot;htc\&quot; package group&quot;);                pkg = pkgs[1];                break;            &#125;        default:            pkg = selectPkgWithMostResSpecs(pkgs);            break;    &#125;    if (pkg == null) &#123;        throw new AndrolibException(&quot;arsc files with zero packages or no arsc file found.&quot;);    &#125;    resTable.addPackage(pkg, true);    return pkg;&#125;
+
+这个时候首先是执行getResPackagesFromApk方法，获取ResPackage信息，
+private ResPackage[] getResPackagesFromApk(ExtFile apkFile,ResTable resTable, boolean keepBroken)            throws AndrolibException &#123;    try &#123;        Directory dir = apkFile.getDirectory();        BufferedInputStream bfi = new BufferedInputStream(dir.getFileInput(&quot;resources.arsc&quot;));        try &#123;            //主要是这个方法来对resources.arsc文件进行解析            return ARSCDecoder.decode(bfi, false, keepBroken, resTable).getPackages();        &#125; finally &#123;            try &#123;                bfi.close();            &#125; catch (IOException ignored) &#123;&#125;        &#125;    &#125; catch (DirectoryException ex) &#123;        throw new AndrolibException(&quot;Could not load resources.arsc from file: &quot; + apkFile, ex);    &#125;&#125;
+我们跟进ARSCDecoder的decode方法
+public static ARSCData decode(InputStream arscStream, boolean findFlagsOffsets, boolean keepBroken,                                  ResTable resTable)            throws AndrolibException &#123;    try &#123;        //首先根据输入流，resTable等参数new一个ARSCDecoder        ARSCDecoder decoder = new ARSCDecoder(arscStream, resTable, findFlagsOffsets, keepBroken);        //        ResPackage[] pkgs = decoder.readTableHeader();        return new ARSCData(pkgs, decoder.mFlagsOffsets == null                ? null                : decoder.mFlagsOffsets.toArray(new FlagsOffset[0]), resTable);    &#125; catch (IOException ex) &#123;        throw new AndrolibException(&quot;Could not decode arsc file&quot;, ex);    &#125;&#125;
+
+private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;        nextChunkCheckType(Header.TYPE_TABLE);        int packageCount = mIn.readInt();    mTableStrings = StringBlock.read(mIn);    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        packages[i] = readTablePackage();    &#125;    return packages;&#125;
+那么这里的时候，关键的点总算来了，首先是读取了ChunkCheckType，Header.TYPE_TABLE的值是0x0002, 这里的type正好对应上了我们在ResourceTypes.h里面对应的RES_TABLE_TYPE              = 0x0002,其实就是图中最外层的那个ResourceTable
+我们跟进nextChunkCheckType方法，
+//ARSCDecoder类内private void nextChunkCheckType(int expectedType) throws IOException, AndrolibException &#123;    nextChunk();    //这时候这里的参数expectedType的值是2，也就是RES_TABLE_TYPE的，    checkChunkType(expectedType);&#125;//ARSCDecoder类内private Header nextChunk() throws IOException &#123;    return mHeader = Header.read(mIn, mCountIn);&#125;//Header类内public static Header read(ExtDataInput in, CountingInputStream countIn) throws IOException &#123;        short type;        int start = countIn.getCount();        try &#123;            //首先读出type,            type = in.readShort();        &#125; catch (EOFException ex) &#123;            return new Header(TYPE_NONE, 0, 0, countIn.getCount());        &#125;        //这里分别解释下4个参数，        //第一个参数type 对应的类型 2个字节        //第二个参数     头大小 2个字节        //第三个参数     文件大小 4个字节        //第四个参数     暂时我们start位置为0        //然后返回new出来的Header        return new Header(type, in.readShort(), in.readInt(), start);    &#125;    private void checkChunkType(int expectedType) throws AndrolibException &#123;        //这里主要校验的就是我们刚刚header的type和我们传入的是否相同，不同就抛异常了        if (mHeader.type != expectedType) &#123;            throw new AndrolibException(String.format(&quot;Invalid chunk type: expected=0x%08x, got=0x%08x&quot;,                    expectedType, mHeader.type));        &#125;    &#125;
+读取一个Chunk，如上方所示调用关系，关键的地方已经加上了注释。
+nextChunkCheckType(Header.TYPE_TABLE)主要是读取了下面红圈的部分。
+ 
+
+我们继续分析readTableHeader方法。
+private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;    //主要是读取红圈部分的值    nextChunkCheckType(Header.TYPE_TABLE);    //读取上图红圈后面的packageCount变量，4字节    int packageCount = mIn.readInt();    //接下来就是主要分析这里了，读取Global String Pool     mTableStrings = StringBlock.read(mIn);    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        packages[i] = readTablePackage();    &#125;    return packages;&#125;
+接下来主要分析StringBlock的read方法
+public static StringBlock read(ExtDataInput reader) throws IOException &#123;    //这里主要是跳过了RES_STRING_POOL_TYPE，和头大小两个，并且还校验了一下，    //校验的方法就是和CHUNK_STRINGPOOL_TYPE比对一下，CHUNK_STRINGPOOL_TYPE的值是0x001C0001    //这是因为RES_STRING_POOL_TYPE的值是0x0001，头大小是0x001C,所以这个CHUNK_STRINGPOOL_TYPE就是0x001C0001了    reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE);    //读取块大小，Global String Pool内    int chunkSize = reader.readInt();    // ResStringPool_header    //字符串数    int stringCount = reader.readInt();    //style数    int styleCount = reader.readInt();    //flags标记，1是SORTED_FLAG，256是UTF8_FLAG    int flags = reader.readInt();    //字符串起始位置    int stringsOffset = reader.readInt();    //style起始位置    int stylesOffset = reader.readInt();    //new一个StringBlock    StringBlock block = new StringBlock();    //根据读取出的flags信息，来设置block    block.m_isUTF8 = (flags &amp; UTF8_FLAG) != 0;    //初始化block变量    block.m_stringOffsets = reader.readIntArray(stringCount);    block.m_stringOwns = new int[stringCount];    Arrays.fill(block.m_stringOwns, -1);    //初始化block内部style    if (styleCount != 0) &#123;        block.m_styleOffsets = reader.readIntArray(styleCount);    &#125;    int size = ((stylesOffset == 0) ? chunkSize : stylesOffset) - stringsOffset;    block.m_strings = new byte[size];    reader.readFully(block.m_strings);    if (stylesOffset != 0) &#123;        size = (chunkSize - stylesOffset);        block.m_styles = reader.readIntArray(size / 4);        // read remaining bytes        int remaining = size % 4;        if (remaining &gt;= 1) &#123;            while (remaining-- &gt; 0) &#123;                reader.readByte();            &#125;        &#125;    &#125;    //返回最终的结果    return block;&#125;
+
+reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE)跳过的部分如下：
+ 
+
+private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;    //主要是读取红圈部分的值    nextChunkCheckType(Header.TYPE_TABLE);    //读取上图红圈后面的packageCount变量，4字节    int packageCount = mIn.readInt();    //接下来就是主要分析这里了，读取Global String Pool     mTableStrings = StringBlock.read(mIn);    //此时此刻执行到了这里，要开始分析ResPackage了    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        //使用readTablePackage方法来分析        packages[i] = readTablePackage();    &#125;    return packages;&#125;
+
+
+重复性任务emmmmm。。。。博主分析到了这里，如果你能读到这里我自己也感受到很高兴啊，希望能给你带来了帮助。其实后序的分析readTablePackage方法和之前的一样啦，博主详细如果你读懂了前面的分析，那么这个肯定也不在话下。
+所以呢，我就不一一的带大家理解，主要的还是看懂那张图，然后看懂ApkTool是如何来分析就可以啦。
+这样做的好处就是，如果有apk在这个resource.arsc文件内做文章，我们可以debug反查，看看到底是怎么回事，可以有一些自己对付的思路。
+readTablePackage之后读取完了之后，程序就会一步一步的返回回去，这个时候我们的mResTable变量就初始化好了，就可以继续进行setTargetSdkVersion方法的执行了，
+我们这篇博客主要就是进行ApkDeocder成员变量mResTable的初始化分析，我画了个图，希望能帮助大家虑说清楚上面的一系列调用
+participant Mainparticipant ApkDecoderparticipant Androidlibparticipant AndrolibResourcesparticipant ARSCDecoderMain-&gt;Main: cmdDecodeMain-&gt;ApkDecoder: decodeApkDecoder-&gt;ApkDecoder: setTargetSdkVersionApkDecoder-&gt;Androidlib: getResTableAndroidlib-&gt;AndrolibResources: getResTableAndrolibResources-&gt;AndrolibResources:loadMainPkgAndrolibResources-&gt;AndrolibResources:getResPackagesFromApkAndrolibResources-&gt;ARSCDecoder: decodeARSCDecoder-&gt;ARSCDecoder: readTableHeaderARSCDecoder-&gt;ARSCDecoder: nextChunkCheckTypeARSCDecoder-&gt;ARSCDecoder: nextChunkARSCDecoder-&gt;ARSCDecoder: readTablePackageARSCDecoder--&gt;AndrolibResources:AndrolibResources--&gt;Androidlib:Androidlib--&gt;ApkDecoder:ApkDecoder--&gt;Main:
+
+防止在某些平台上，不支持Markdown的UML图，下面特意放一张图片 
+写在最后分析源码并不难，希望大家都能耐下心来一点一点看，一点一点调试分析。文章一层一层的调用很深，所以可能会给读者困惑，有困惑的，可以联系我，我也喜欢和读者一起探讨啦，有写的不对的地方多多指教。
+正因为调用比较深，所以最后画出了UML图，希望能让大家看得更简单明了
+关于我个人博客：MartinHan的小站
+博客网站：hanhan12312的专栏
+知乎：MartinHan01
+]]></content>
+      <categories>
+        <category>Android逆向</category>
+      </categories>
+      <tags>
+        <tag>Android逆向</tag>
+        <tag>ApkTool</tag>
+        <tag>源码分析</tag>
+        <tag>resources.arsc</tag>
       </tags>
   </entry>
   <entry>
@@ -896,6 +989,29 @@ android &#123;    aaptOptions &#123;        cruncherEnabled false    &#125;&#125
       </tags>
   </entry>
   <entry>
+    <title>codeblocks--主题更换</title>
+    <url>/2019/09/23/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2/</url>
+    <content><![CDATA[步骤一下载准备好的配置文件default.conf
+
+
+下载地址链接：https://pan.baidu.com/s/1Nvsh9xOIANLmGrLMn9ysng提取码：rldw 
+改名为default.conf
+步骤二 替换到指定目录 C:\Users\用户名\AppData\Roaming\CodeBlocks\default.conf
+步骤三打开CodeBlocks
+更改主题：Settings -&gt; Editor -&gt; Syntax highlighting
+更改光标颜色：Settings -&gt; Editor -&gt; Margins and caret
+]]></content>
+      <categories>
+        <category>常用配置</category>
+      </categories>
+      <tags>
+        <tag>CodeBlocks</tag>
+        <tag>IDE</tag>
+        <tag>主题</tag>
+        <tag>配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python---微信公众号或网页自动导出为pdf</title>
     <url>/2018/07/16/Python---%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%88%96%E7%BD%91%E9%A1%B5%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%87%BA%E4%B8%BApdf/</url>
     <content><![CDATA[背景从来没有这么粉过一位公众号作者，嗯。。。然后觉得微信的机制很不好，每次都要翻啊翻，想想有个办法能导出就好了。网上确实有人在做这件事，不过是收费的，具体是谁博主就不点名啦。额。。。我好想能做出来，话不多说，我先试为敬。
@@ -950,119 +1066,27 @@ python crop.py
       </tags>
   </entry>
   <entry>
-    <title>codeblocks--主题更换</title>
-    <url>/2019/09/23/codeblocks--%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%8D%A2/</url>
-    <content><![CDATA[步骤一下载准备好的配置文件default.conf
+    <title>一键更新package.json中所有模块为最新版本</title>
+    <url>/2020/03/31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
+    <content><![CDATA[命令
+npm install -g npm-check-updates
+ncuncu -u
 
 
-下载地址链接：https://pan.baidu.com/s/1Nvsh9xOIANLmGrLMn9ysng提取码：rldw 
-改名为default.conf
-步骤二 替换到指定目录 C:\Users\用户名\AppData\Roaming\CodeBlocks\default.conf
-步骤三打开CodeBlocks
-更改主题：Settings -&gt; Editor -&gt; Syntax highlighting
-更改光标颜色：Settings -&gt; Editor -&gt; Margins and caret
+
+
+关于我个人网站：MartinHan的小站
+博客：hanhan12312的专栏
+知乎：MartinHan01
 ]]></content>
       <categories>
         <category>常用配置</category>
       </categories>
       <tags>
-        <tag>CodeBlocks</tag>
-        <tag>IDE</tag>
-        <tag>主题</tag>
-        <tag>配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ApkTool项目解析resources.arsc详解</title>
-    <url>/2018/05/01/ApkTool%E9%A1%B9%E7%9B%AE%E8%A7%A3%E6%9E%90resources.arsc%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[前言上回说道ApkTool项目的概览，关于ApkTool如何编译，如何运行，还有各个参数的介绍。今天想主要说明一下关于ApkTool如何分析resources.arsc文件的，以及resources.arsc文件的格式
-总体流程我们首先执行命令apktool d xxx.apk，然后看输出如下
-I: Using Apktool 2.3.1 on douyin.apkI: Loading resource table...I: Decoding AndroidManifest.xml with resources...I: Loading resource table from file: C:\Users\hch\AppData\Local\apktool\framework\1.apkI: Regular manifest package...I: Decoding file-resources...I: Decoding values */* XMLs...I: Baksmaling classes.dex...I: Baksmaling classes2.dex...I: Baksmaling classes3.dex...I: Copying assets and libs...I: Copying unknown files...I: Copying original files...
-
-其实这个时候apktool总体做了如下几个步骤
-
-加载resource table
-解码AndroidManifest.xml
-解码一些资源文件
-解码dex文件
-copy剩余文件
-
-今天想和大家讨论的只有第一步，关于ApkTool是如何解析resources.arsc的。
-如何初始ApkDecoder的成员变量mResTable的，剩下的我们会下次继续探讨。
-ps:想看大概结果的，直接跳到最后看图。
-
-resources.arsc的格式resources.arsc是一个二进制文件，想要解析他就必须先弄懂这个文件格式到底是什么样子的。先上一张来源于网络的图片。(图片来源与网络，侵，删)
- 
-
-其实整体的就是这个意思了，首先全部的话就是一个resource table,然后依次读取String Pool,Package Header等。
-这些格式，具体的都在Android源码里面，具体的文件是ResourceTypes.h，比如:
-struct ResChunk_header&#123;    uint16_t type;    uint16_t headerSize;    uint32_t size;&#125;;enum &#123;    RES_NULL_TYPE               = 0x0000,    RES_STRING_POOL_TYPE        = 0x0001,    RES_TABLE_TYPE              = 0x0002,    RES_XML_TYPE                = 0x0003,    // Chunk types in RES_XML_TYPE    RES_XML_FIRST_CHUNK_TYPE    = 0x0100,    RES_XML_START_NAMESPACE_TYPE= 0x0100,    RES_XML_END_NAMESPACE_TYPE  = 0x0101,    RES_XML_START_ELEMENT_TYPE  = 0x0102,    RES_XML_END_ELEMENT_TYPE    = 0x0103,    RES_XML_CDATA_TYPE          = 0x0104,    RES_XML_LAST_CHUNK_TYPE     = 0x017f,    // This contains a uint32_t array mapping strings in the string    // pool back to resource identifiers.  It is optional.    RES_XML_RESOURCE_MAP_TYPE   = 0x0180,    // Chunk types in RES_TABLE_TYPE    RES_TABLE_PACKAGE_TYPE      = 0x0200,    RES_TABLE_TYPE_TYPE         = 0x0201,    RES_TABLE_TYPE_SPEC_TYPE    = 0x0202&#125;;struct ResStringPool_header&#123;    struct ResChunk_header header;    uint32_t stringCount;    uint32_t styleCount;    enum &#123;        SORTED_FLAG = 1&lt;&lt;0,        UTF8_FLAG = 1&lt;&lt;8    &#125;;    uint32_t flags;    uint32_t stringsStart;    uint32_t stylesStart;&#125;;
-
-因为篇幅原因，所以把注释部分删除掉了，具体的大家可以查阅源码，也有一个不错的源码阅读网站分享给大家,想看的话可以不用下载啦，直接在线看就好了。
-源码网站地址，
-解析流程我们首先看Main.java
-public static void main(String[] args) throws IOException, InterruptedException, BrutException &#123;        //......略......        boolean cmdFound = false;        for (String opt : commandLine.getArgs()) &#123;            if (opt.equalsIgnoreCase(&quot;d&quot;) || opt.equalsIgnoreCase(&quot;decode&quot;)) &#123;                //主要是这里，执行了cmdDecode方法来解码                cmdDecode(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;b&quot;) || opt.equalsIgnoreCase(&quot;build&quot;)) &#123;                cmdBuild(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;if&quot;) || opt.equalsIgnoreCase(&quot;install-framework&quot;)) &#123;                cmdInstallFramework(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;empty-framework-dir&quot;)) &#123;                cmdEmptyFrameworkDirectory(commandLine);                cmdFound = true;            &#125; else if (opt.equalsIgnoreCase(&quot;publicize-resources&quot;)) &#123;                cmdPublicizeResources(commandLine);                cmdFound = true;            &#125;        &#125;    //......略......&#125;
-主要是调用了cmdDecode方法来解码，我们跟进去看看
-private static void cmdDecode(CommandLine cli) throws AndrolibException &#123;        //先new了一个APkDecoder类，主要是利用这个类进行解码        ApkDecoder decoder = new ApkDecoder();        int paraCount = cli.getArgList().size();        String apkName = cli.getArgList().get(paraCount - 1);        File outDir;        //这里主要是根据我们设置的一些参数，然后来对应的设置decoder类的成员变量，、        //最主要的主要是设置好输出目录，一些模式，以及版本等        if(//......略......) &#123;            //......略......        &#125; else &#123;            // make out folder manually using name of apk            String outName = apkName;            outName = outName.endsWith(&quot;.apk&quot;) ? outName.substring(0,                    outName.length() - 4).trim() : outName + &quot;.out&quot;;            //设置输出目录            outName = new File(outName).getName();            outDir = new File(outName);            decoder.setOutDir(outDir);        &#125;        //......略......        decoder.setApkFile(new File(apkName));        try &#123;            //开始解码            decoder.decode();        &#125; catch (OutDirExistsException ex) &#123;           //......略......        &#125; finally &#123;            //......略......        &#125;    &#125;
-
-我们跟进decoder.decode()方法来看看
-public void decode() throws AndrolibException, IOException, DirectoryException &#123;        try &#123;            //获取输出目录            File outDir = getOutDir();            //这里其实是和我们输入的一个keep-broken-res参数有关            AndrolibResources.sKeepBroken = mKeepBrokenResources;            //判断是否需要覆盖            if (!mForceDelete &amp;&amp; outDir.exists()) &#123;                throw new OutDirExistsException();            &#125;            //判断apk文件是否合法            if (!mApkFile.isFile() || !mApkFile.canRead()) &#123;                throw new InFileNotFoundException();            &#125;            //清理干净需要输出的目录，准备写入            try &#123;                OS.rmdir(outDir);            &#125; catch (BrutException ex) &#123;                throw new AndrolibException(ex);            &#125;            outDir.mkdirs();            //打印log信息，这个时候就对应我们执行apktool d xxx.apk时候的第一句了            LOGGER.info(&quot;Using Apktool &quot; + Androlib.getVersion() + &quot; on &quot; + mApkFile.getName());            //判断apk内是否有resources.arsc文件，            if (hasResources()) &#123;                //判断解码Resources                switch (mDecodeResources) &#123;                    case DECODE_RESOURCES_NONE:                        mAndrolib.decodeResourcesRaw(mApkFile, outDir);                        if (mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;                            setTargetSdkVersion();                            setAnalysisMode(mAnalysisMode, true);                            // done after raw decoding of resources because copyToDir overwrites dest files                            if (hasManifest()) &#123;                                mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());                            &#125;                        &#125;                        break;                    case DECODE_RESOURCES_FULL:                        setTargetSdkVersion();                        setAnalysisMode(mAnalysisMode, true);                        if (hasManifest()) &#123;                            mAndrolib.decodeManifestWithResources(mApkFile, outDir, getResTable());                        &#125;                        mAndrolib.decodeResourcesFull(mApkFile, outDir, getResTable());                        break;                &#125;            &#125; else &#123;                // if there&#x27;s no resources.arsc, decode the manifest without looking                // up attribute references                if (hasManifest()) &#123;                    if (mDecodeResources == DECODE_RESOURCES_FULL                            || mForceDecodeManifest == FORCE_DECODE_MANIFEST_FULL) &#123;                        mAndrolib.decodeManifestFull(mApkFile, outDir, getResTable());                    &#125;                    else &#123;                        mAndrolib.decodeManifestRaw(mApkFile, outDir);                    &#125;                &#125;            &#125;            //......略......          &#125;
-一般来说的话，我们会执行到DECODE_RESOURCES_FULL分支里面的，这里面的第一步是setTargetSdkVersion。
-我们主要再看看setTargetSdkVersion方法的内部实现
-public void setTargetSdkVersion() throws AndrolibException, IOException &#123;    if (mResTable == null) &#123;        mResTable = mAndrolib.getResTable(mApkFile);    &#125;    Map&lt;String, String&gt; sdkInfo = mResTable.getSdkInfo();    if (sdkInfo.get(&quot;targetSdkVersion&quot;) != null) &#123;        mApi = Integer.parseInt(sdkInfo.get(&quot;targetSdkVersion&quot;));    &#125;&#125;
-
-其实ApkDecoder内部是维护了一个mResTable的，我们的任何的信息都是根据mResTable来取的，那可能会问了，那ApkDecoder内部的ResTable到底是个什么东西呢，其实他就是我们上面的部分说的那张经典的图。
-当ApkDecoder发现mResTable变量是空的的时候，会对此进行初始化，接下来我们就主要看看Androlib的getResTable方法，这个方法就是主要从apkFile里面读出mResTable，分析他的格式，
-//Androidlib.java文件内容public ResTable getResTable(ExtFile apkFile)        throws AndrolibException &#123;    return mAndRes.getResTable(apkFile, true);&#125;//AndrolibResources.java的getResTable方法public ResTable getResTable(ExtFile apkFile, boolean loadMainPkg)            throws AndrolibException &#123;    ResTable resTable = new ResTable(this);    if (loadMainPkg) &#123;        loadMainPkg(resTable, apkFile);    &#125;    return resTable;&#125;
-上面的代码掉有了mAndRes的getResTable方法，然后内部再调用loadMainPkg方法，我们继续跟进内部实现
-public ResPackage loadMainPkg(ResTable resTable, ExtFile apkFile)            throws AndrolibException &#123;    //打印log信息，这个时候就对应到了我们上面说的第二句了    LOGGER.info(&quot;Loading resource table...&quot;);    ResPackage[] pkgs = getResPackagesFromApk(apkFile, resTable, sKeepBroken);    ResPackage pkg = null;    switch (pkgs.length) &#123;        case 1:            pkg = pkgs[0];            break;        case 2:            if (pkgs[0].getName().equals(&quot;android&quot;)) &#123;                LOGGER.warning(&quot;Skipping \&quot;android\&quot; package group&quot;);                pkg = pkgs[1];                break;            &#125; else if (pkgs[0].getName().equals(&quot;com.htc&quot;)) &#123;                LOGGER.warning(&quot;Skipping \&quot;htc\&quot; package group&quot;);                pkg = pkgs[1];                break;            &#125;        default:            pkg = selectPkgWithMostResSpecs(pkgs);            break;    &#125;    if (pkg == null) &#123;        throw new AndrolibException(&quot;arsc files with zero packages or no arsc file found.&quot;);    &#125;    resTable.addPackage(pkg, true);    return pkg;&#125;
-
-这个时候首先是执行getResPackagesFromApk方法，获取ResPackage信息，
-private ResPackage[] getResPackagesFromApk(ExtFile apkFile,ResTable resTable, boolean keepBroken)            throws AndrolibException &#123;    try &#123;        Directory dir = apkFile.getDirectory();        BufferedInputStream bfi = new BufferedInputStream(dir.getFileInput(&quot;resources.arsc&quot;));        try &#123;            //主要是这个方法来对resources.arsc文件进行解析            return ARSCDecoder.decode(bfi, false, keepBroken, resTable).getPackages();        &#125; finally &#123;            try &#123;                bfi.close();            &#125; catch (IOException ignored) &#123;&#125;        &#125;    &#125; catch (DirectoryException ex) &#123;        throw new AndrolibException(&quot;Could not load resources.arsc from file: &quot; + apkFile, ex);    &#125;&#125;
-我们跟进ARSCDecoder的decode方法
-public static ARSCData decode(InputStream arscStream, boolean findFlagsOffsets, boolean keepBroken,                                  ResTable resTable)            throws AndrolibException &#123;    try &#123;        //首先根据输入流，resTable等参数new一个ARSCDecoder        ARSCDecoder decoder = new ARSCDecoder(arscStream, resTable, findFlagsOffsets, keepBroken);        //        ResPackage[] pkgs = decoder.readTableHeader();        return new ARSCData(pkgs, decoder.mFlagsOffsets == null                ? null                : decoder.mFlagsOffsets.toArray(new FlagsOffset[0]), resTable);    &#125; catch (IOException ex) &#123;        throw new AndrolibException(&quot;Could not decode arsc file&quot;, ex);    &#125;&#125;
-
-private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;        nextChunkCheckType(Header.TYPE_TABLE);        int packageCount = mIn.readInt();    mTableStrings = StringBlock.read(mIn);    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        packages[i] = readTablePackage();    &#125;    return packages;&#125;
-那么这里的时候，关键的点总算来了，首先是读取了ChunkCheckType，Header.TYPE_TABLE的值是0x0002, 这里的type正好对应上了我们在ResourceTypes.h里面对应的RES_TABLE_TYPE              = 0x0002,其实就是图中最外层的那个ResourceTable
-我们跟进nextChunkCheckType方法，
-//ARSCDecoder类内private void nextChunkCheckType(int expectedType) throws IOException, AndrolibException &#123;    nextChunk();    //这时候这里的参数expectedType的值是2，也就是RES_TABLE_TYPE的，    checkChunkType(expectedType);&#125;//ARSCDecoder类内private Header nextChunk() throws IOException &#123;    return mHeader = Header.read(mIn, mCountIn);&#125;//Header类内public static Header read(ExtDataInput in, CountingInputStream countIn) throws IOException &#123;        short type;        int start = countIn.getCount();        try &#123;            //首先读出type,            type = in.readShort();        &#125; catch (EOFException ex) &#123;            return new Header(TYPE_NONE, 0, 0, countIn.getCount());        &#125;        //这里分别解释下4个参数，        //第一个参数type 对应的类型 2个字节        //第二个参数     头大小 2个字节        //第三个参数     文件大小 4个字节        //第四个参数     暂时我们start位置为0        //然后返回new出来的Header        return new Header(type, in.readShort(), in.readInt(), start);    &#125;    private void checkChunkType(int expectedType) throws AndrolibException &#123;        //这里主要校验的就是我们刚刚header的type和我们传入的是否相同，不同就抛异常了        if (mHeader.type != expectedType) &#123;            throw new AndrolibException(String.format(&quot;Invalid chunk type: expected=0x%08x, got=0x%08x&quot;,                    expectedType, mHeader.type));        &#125;    &#125;
-读取一个Chunk，如上方所示调用关系，关键的地方已经加上了注释。
-nextChunkCheckType(Header.TYPE_TABLE)主要是读取了下面红圈的部分。
- 
-
-我们继续分析readTableHeader方法。
-private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;    //主要是读取红圈部分的值    nextChunkCheckType(Header.TYPE_TABLE);    //读取上图红圈后面的packageCount变量，4字节    int packageCount = mIn.readInt();    //接下来就是主要分析这里了，读取Global String Pool     mTableStrings = StringBlock.read(mIn);    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        packages[i] = readTablePackage();    &#125;    return packages;&#125;
-接下来主要分析StringBlock的read方法
-public static StringBlock read(ExtDataInput reader) throws IOException &#123;    //这里主要是跳过了RES_STRING_POOL_TYPE，和头大小两个，并且还校验了一下，    //校验的方法就是和CHUNK_STRINGPOOL_TYPE比对一下，CHUNK_STRINGPOOL_TYPE的值是0x001C0001    //这是因为RES_STRING_POOL_TYPE的值是0x0001，头大小是0x001C,所以这个CHUNK_STRINGPOOL_TYPE就是0x001C0001了    reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE);    //读取块大小，Global String Pool内    int chunkSize = reader.readInt();    // ResStringPool_header    //字符串数    int stringCount = reader.readInt();    //style数    int styleCount = reader.readInt();    //flags标记，1是SORTED_FLAG，256是UTF8_FLAG    int flags = reader.readInt();    //字符串起始位置    int stringsOffset = reader.readInt();    //style起始位置    int stylesOffset = reader.readInt();    //new一个StringBlock    StringBlock block = new StringBlock();    //根据读取出的flags信息，来设置block    block.m_isUTF8 = (flags &amp; UTF8_FLAG) != 0;    //初始化block变量    block.m_stringOffsets = reader.readIntArray(stringCount);    block.m_stringOwns = new int[stringCount];    Arrays.fill(block.m_stringOwns, -1);    //初始化block内部style    if (styleCount != 0) &#123;        block.m_styleOffsets = reader.readIntArray(styleCount);    &#125;    int size = ((stylesOffset == 0) ? chunkSize : stylesOffset) - stringsOffset;    block.m_strings = new byte[size];    reader.readFully(block.m_strings);    if (stylesOffset != 0) &#123;        size = (chunkSize - stylesOffset);        block.m_styles = reader.readIntArray(size / 4);        // read remaining bytes        int remaining = size % 4;        if (remaining &gt;= 1) &#123;            while (remaining-- &gt; 0) &#123;                reader.readByte();            &#125;        &#125;    &#125;    //返回最终的结果    return block;&#125;
-
-reader.skipCheckInt(CHUNK_STRINGPOOL_TYPE)跳过的部分如下：
- 
-
-private ResPackage[] readTableHeader() throws IOException, AndrolibException &#123;    //主要是读取红圈部分的值    nextChunkCheckType(Header.TYPE_TABLE);    //读取上图红圈后面的packageCount变量，4字节    int packageCount = mIn.readInt();    //接下来就是主要分析这里了，读取Global String Pool     mTableStrings = StringBlock.read(mIn);    //此时此刻执行到了这里，要开始分析ResPackage了    ResPackage[] packages = new ResPackage[packageCount];    nextChunk();    for (int i = 0; i &lt; packageCount; i++) &#123;        mTypeIdOffset = 0;        //使用readTablePackage方法来分析        packages[i] = readTablePackage();    &#125;    return packages;&#125;
-
-
-重复性任务emmmmm。。。。博主分析到了这里，如果你能读到这里我自己也感受到很高兴啊，希望能给你带来了帮助。其实后序的分析readTablePackage方法和之前的一样啦，博主详细如果你读懂了前面的分析，那么这个肯定也不在话下。
-所以呢，我就不一一的带大家理解，主要的还是看懂那张图，然后看懂ApkTool是如何来分析就可以啦。
-这样做的好处就是，如果有apk在这个resource.arsc文件内做文章，我们可以debug反查，看看到底是怎么回事，可以有一些自己对付的思路。
-readTablePackage之后读取完了之后，程序就会一步一步的返回回去，这个时候我们的mResTable变量就初始化好了，就可以继续进行setTargetSdkVersion方法的执行了，
-我们这篇博客主要就是进行ApkDeocder成员变量mResTable的初始化分析，我画了个图，希望能帮助大家虑说清楚上面的一系列调用
-participant Mainparticipant ApkDecoderparticipant Androidlibparticipant AndrolibResourcesparticipant ARSCDecoderMain-&gt;Main: cmdDecodeMain-&gt;ApkDecoder: decodeApkDecoder-&gt;ApkDecoder: setTargetSdkVersionApkDecoder-&gt;Androidlib: getResTableAndroidlib-&gt;AndrolibResources: getResTableAndrolibResources-&gt;AndrolibResources:loadMainPkgAndrolibResources-&gt;AndrolibResources:getResPackagesFromApkAndrolibResources-&gt;ARSCDecoder: decodeARSCDecoder-&gt;ARSCDecoder: readTableHeaderARSCDecoder-&gt;ARSCDecoder: nextChunkCheckTypeARSCDecoder-&gt;ARSCDecoder: nextChunkARSCDecoder-&gt;ARSCDecoder: readTablePackageARSCDecoder--&gt;AndrolibResources:AndrolibResources--&gt;Androidlib:Androidlib--&gt;ApkDecoder:ApkDecoder--&gt;Main:
-
-防止在某些平台上，不支持Markdown的UML图，下面特意放一张图片 
-写在最后分析源码并不难，希望大家都能耐下心来一点一点看，一点一点调试分析。文章一层一层的调用很深，所以可能会给读者困惑，有困惑的，可以联系我，我也喜欢和读者一起探讨啦，有写的不对的地方多多指教。
-正因为调用比较深，所以最后画出了UML图，希望能让大家看得更简单明了
-关于我个人博客：MartinHan的小站
-博客网站：hanhan12312的专栏
-知乎：MartinHan01
-]]></content>
-      <categories>
-        <category>Android逆向</category>
-      </categories>
-      <tags>
-        <tag>Android逆向</tag>
-        <tag>ApkTool</tag>
-        <tag>源码分析</tag>
-        <tag>resources.arsc</tag>
+        <tag>npm</tag>
+        <tag>Node.js</tag>
+        <tag>工具</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -1090,30 +1114,6 @@ participant Mainparticipant ApkDecoderparticipant Androidlibparticipant Androlib
         <tag>Python</tag>
         <tag>工具</tag>
         <tag>文件处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一键更新package.json中所有模块为最新版本</title>
-    <url>/2020/03/31/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0package.json%E4%B8%AD%E6%89%80%E6%9C%89%E6%A8%A1%E5%9D%97%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC/</url>
-    <content><![CDATA[命令
-npm install -g npm-check-updates
-ncuncu -u
-
-
-
-
-关于我个人网站：MartinHan的小站
-博客：hanhan12312的专栏
-知乎：MartinHan01
-]]></content>
-      <categories>
-        <category>常用配置</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-        <tag>npm</tag>
-        <tag>Node.js</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
